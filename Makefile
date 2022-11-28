@@ -43,6 +43,9 @@ SRCS =	minishell.c	\
 		ft_path_args_tools.c	\
 		ft_fd_init.c	\
 		ft_heredoc.c	\
+		get_exprt.c \
+		get_env_var.c \
+		get_env_var_utils.c  \
 
 
 BONUS = \

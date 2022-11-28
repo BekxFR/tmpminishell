@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:47 by chillion          #+#    #+#             */
-/*   Updated: 2022/11/28 18:31:52 by chillion         ###   ########.fr       */
+/*   Updated: 2022/11/28 19:20:43 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_check_heredoc(char *argv, char *stop, t_m *var)
 	{
 		(*var).comp = ft_strjoin(stop, "\n");
 		(*var).heredoc_status = 1;
-		ft_tmpheredoc_init_fd(".tmpheredoc", &(*var).fd1);
+		ft_trunc_init_fd(".tmpheredoc", &(*var).fd1);
 		ft_heredoc_fd(var, n, j);
 	}
 }

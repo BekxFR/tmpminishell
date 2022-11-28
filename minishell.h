@@ -66,42 +66,46 @@ typedef struct s_index
 /* fill_args.c*/
 
 char	**fill_args(char *s, char c, char **s1);
-char	***fill_cmd(char ***cmd, char **args);
-char	***malloc_cmd(char ***cmd, char **args);
+char ***fill_cmd(char ***cmd, char **args, char ***redir);
+char ***malloc_cmd(char ***cmd, char **args);
 
 /* ft_parsing.c */
 
 char	***ft_parsing(char *s, char **envp);
-int		is_in_quote(char *str, int i);
-int		double_pointer_nbr(char *s, char c);
-char	*malloc_simple_pointer(int count, int t, char **s1);
+int	is_in_quote(char *str, int i);
+int	double_pointer_nbr(char *s, char c);
+char *malloc_simple_pointer(int count, int t, char **s1);
 char	**simple_pointer_nbr(char *s, char c, char **s1);
-char	**get_args(char *s, char c);
-int		ft_triple_pointer_len(char *s);
-char	***set_in_cmd(char ***cmd, char **args, char *s);
+char **get_args(char *s, char c);
+int	ft_triple_pointer_len(char *s);
+void	set_in_cmd(char ****cmd, char ****redir, char **args, char *s);
 
 /* mathieu_utils.c */
 
 void	ft_putdoubletab(char **tab);
 void	ft_puttripletab(char ***test);
 int		ft_tablen(char **tab);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_tabsort_cmp(char **s1, char **s2);
+int		ft_tabunsort_cmp(char **tab1, char **tab2);
+void	*ft_memcpy_mathieu(void *dest, void *src, size_t n);
 
 /* is_cmdline_valid.c */
 
-int	is_cmdline_valid(char *str);
+int is_cmdline_valid(char *str);
 
 /* clean_quote.c */
 
-char 	***clean_args(char ***cmd);
+char ***clean_args(char ***cmd);
 
 /* replace_env_var.c */
 
-void	handle_environment_variables(char **argv, char **envp);
+void handle_environment_variables(char **argv, char **envp);
 
 /* is_in_quote.c  */
 
-int		is_in_simple_quote(char *str, int i);
-int		is_in_quote(char *str, int i);
+int is_in_simple_quote(char *str, int i);
+int is_in_quote(char *str, int i);
 
 /* initialize_index.c */
 
@@ -110,16 +114,36 @@ t_index initialize_index();
 /* malloc_args.c */
 
 char	**simple_pointer_nbr(char *s, char c, char **s1);
-char	*malloc_simple_pointer(int count, int t, char **s1);
-int		double_pointer_nbr(char *s, char c);
-char	**get_args(char *s, char c);
+char *malloc_simple_pointer(int count, int t, char **s1);
+int	double_pointer_nbr(char *s, char c);
+char **get_args(char *s, char c);
 
 /* free_minishell.c */
 
-void	free_error_tripletab(char ***tab, int i);
+void free_error_tripletab(char ***tab, int i);
 void	free_doubletab(char **s);
 void	free_error_doubletab(char **str, int i);
-void	free_tripletab(char ***tab);
+void free_tripletab(char ***tab);
+
+/* get_exprt.c */
+
+int is_not_in(char *str, char **tab);
+char **sort_envp(char **envp, char **exprt);
+char **get_exprt(char **envp);
+
+/* get_env_var.c */
+
+char	**get_env_var(char **args, char **envp);
+char	*new_env_var(char *str, char **envp, t_index i);
+char *remove_wrong_env(char *str, int end, int start);
+char *add_good_env(char *str, int end, int start, char *envp);
+char *get_env(char *env,  char *envp);
+
+/* get_env_var_utils.c */
+
+int ft_strlenenv(char *envp);
+int	ft_strncmp_env(char *s1, char *s2, int n, int i);
+int is_in_env(char **envp, char *str, int end, int start);
 
 /* ft_export.c */
 void	ft_exportunset_with_arg(t_m *var, char **args, int soft);

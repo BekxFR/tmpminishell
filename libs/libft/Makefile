@@ -6,7 +6,7 @@
 #    By: chillion <chillion@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/24 13:40:15 by chillion          #+#    #+#              #
-#    Updated: 2022/11/25 11:15:13 by chillion         ###   ########.fr        #
+#    Updated: 2022/11/26 18:38:34 by chillion         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ SRCS = ft_isalpha.c	\
 	ft_putnbr.c	\
 	ft_putstr.c	ft_nb_size.c	ft_strdouble.c	ft_putnbr_base.c	ft_puthex_base.c	ft_basecheck.c	ft_hex_size.c	\
 	ft_printf.c	ft_format_dixu.c	ft_format_scp.c	ft_long_strict_atoi.c	ft_strjoin_free.c	ft_strjoin_free.c	ft_zalloc.c	\
-	ft_free.c	ft_trio_free.c	get_next_line.c	 ft_sqrt.c	ft_chr_on_str.c	ft_strdup_init.c	ft_len_beforechar.c	\
+	ft_free.c	ft_trio_free.c	get_next_line.c	 ft_sqrt.c	ft_chr_on_str.c	ft_strdup_init.c	ft_len_beforechar.c	ft_free_split.c	\
 
 OBJS = $(SRCS:%.c=%.o)
 
