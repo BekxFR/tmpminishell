@@ -71,7 +71,7 @@ char ***malloc_cmd(char ***cmd, char **args);
 
 /* ft_parsing.c */
 
-char	***ft_parsing(char *s, char **envp);
+void	ft_parsing(char *s, char **envp, char ****cmd, char ****redir);
 int	is_in_quote(char *str, int i);
 int	double_pointer_nbr(char *s, char c);
 char *malloc_simple_pointer(int count, int t, char **s1);
