@@ -112,11 +112,10 @@ int	ft_exec(t_m *var, char ***args)
 		ft_do_fork(var, args[0][0], args[0], &pid[0]);
 	else if (var->tablen > 1)
 	{
-		while ((var->exec + var->tabexec) < var->tablen)
+		while ((var->exec) < var->tablen)
 		{
-			ft_do_pipe_fork(var, args[var->exec + var->tabexec][0], args[var->exec + var->tabexec], &pid[var->exec]);
+			ft_do_pipe_fork(var, args[var->exec][0], args[var->exec], &pid[var->exec]);
 			var->exec++;
-			var->tabexec++;
 		}
 	}
 	return (ft_daddy(var, pid, var->tablen), 0);
@@ -135,9 +134,6 @@ int	ft_puttriplelen(char ***test, t_m *var)
 int	main(int argc, char **argv, char **envp)
 {
 	t_m	var;
-	char ***cmd;
-	char ***redir;
-
 
 	signal(SIGINT, handle_sigint); /* ctrl + c  affiche un nouveau prompt */
 	signal(SIGQUIT, SIG_IGN); /* ctrl + \  ne fait rien */
@@ -151,11 +147,16 @@ int	main(int argc, char **argv, char **envp)
 		write(2, "EXIT PATH\n", 11);
 	ft_init_commands_history(&var);
 	ft_printf("Command is :%s\n", var.args_line);
-	ft_parsing(var.args_line, envp, &cmd, &redir);
-	ft_puttripletab(cmd);
-	ft_puttriplelen(cmd, &var);
-	ft_exec(&var, cmd);
-	free_tripletab(cmd);
+	ft_parsing(var.args_line, envp, &var.cmd, &var.redir);
+	// ft_puttripletab(var.cmd);
+	// ft_puttripletab(var.redir);
+	// ft_puttripletab(var.cmd);
+	// printf("---\n");
+	// ft_puttripletab(var.redir);
+	ft_puttriplelen(var.cmd, &var);
+	ft_exec(&var, var.cmd);
+	free_tripletab(var.cmd);
+	free_tripletab(var.redir);
 	free(var.args_line);
 	ft_free_split(var.env);
 

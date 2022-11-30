@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:47 by chillion          #+#    #+#             */
-/*   Updated: 2022/11/28 19:20:43 by chillion         ###   ########.fr       */
+/*   Updated: 2022/11/30 12:09:21 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	ft_eof_find(char *str, char *comp, int i, t_m *var)
 	j = ft_strncmp((str + (i - k)), comp, k);
 	if (j == 0 && (i == k || str[i - k - 1] == '\n'))
 	{
-		write((*var).fd1, str, (ft_strlen(str) - k));
+		if (var->cmdtype == 0)
+			write((*var).fd1, str, (ft_strlen(str) - k));
+		if (var->cmdtype == 1)
+			write((*var).fdin, str, (ft_strlen(str) - k));
 		close((*var).fd1);
 		return (0);
 	}
@@ -46,6 +49,7 @@ void	write_first_c(char *buffer, char *str)
 
 void	ft_heredoc_fd(t_m *var, int n, int j)
 {
+	write(2, "IN FTHEREDOCFD\n", 16);
 	char	*buffer;
 	char	*str;
 
@@ -61,7 +65,7 @@ void	ft_heredoc_fd(t_m *var, int n, int j)
 	{
 		n = (read(0, buffer, 1));
 		if (n == -1)
-			ft_cleanheredoc_fd(str, buffer, (*var).comp, (*var).fd1);
+			ft_cleanheredoc_fd(str, buffer); //, (*var).comp, (*var).fdin);
 		buffer[1] = '\0';
 		str = ft_strjoin_free(str, buffer);
 		if (!ft_eof_find(str, (*var).comp, j, var))
@@ -69,7 +73,8 @@ void	ft_heredoc_fd(t_m *var, int n, int j)
 		ft_write_here_sign(buffer[0]);
 		j++;
 	}
-	return (ft_cleanheredoc_fd(str, buffer, (*var).comp, (*var).fd1));
+	return (ft_cleanheredoc_fd(str, buffer)); //, NULL, NULL);
+	// return (ft_cleanheredoc_fd(str, buffer, (*var).comp, (*var).fdin));
 }
 
 void	ft_check_heredoc(char *argv, char *stop, t_m *var)
@@ -84,7 +89,7 @@ void	ft_check_heredoc(char *argv, char *stop, t_m *var)
 	{
 		(*var).comp = ft_strjoin(stop, "\n");
 		(*var).heredoc_status = 1;
-		ft_trunc_init_fd(".tmpheredoc", &(*var).fd1);
+		ft_trunc_init_fd(".tmpheredoc", &(*var).fdin);
 		ft_heredoc_fd(var, n, j);
 	}
 }
