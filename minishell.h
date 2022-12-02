@@ -35,16 +35,19 @@ typedef struct s_minishell
 	int		pipex[2];
 	int		exec;
 	int		tabexec;
-	int	tablen;
+	int		tablen;
 	char	*comp;
-	int	heredoc_status;
-	char ***cmd;
-	char ***redir;
-	int fdin;
-	int fdout;
-	int cmdtype;
-	int	fd1;
-	// int	fd2;
+	int		heredoc_status;
+	char 	***cmd;
+	char 	***redir;
+	int 	fdin;
+	int 	fdout;
+	int 	cmdtype;
+	char 	**heredoc;
+	int		fd1;
+	int 	status;
+
+	int		fdsave;
 }	t_m;
 
 typedef struct s_index
@@ -71,18 +74,27 @@ typedef struct s_index
 
 char	**fill_args(char *s, char c, char **s1);
 char	***fill_cmd(char ***cmd, char **args, char ***redir);
-char	***malloc_cmd(char ***cmd, char **args);
 
 /* ft_parsing.c */
 
-void	ft_parsing(char *s, char **envp, char ****cmd, char ****redir);
+int		ft_parsing(t_m *var, char **envp, char ****cmd, char ****redir);
 int		is_in_quote(char *str, int i);
 int		double_pointer_nbr(char *s, char c);
-char	*malloc_simple_pointer(int count, int t, char **s1);
-char	**simple_pointer_nbr(char *s, char c, char **s1);
-char	**get_args(char *s, char c);
 int		ft_triple_pointer_len(char *s);
-void	set_in_cmd(char ****cmd, char ****redir, char **args, char *s);
+
+
+/* set_in_cmd.c */
+
+int	set_in_cmd(char **args, t_m *var);
+
+/* malloc_redir.c */
+
+int	malloc_redir(char ***redir, char **args, t_m *var);
+
+/* malloc_cmd.c */
+
+int	malloc_cmd(char ***cmd, char **args, t_m *var);
+
 
 /* mathieu_utils.c */
 
@@ -93,6 +105,9 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_tabsort_cmp(char **s1, char **s2);
 int		ft_tabunsort_cmp(char **tab1, char **tab2);
 void	*ft_memcpy_mathieu(void *dest, void *src, size_t n);
+int		ft_intlen(int nbr);
+int		ft_strlenint(char *str);
+int		ft_strcmplen(char ***redir, char *str);
 
 /* is_cmdline_valid.c */
 
@@ -117,10 +132,10 @@ t_index initialize_index();
 
 /* malloc_args.c */
 
-char	**simple_pointer_nbr(char *s, char c, char **s1);
-char	*malloc_simple_pointer(int count, int t, char **s1);
+int		simple_pointer_nbr(char *s, char c, char **s1, t_m *var);
+int		malloc_simple_pointer(int count, int t, char **s1, t_m *var);
 int		double_pointer_nbr(char *s, char c);
-char	**get_args(char *s, char c);
+int		get_args(char ***args, char *s, char c, t_m *var);
 
 /* free_minishell.c */
 
@@ -178,8 +193,7 @@ int		ft_check_access(char *argv, char **split);
 /* ft_path_args_tools.c */
 void	ft_free_split_exclude_line(char **str, int line);
 char	*ft_init_path_var(char **envp);
-void	ft_cleanheredoc_fd(char *str, char *buffer);
-// , char *comp, int fd1);
+void	ft_cleanheredoc_fd(char *str, char *buffer, char *comp, int fd1);
 
 /* minishell.c */
 void	ft_history_init_fd(char *file, int *fd);
@@ -208,11 +222,21 @@ void	ft_add_export_check_double(t_m *var, char *args, int egalen);
 
 /* connect_std.c */
 
+int		is_redir(char **redir);
 int		is_redir_in(char **redir);
 int		is_redir_out(char **redir);
-int 	in(char *redir_file, char c, t_m *var);
-int		out(char *redir_file, char c);
-int		connect_stdout(char **redir, int pipex);
-int		connect_stdin(char **redir, int pipex, t_m *var);
+void	out(char *redir_file, char c, t_m *var);
+void 	in(char *redir_file, char c, t_m *var);
+void    get_std_redir(char **redir, t_m *var);
+
+/* handle_heredoc.c */
+
+char	**malloc_heredoc(t_m *var);
+char	**get_heredoc_filename(char **heredoc, int i);
+void	get_heredoc(char *str, t_m *var);
+void	handle_heredoc(t_m *var);
+
+void	handle_sigint_2(int sig);
+void	ft_fd_init(t_m *var);
 
 #endif

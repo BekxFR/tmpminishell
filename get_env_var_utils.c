@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:57:44 by mgruson           #+#    #+#             */
-/*   Updated: 2022/11/23 17:28:36 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/01 12:21:24 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_in_env(char **envp, char *str, int end, int start)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 int	ft_strncmp_env(char *s1, char *s2, int n, int i)

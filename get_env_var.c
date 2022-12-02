@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:31:04 by mgruson           #+#    #+#             */
-/*   Updated: 2022/11/23 17:27:30 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/01 12:20:58 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ char	*new_env_var(char *str, char **envp, t_index i)
 			&& str[i.i] != 39 && str[i.i] != 34 && str[i.i] != '$')
 				i.end = ++i.i;
 			i.j = is_in_env(envp, str, i.end, i.start);
-			if (i.j > 0)
+			printf("test i.j %i\n", i.j);
+			if (i.j > -1)
 			{
 				str = add_good_env(str, i.end, i.start, envp[i.j]);
 				i.i = i.start - 2 + ft_strlenenv(envp[i.j]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fd_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:38:18 by chillion          #+#    #+#             */
-/*   Updated: 2022/11/30 12:03:09 by chillion         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:52:44 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ int	ft_trunc_init_fd(char *file, int *fd)
 		perror(" ");
 		return (-1);
 	}
-	return (0);
+	return (*fd);
 }

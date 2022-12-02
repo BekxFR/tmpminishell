@@ -1,0 +1,64 @@
+TEST PARSING 
+
+ls|grep
+ls>grep
+ls > grep
+ls>>grep
+test"te't'"
+te"'t'" '"e"'
+te"'t'"'"e"'
+te'"t"'"'e'"
+te"'t'"6'"e"'
+te't''5"e"'
+""""""
+"test | test"
+"l""s"
+"l">"s"
+ls|ls|ls|ls|ls|
+ls mathieu |"ls | ma" "|"ls|ls|ls|
+	(taper sur entree directement)
+ $ (juste un espace)
+/usr/b"i"n/echo '- ' ' -' '$LANG'  "' '" testeur de parsing
+echo "$LANG" '$LANG' "$LANG"
+/usr/b"i"n/echo '- ' ' -' "$LANG" "!@#$%^&*()_+}{|":?><~/.,\'][=-" "' '" testeur de parsing => marche pas c'est normal
+"ls<"<ls
+ls >                   > ls
+ls         |         ls
+WARNING : it is normal that there are some difference between sheel and minishell as
+some case dont need to be hand
+
+TEST SUR LA CONVERSION ENV : 
+$USER
+echo $LANG $LANG LANG
+"$USER"
+'$USER'
+" test $USER test" | $USER
+$USERe
+t$USER
+" $USER $USER $USER
+t$USER
+t$USERe
+$USER$USER
+$USE"R"
+exporter un variable env vide (export LONG548), essayer de l'afficher
+echo $LANG
+
+
+TEST EXPORT 
+
+export "MATHIEU="
+export "MATHIEU==TESTULTIME"
+export "MATHIEU" -> apparait ds export mais pas ds env, echo de ca donne rien (mais bon stress)
+export ZTEST+=BOB
+
+TEST COMMAND
+
+echo mathieu > test test4 > ta ta4
+echo "mathieu > test" test4 > ta ta4
+echo mathieu > echo test ta4
+ls > "test1"
+cat < minishell.c set_in_cmd.c < echo
+ls | cat < test
+ls < cat | test
+cat < minishelle.c > test2 (ne creer pas test2 car apres > minishelle.c)
+cat > test2 < minishelle.c (creer test2 avant de faire l erreur)

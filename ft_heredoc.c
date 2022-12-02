@@ -6,9 +6,10 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:47 by chillion          #+#    #+#             */
-/*   Updated: 2022/11/30 12:09:21 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:32:31 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -23,11 +24,8 @@ int	ft_eof_find(char *str, char *comp, int i, t_m *var)
 	j = ft_strncmp((str + (i - k)), comp, k);
 	if (j == 0 && (i == k || str[i - k - 1] == '\n'))
 	{
-		if (var->cmdtype == 0)
-			write((*var).fd1, str, (ft_strlen(str) - k));
-		if (var->cmdtype == 1)
-			write((*var).fdin, str, (ft_strlen(str) - k));
-		close((*var).fd1);
+		write((*var).fdin, str, (ft_strlen(str) - k));
+		close((*var).fdin);
 		return (0);
 	}
 	return (1);
@@ -49,32 +47,30 @@ void	write_first_c(char *buffer, char *str)
 
 void	ft_heredoc_fd(t_m *var, int n, int j)
 {
-	write(2, "IN FTHEREDOCFD\n", 16);
-	char	*buffer;
 	char	*str;
 
-	buffer = (char *)malloc(sizeof(char) * 2);
-	if (!buffer)
-		return ;
-	str = (char *)malloc(sizeof(char) * 2);
-	if (!str)
-		return ;
-	write_first_c(buffer, str);
-	write(1, ">", 1);
+	// signal(SIGINT, SIG_DFL);
+	signal(SIGINT, handle_sigint_2);
+	signal(SIGQUIT, SIG_IGN);
 	while (n > 0)
 	{
-		n = (read(0, buffer, 1));
-		if (n == -1)
-			ft_cleanheredoc_fd(str, buffer); //, (*var).comp, (*var).fdin);
-		buffer[1] = '\0';
-		str = ft_strjoin_free(str, buffer);
-		if (!ft_eof_find(str, (*var).comp, j, var))
+		str = readline(">");
+		if (!str)
+		{
+			write(2, "warning: don't find end-of-file (wanted `", 42);
+			ft_putstr_fd((*var).comp, 2);
+			write(2, "')\n", 4);
+			return ;
+		}
+		if (ft_strcmp((*var).comp, str) == 0)
 			break ;
-		ft_write_here_sign(buffer[0]);
+		write((*var).fdin, str, ft_strlen(str));
+		write((*var).fdin, "\n", 2);
+		free(str);
 		j++;
 	}
-	return (ft_cleanheredoc_fd(str, buffer)); //, NULL, NULL);
-	// return (ft_cleanheredoc_fd(str, buffer, (*var).comp, (*var).fdin));
+	free (str);
+	return (ft_cleanheredoc_fd(NULL, NULL, (*var).comp, (*var).fdin));
 }
 
 void	ft_check_heredoc(char *argv, char *stop, t_m *var)

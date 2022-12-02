@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:31:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/11/30 12:40:12 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:36:42 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,69 +58,87 @@ void	ft_init_arg(char *argv, t_m *var)
 
 void	ft_do_fork(t_m *var, char *arg, char **targ, int *pid)
 {
-	var->cmdtype = 0;
-	printf("c1\n");
-	ft_puttripletab(var->redir);
-	write(2, "IN DOFORK\n", 11);
-	if (is_redir_in((*var).redir[0]))
-	{
-		var->fdin = connect_stdin((*var).redir[0], 0, var);
-		dup2(var->fdin, 0); // dup2 sauf pour le dernier exec
-		close(var->fdin);	
-	}
+	var->cmdtype = 1;
+	var->fdin = 0;
+	var->fdout = 0;
+	if (ft_strcmplen(var->redir, "<<") > 0)
+		handle_heredoc(var);
+	if (pipe((*var).pipex) == -1)
+		return (write(2, "Error with pipe\n", 17), ft_fork_fail(var));
+	if (is_redir((*var).redir[0]))
+		get_std_redir((*var).redir[0], var);
+	ft_fd_init(var);
 	(*pid) = fork();
 	if ((*pid) == -1)
 		return (write(2, "Error with fork\n", 17), ft_fork_fail(var));
 	if ((*pid) == 0)
 	{
-		if (is_redir_out((*var).redir[0]) == 1)
-			dup2(connect_stdout((*var).redir[0], 1), 1); // dup2 sauf pour le dernier exec
-		ft_init_arg(arg, var); // init arg
-		write(2, "IN DOFORK2\n", 12);
-		ft_execve((*var).arg, targ, (*var).env, var); // char *, char **, char **, int
+		if (((var->exec + 1) == (var->tablen)) && (is_redir_out(var->redir[var->exec]) == 0))
+		{
+				write(2, "RRERE\n", 7);
+				var->fdout = 1;
+				// close(var->pipex[0]);
+				close(var->pipex[1]);
+		}
+		dup2((*var).fdin, 0);
+		if ((*var).fdout != 1)
+			dup2((*var).fdout, 1);
+		if (var->fdin != 0)
+			close(var->fdin);
+		if (var->fdout != 1)
+			close(var->fdout);
+		ft_init_arg(arg, var);
+		ft_execve((*var).arg, targ, (*var).env, var);
+	}
+	else
+	{
+		if (var->fdin != 0)
+			close(var->fdin);
+		if (var->fdout != 1)
+			close(var->fdout);
 	}
 }
 
 void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 {
-	var->cmdtype = 1;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	var->cmdtype = 0;
+	var->fdin = 0;
+	var->fdout = 0;
+	if (ft_strcmplen(var->redir, "<<") > 0)
+		handle_heredoc(var);
 	if (pipe((*var).pipex) == -1)
 		return (write(2, "Error with pipe\n", 17), ft_fork_fail(var));
-	if (is_redir_in((*var).redir[var->exec]))
-	{	
-		var->fdin = connect_stdin((*var).redir[var->exec], 0, var);
-		if (var->fdin != -1)
-		{
-			dup2(var->fdin, 0);
-			close(var->fdin);
-		}
-	}
+	if (is_redir((*var).redir[var->exec]), var)
+		get_std_redir((*var).redir[var->exec], var);
+	ft_fd_init(var);
 	(*pid) = fork();
 	if ((*pid) == -1)
 		return (write(2, "Error with fork\n", 17), ft_fork_fail(var));
 	if ((*pid) == 0)
 	{
 		ft_init_arg(arg, var);
-		if ((var->exec + 1) != (var->tablen))
-			dup2((*var).pipex[1], 1);
-		if (is_redir_out((*var).redir[var->exec]) == 1)
-		{
-			var->fdout = connect_stdout((*var).redir[var->exec], (*var).pipex[1]);
-			if (var->fdout != -1)
-			{	
-				dup2(var->fdout, 1); // dup2 sauf pour le dernier exec
-				close(var->fdout);
-			}
-		}
-		close((*var).pipex[0]);
-		close((*var).pipex[1]);
-		ft_execve((*var).arg, targ, (*var).env, var); // char *, char **, char **, pipe
+		// dup2((*var).fdin, 0);
+		// if (((var->exec + 1) == (var->tablen)) && (is_redir_out(var->redir[var->exec]) == 0))
+		// {
+		// 		var->fdout = 1;
+		// 		close(var->pipex[1]);
+		// }
+		// if ((*var).fdout != 1)
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		if (((var->exec + 1) != (var->tablen)) || (is_redir_out(var->redir[var->exec]) != 0))
+			dup2((*var).fdout, 1);
+		// if (var->fdin != 0)
+		// 	close(var->fdin);
+		// if (var->fdout != 1)
+		// 	close(var->fdout);
+		ft_execve((*var).arg, targ, (*var).env, var);
 	}
-	else
-	{
-		
-		close((*var).pipex[1]);
-		dup2((*var).pipex[0], 0);
-		close((*var).pipex[0]);
-	}
+	dup2((*var).fdin, 0);
+	if (var->fdin != 0)
+		close(var->fdin);
+	if (var->fdout != 1)
+		close(var->fdout);
 }
