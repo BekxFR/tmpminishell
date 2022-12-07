@@ -36,8 +36,9 @@ SRCS =	minishell.c	\
 		initialize_index.c \
 		get_args.c \
 		free_minishell.c  \
-		ft_env_unset.c	\
+		ft_env.c	\
 		ft_export.c	\
+		ft_unset.c	\
 		ft_fork.c	\
 		ft_exec.c	\
 		ft_path_args_tools.c	\

@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:47 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/07 12:31:00 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:08:10 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	ft_heredoc_fd(t_m *var, int n, int j)
 	int		quote;
 
 	quote = !has_quote(var->comp);
-	ft_signal(2);
 	while (n > 0)
 	{
+		// ft_signal(1);
 		str = readline(">");
 		if (!str)
 		{

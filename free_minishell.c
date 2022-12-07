@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 13:02:40 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/07 12:56:00 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:45:48 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	free_all(t_m *var)
 {
-	// (void)var;
 	if (var->redir)
 		free_tripletab(var->redir);
 	if (var->cmd)

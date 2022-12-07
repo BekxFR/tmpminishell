@@ -174,17 +174,24 @@ int		ft_strncmp_env(char *s1, char *s2, int n, int i);
 int		is_in_env(char **envp, char *str, int end, int start);
 
 /* ft_export.c */
-void	ft_exportunset_with_arg(t_m *var, char **args, int soft);
+void	ft_export(t_m *var, char **cmd);
+void	ft_export_with_arg(t_m *var, char **args);
 void	ft_export_check_double(t_m *var, char *args, int egalen);
 void	ft_export_add(t_m *var, char *args, int type);
-int		ft_export_check_args(char *args, int *egalen);
+void	ft_add_export_check_double(t_m *var, char *args, int egalen);
 
-/* ft_env_unset.c */
-int		ft_unset_check_args(char *args, int *egalen);
-void	ft_unset_remove(t_m *var, int m);
-void	ft_unset_check_double(t_m *var, char *args, int egalen);
-void	ft_print_env(char **str);
+/* ft_env.c */
 int		ft_env(t_m *var, char **envp);
+void	ft_print_env(char **str);
+char	*ft_strdup_without_one(const char *src);
+int		ft_export_check_args(char *args, int *egalen);
+int		ft_export_check_addargs(char *args, int *egalen);
+
+/* ft_unset.c */
+void	ft_unset(t_m *var, char **args);
+void	ft_unset_check_double(t_m *var, char *args, int egalen);
+void	ft_unset_remove(t_m *var, int m);
+int		ft_unset_check_args(char *args, int *egalen);
 
 /* ft_fork.c */
 void	ft_do_fork(t_m *var, char *arg, char **targ, int *pid);
@@ -226,8 +233,8 @@ void	ft_write_here_sign(char c);
 void	ft_heredoc_fd(t_m *var, int n, int j);
 void	ft_check_heredoc(char *argv, char *stop, t_m *var);
 
-int		ft_export_check_addargs(char *args, int *egalen);
-void	ft_add_export_check_double(t_m *var, char *args, int egalen);
+
+
 
 /* connect_std.c */
 
@@ -261,10 +268,6 @@ void ft_exit(t_m *var, char **cmd);
 /* ft_echo.c */
 
 int	ft_echo(char **cmd);
-
-/* ft_export */
-
-void ft_export(t_m *var, char **cmd);
 
 /* ft_unlink.c */
 

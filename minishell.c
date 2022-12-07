@@ -37,7 +37,6 @@ void	ft_init_commands_history(t_m *var)
 			close((*var).h_fd);
 			(*var).args_line = ft_strdup(str);
 			free(str);
-			rl_clear_history();
 			str = NULL;
 			break ;
 		}
@@ -114,7 +113,6 @@ void	ft_daddy(t_m *var, int *pid, int nbcmd)
 
 int	ft_init_pipe(t_m *var, int i)
 {
-	write(2, "P3\n", 3);
 	var->pipex[i] = (int *)malloc(sizeof(int) * (2));
 	if (!var->pipex[i])
 		return (2);
@@ -143,7 +141,7 @@ int	ft_init_all_pipe(t_m *var)
 	return (0);
 }
 
-void	ft_free_void(int **tab)
+void	ft_free_inttab(int **tab)
 {
 	int i;
 
@@ -154,7 +152,6 @@ void	ft_free_void(int **tab)
 		i++;
 	}
 	free(tab);
-	write(2, "Z2\n", 3);
 }
 
 int	ft_exec(t_m *var, char ***args)
@@ -176,7 +173,7 @@ int	ft_exec(t_m *var, char ***args)
 			var->exec++;
 		}
 	}
-	ft_free_void(var->pipex);
+	ft_free_inttab(var->pipex);
 	ft_daddy(var, var->pid, var->tablen);
 	return (0);
 }
@@ -206,22 +203,14 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		var.args_line = NULL;
-		// ft_signal(1);
-		printf("c1\n");
 		ft_init_commands_history(&var);
-		printf("c2\n");
 		if (!var.args_line)
-			return (ft_free_split(var.env) , printf("exit\n"), 0);
-		printf("c3\n");		
-		// ft_printf("Command is :%s\n", var.args_line);
+			return (ft_free_split(var.env), rl_clear_history(), printf("exit\n"), 0);
 		if (ft_parsing(&var, envp, &var.cmd, &var.redir) == 2)
 			return (2);
-		printf("c4\n");
 		free(var.args_line);
 		ft_puttriplelen(var.cmd, &var);
-		printf("c5\n");		
 		ft_exec(&var, var.cmd);
-		printf("c6\n");
 		free_all(&var);
 	}
 	return (0);
