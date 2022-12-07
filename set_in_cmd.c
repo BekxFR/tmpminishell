@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:48:30 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/01 16:04:21 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:33:29 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ int	set_in_cmd(char **args, t_m *var)
 		return (2);
 	if (malloc_redir(var->redir, args, var) == 2)
 		return (2);
-	printf("c2\n");
 	var->cmd = fill_cmd(var->cmd, args, var->redir);
-	printf("c3\n");
 	return (0);
 }

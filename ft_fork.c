@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:31:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/02 18:36:42 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:02:39 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,85 +60,134 @@ void	ft_do_fork(t_m *var, char *arg, char **targ, int *pid)
 {
 	var->cmdtype = 1;
 	var->fdin = 0;
-	var->fdout = 0;
+	var->fdout = 1;
+	var->pipex[var->exec] = (int *)malloc(sizeof(int) * (2));
+	if (!var->pipex[var->exec])
+		return ;
 	if (ft_strcmplen(var->redir, "<<") > 0)
 		handle_heredoc(var);
-	if (pipe((*var).pipex) == -1)
+	if (pipe(var->pipex[var->exec]) == -1)
 		return (write(2, "Error with pipe\n", 17), ft_fork_fail(var));
 	if (is_redir((*var).redir[0]))
 		get_std_redir((*var).redir[0], var);
-	ft_fd_init(var);
-	(*pid) = fork();
+	else
+		ft_fd_init(var);
+	(*pid) = fork(); ////////////// FORK
 	if ((*pid) == -1)
 		return (write(2, "Error with fork\n", 17), ft_fork_fail(var));
 	if ((*pid) == 0)
 	{
-		if (((var->exec + 1) == (var->tablen)) && (is_redir_out(var->redir[var->exec]) == 0))
-		{
-				write(2, "RRERE\n", 7);
-				var->fdout = 1;
-				// close(var->pipex[0]);
-				close(var->pipex[1]);
-		}
-		dup2((*var).fdin, 0);
-		if ((*var).fdout != 1)
-			dup2((*var).fdout, 1);
-		if (var->fdin != 0)
-			close(var->fdin);
+		if (var->fdin != 0){
+			dup2(var->fdin, 0);}
+		close(var->pipex[var->exec][0]);
 		if (var->fdout != 1)
-			close(var->fdout);
+			dup2(var->fdout, 1);
+		close(var->pipex[var->exec][1]);
 		ft_init_arg(arg, var);
-		ft_execve((*var).arg, targ, (*var).env, var);
+		if (!is_builtin(var, (*var).cmd[var->exec]))
+			ft_execve((*var).arg, targ, (*var).env, var);
+		exit (127);
 	}
 	else
 	{
+		ft_unlink(var->redir, var->exec);
+		close(var->pipex[var->exec][1]);
+		close(var->pipex[var->exec][0]);
+	}
+	return ;
+}
+
+void	ft_close_pipe_fd(t_m *var)
+{
+	int	i;
+
+	i = 0;
+	while(var->pipex[i])
+	{
+		if (var->pipex[i][0] != 0)
+			close(var->pipex[i][0]);
+		if (var->pipex[i][1] != 1)
+			close(var->pipex[i][1]);
+		i++;
+	}
+}
+
+// void	ft_init_pipe(t_m *var)
+// {
+// 	var->pipex[var->exec] = (int *)malloc(sizeof(int) * (2));
+// 	if (!var->pipex[var->exec])
+// 		return ;
+// 	if (pipe(var->pipex[var->exec]) == -1)
+// 		return (write(2, "Error with pipe\n", 17), ft_fork_fail(var));
+// 	if (var->exec == 0)
+// 		var->fdin = 0;
+// 	else
+// 		var->fdin = var->pipex[var->exec - 1][0];
+// 	if((var->exec + 1) == (var->tablen))
+// 	{
+// 		close(var->pipex[var->exec][0]);
+// 		close(var->pipex[var->exec][1]);
+// 		var->fdout = 1;
+// 	}
+// 	else
+// 		var->fdout = var->pipex[var->exec][1];
+// 	if (ft_strcmplen(var->redir, "<<") > 0)
+// 		handle_heredoc(var);
+// 	if (is_redir(var->redir[var->exec]))
+// 		get_std_redir(var->redir[var->exec], var);
+// }
+
+void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
+{
+	var->cmdtype = 0;
+	var->pipex[var->exec] = (int *)malloc(sizeof(int) * (2));
+	if (!var->pipex[var->exec])
+		return ;
+	if (pipe(var->pipex[var->exec]) == -1)
+		return (write(2, "Error with pipe\n", 17), ft_fork_fail(var));
+	if (var->exec == 0)
+		var->fdin = 0;
+	else
+		var->fdin = var->pipex[var->exec - 1][0];
+	if((var->exec + 1) == (var->tablen))
+	{
+		close(var->pipex[var->exec][0]);
+		close(var->pipex[var->exec][1]);
+		var->fdout = 1;
+	}
+	else
+		var->fdout = var->pipex[var->exec][1];
+	if (ft_strcmplen(var->redir, "<<") > 0)
+		handle_heredoc(var);
+	if (is_redir(var->redir[var->exec]))
+		get_std_redir(var->redir[var->exec], var);
+	// else
+	// 	ft_fd_init(var);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	(*pid) = fork(); ////////////// FORK
+	if ((*pid) == -1)
+		return (write(2, "Error with fork\n", 17), ft_fork_fail(var));
+	if ((*pid) == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		dup2(var->fdin, 0);
+		dup2(var->fdout, 1);
+		ft_close_pipe_fd(var);
+		ft_init_arg(arg, var);
+		if (!is_builtin(var, (*var).cmd[var->exec]))
+			ft_execve((*var).arg, targ, (*var).env, var);
+		exit (127);
+	}
+	else
+	{
+		// write(2, "T2\n", 4);
+		ft_unlink(var->redir, var->exec);
 		if (var->fdin != 0)
 			close(var->fdin);
 		if (var->fdout != 1)
 			close(var->fdout);
 	}
-}
-
-void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	var->cmdtype = 0;
-	var->fdin = 0;
-	var->fdout = 0;
-	if (ft_strcmplen(var->redir, "<<") > 0)
-		handle_heredoc(var);
-	if (pipe((*var).pipex) == -1)
-		return (write(2, "Error with pipe\n", 17), ft_fork_fail(var));
-	if (is_redir((*var).redir[var->exec]), var)
-		get_std_redir((*var).redir[var->exec], var);
-	ft_fd_init(var);
-	(*pid) = fork();
-	if ((*pid) == -1)
-		return (write(2, "Error with fork\n", 17), ft_fork_fail(var));
-	if ((*pid) == 0)
-	{
-		ft_init_arg(arg, var);
-		// dup2((*var).fdin, 0);
-		// if (((var->exec + 1) == (var->tablen)) && (is_redir_out(var->redir[var->exec]) == 0))
-		// {
-		// 		var->fdout = 1;
-		// 		close(var->pipex[1]);
-		// }
-		// if ((*var).fdout != 1)
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		if (((var->exec + 1) != (var->tablen)) || (is_redir_out(var->redir[var->exec]) != 0))
-			dup2((*var).fdout, 1);
-		// if (var->fdin != 0)
-		// 	close(var->fdin);
-		// if (var->fdout != 1)
-		// 	close(var->fdout);
-		ft_execve((*var).arg, targ, (*var).env, var);
-	}
-	dup2((*var).fdin, 0);
-	if (var->fdin != 0)
-		close(var->fdin);
-	if (var->fdout != 1)
-		close(var->fdout);
+	return ;
 }

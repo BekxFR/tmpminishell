@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:07:52 by chillion          #+#    #+#             */
-/*   Updated: 2022/11/28 18:05:14 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:30:15 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void ft_export(t_m *var, char **cmd)
+{
+	if(cmd[1])
+		ft_exportunset_with_arg(var, cmd, 1);
+	if (!cmd[1])
+		get_exprt(var->env);	
+}
 
 void	ft_exportunset_with_arg(t_m *var, char **args, int soft)
 {

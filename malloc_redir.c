@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:31:07 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/01 16:10:56 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/06 19:41:13 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	malloc_double_pointer_redir(char ***tab, int count, char **args, t_m *var)
 {
 	*tab = ft_calloc(sizeof(char *), (count + 1));
-	if (!tab)
+	if (!*tab)
 	{
 		free(var->args_line);
 		free_doubletab(var->env);
@@ -34,10 +34,9 @@ int	malloc_redir(char ***redir, char **args, t_m *var)
 	i = initialize_index();
 	while (args[i.i])
 	{
-		while (args[i.i] && args[i.i][0] != '|' && args[i.i][0] != '<' && args[i.i][0] != '>')
-		{
+		while (args[i.i] && args[i.i][0] != '|' \
+		&& args[i.i][0] != '<' && args[i.i][0] != '>')
 			i.i++;
-		}
 		if (args[i.i] && args[i.i][0] == '|')
 		{		
 			if (malloc_double_pointer_redir(&redir[i.j], i.counter, args, var))
@@ -47,11 +46,9 @@ int	malloc_redir(char ***redir, char **args, t_m *var)
 		}
 		while (args[i.i] && args[i.i][0] == '|')
 			i.i++;
-		while (args[i.i] && (args[i.i][0] == '<' || args[i.i][0] == '>'))
-		{
-			i.i = i.i + 2;
+		while (args[i.i] && (args[i.i][0] == '<' || args[i.i][0] == '>') \
+		&& i.i++ > -1 && i.i++ > -1)
 			i.counter = i.counter + 2;
-		}
 	}
 	if (malloc_double_pointer_redir(&redir[i.j], i.counter, args, var) == 2)
 		return (2);

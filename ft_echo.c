@@ -6,12 +6,11 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 13:44:01 by mgruson           #+#    #+#             */
-/*   Updated: 2022/11/14 15:13:01 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/06 15:12:38 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "minishell.h"
 
 /*
 Subject : reproduction of echo function 
@@ -31,68 +30,43 @@ int	is_n_option(char *str)
 {
 	int	i;
 
-	i = 2;
-	if (str[0] == '-' && str[1] == 'n' && !str[2])
-		return (0);
-	if (str[0] == '-' && str[1] == 'n')
-	{
-		while (str[i])
-		{
-			if (str[i] != 'n')
-				return (1);
-			i++;
-		}
-		return (0);
-	}
-}
-
-void	ft_echo_with_n_option(char **argv, int i, int argc)
-{
-	i++;
-	if (!argv[i])
-		return ;
-	while (argv[i])
-	{
-		printf("%s", argv[i]);
-		if (i + 1 != argc)
-			printf(" ");
-		i++;
-	}
-	return ;
-}
-
-void	ft_echo_without_n_option(char **argv, int i, int argc)
-{
-	while (argv[i])
-	{
-		printf("%s", argv[i]);
-		if (i + 1 != argc)
-			printf(" ");
-		i++;
-	}
-	printf("\n");
-}
-
-void	ft_echo(char **argv, int i, int argc)
-{
-	if (!argv[i])
-	{
-		printf("\n");
-		return ;
-	}
-	if (is_n_option(argv[i]) == 0)
-	{
-		ft_echo_with_n_option(argv, i, argc);
-		return ;
-	}
-	ft_echo_without_n_option(argv, i, argc);
-}
-
-int	main(int argc, char **argv)
-{
-	int	i;
-
 	i = 0;
-	ft_echo(argv, (i + 1), argc);
+	
+	if (str[i++] != '-')
+		return (0);
+	if (str[i++] != 'n')
+		return (0);
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_echo(char **cmd)
+{
+	int i;
+	
+	if (!cmd[1])
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
+	i = 1;
+	while (is_n_option(cmd[i]))
+		i++;
+	while (cmd[i])
+	{
+		write(1, cmd[i], ft_strlen(cmd[i]));
+		if (cmd[i + 1])
+			write(1, " ", 1);
+		i++;
+	}
+	if (is_n_option(cmd[1]))
+		write(1, "", 0);
+	else if (!is_n_option(cmd[1]))
+		write(1, "\n", 1);
 	return (0);
 }

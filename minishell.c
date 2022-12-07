@@ -25,12 +25,12 @@ void	ft_init_commands_history(t_m *var)
 {
 	char *str;
 
+	str = NULL;
 	while (1)
 	{
 		if (str)
 			free(str);
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, SIG_IGN);
+		ft_signal(1);
 		str = readline("minishell>");
 		if (!str)
 			break ;
@@ -43,6 +43,7 @@ void	ft_init_commands_history(t_m *var)
 			close((*var).h_fd);
 			(*var).args_line = ft_strdup(str);
 			free(str);
+			str = NULL;
 			break ;
 		}
 		else if (!ft_strlen(str))
@@ -76,34 +77,25 @@ void	handle_sigint_2(int sig)
 	{
 		status = 130;
 		printf("\n");
-		// rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
 
-void handle_sigint(int sig)
+void handle_sigint_1(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "\n", 2);
+		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-}
-
-void	ft_free_split(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
+	if (sig == SIGQUIT)
 	{
-		free(str[i]);
-		i++;
+		write(2, "Quit (core dumped)\n", 20);
+		exit (1);
 	}
-	free(str);
 }
 
 void	ft_daddy(t_m *var, int *pid, int nbcmd)
@@ -114,50 +106,45 @@ void	ft_daddy(t_m *var, int *pid, int nbcmd)
 	i = 0;
 	status = 0;
 	(void)var;
-	signal(SIGINT, handle_sigint_2);
-	signal(SIGQUIT, SIG_IGN);
-	write(2, "ZZZZZZZZZ\n", 11);
 	while (i < nbcmd && nbcmd != 0)
 	{
-		printf("pid=%d\n", pid[i]);
-		if (waitpid(pid[i], &status, 0) == -1)
-		{
-			perror("waitpid");
-			exit(EXIT_FAILURE);
-		}
+		// write(2, "T4\n", 4);
+		waitpid(pid[i], &status, 0);
 		if (WIFEXITED(status))
 			status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 			status = 128 + WTERMSIG(status);
 		i++;
 	}
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
-	write(2, "TESTEURER\n", 11);
-	free(pid);
+	// ft_signal(1);
+	// write(2, "T5\n", 4);
+	// free(pid);
 }
 
 int	ft_exec(t_m *var, char ***args)
 {
-	int	*pid;
-
 	var->exec = 0;
 	var->tabexec = 0;
-	pid = (int *)malloc(sizeof(int) * (var->tablen + 1));
-	if (!pid)
+	var->pid = (int *)malloc(sizeof(int) * (var->tablen + 1));
+	if (!var->pid)
 		return (printf("malloc error\n"), 1);
-	pid[var->tablen] = 0;
+	var->pid[var->tablen] = 0;
+	var->pipex = (int **)malloc(sizeof(int *) * (var->tablen + 1));
+	if (!var->pipex)
+		return (printf("malloc error\n"), 1);
+	var->pipex[var->tablen] = NULL;
 	if (var->tablen == 1)
-		ft_do_fork(var, args[0][0], args[0], &pid[0]);
+		ft_do_fork(var, args[0][0], args[0], &var->pid[0]);
 	else if (var->tablen > 1)
 	{
 		while ((var->exec) < var->tablen)
 		{
-			ft_do_pipe_fork(var, args[var->exec][0], args[var->exec], &pid[var->exec]);
+			ft_do_pipe_fork(var, args[var->exec][0], args[var->exec], &var->pid[var->exec]);
 			var->exec++;
 		}
 	}
-	return (ft_daddy(var, pid, var->tablen), 0);
+	ft_daddy(var, var->pid, var->tablen);
+	return (0);
 }
 
 int	ft_puttriplelen(char ***test, t_m *var)
@@ -175,8 +162,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_m	var;
 
-	signal(SIGINT, handle_sigint); /* ctrl + c  affiche un nouveau prompt */
-	signal(SIGQUIT, SIG_IGN); /* ctrl + \  ne fait rien */
+	ft_signal(1);
 	(void)argv;
 	(void)envp;
 	if (argc != 1)
@@ -186,21 +172,23 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		var.args_line = NULL;
+		// ft_signal(1);
+		printf("c1\n");
 		ft_init_commands_history(&var);
+		printf("c2\n");
 		if (!var.args_line)
 			return (ft_free_split(var.env) , printf("exit\n"), 0);
-		ft_printf("Command is :%s\n", var.args_line);
+		printf("c3\n");		
+		// ft_printf("Command is :%s\n", var.args_line);
 		if (ft_parsing(&var, envp, &var.cmd, &var.redir) == 2)
 			return (2);
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, SIG_IGN);
-		// signal(SIGINT, SIG_IGN);
-		// signal(SIGQUIT, SIG_IGN);
-		ft_puttriplelen(var.cmd, &var);
-		ft_exec(&var, var.cmd);
-		free_tripletab(var.cmd);
-		free_tripletab(var.redir);
+		printf("c4\n");
 		free(var.args_line);
+		ft_puttriplelen(var.cmd, &var);
+		printf("c5\n");		
+		ft_exec(&var, var.cmd);
+		printf("c6\n");
+		free_all(&var);
 	}
 	return (0);
 }

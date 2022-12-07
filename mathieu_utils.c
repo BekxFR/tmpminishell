@@ -6,11 +6,25 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 12:36:40 by mgruson           #+#    #+#             */
-/*   Updated: 2022/11/30 18:12:39 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:06:54 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char *ft_strcpy(char *dest, char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
 
 void	ft_putdoubletab(char **tab)
 {

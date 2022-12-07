@@ -42,7 +42,9 @@ $USER$USER
 $USE"R"
 exporter un variable env vide (export LONG548), essayer de l'afficher
 echo $LANG
-
+ls > $USER
+ls < $USER
+ls < mgruson
 
 TEST EXPORT 
 
@@ -62,3 +64,24 @@ ls | cat < test
 ls < cat | test
 cat < minishelle.c > test2 (ne creer pas test2 car apres > minishelle.c)
 cat > test2 < minishelle.c (creer test2 avant de faire l erreur)
+cat << $USER
+
+TESTER heredoc
+cat << EOF -> $USER (-> affiche mgruson)
+cat << EOF -> "$USER" (-> afficher "mgruson")
+cat << EOF"" -> $USER (affiche $USER)
+cat << "EOF" -> $USER (affiche $USER)
+cat << "EOF" -> "$USER" (affiche "$USER")
+cat << $USER -> $USER (doit terminer)
+cat << $USER -> mgruson (doit pas terminer)
+
+
+autres tests : 
+https://github.com/solaldunckel/minishell-tester/blob/master/test.sh
+
+A tester encore la dedans :
+https://docs.google.com/spreadsheets/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/edit#gid=0
+311 a 313
+347 tous les unset
+391
+400 jusqu a 459 tester les cd avec la boule infinie 

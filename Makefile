@@ -50,6 +50,15 @@ SRCS =	minishell.c	\
 		handle_heredoc.c \
 		malloc_redir.c \
 		malloc_cmd.c \
+		malloc_args.c \
+		is_builtin.c \
+		ft_cd.c \
+		ft_exit.c \
+		ft_echo.c \
+		ft_export.c \
+		ft_unlink.c \
+		get_status.c \
+		has_quote.c \
 
 BONUS = \
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:30:58 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/01 16:29:16 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/06 19:42:40 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	malloc_double_pointer_cmd(char ***tab, int count, char **args, t_m *var)
 {
 	*tab = ft_calloc(sizeof(char *), (count + 1));
-	if (!tab)
+	if (!*tab)
 	{
 		free(var->args_line);
 		free_doubletab(var->env);
@@ -33,12 +33,12 @@ int	malloc_cmd(char ***cmd, char **args, t_m *var)
 	i = initialize_index();
 	while (args[i.i])
 	{
-		while (args[i.i] && (args[i.i][0] != '|' && args[i.i][0] != '<' && args[i.i][0] != '>') && i.i++ > -1)
+		while (args[i.i] && (args[i.i][0] != '|' \
+		&& args[i.i][0] != '<' && args[i.i][0] != '>') && i.i++ > -1)
 			i.counter++;
 		if (args[i.i] && args[i.i][0] == '|')
 		{		
-			if (malloc_double_pointer_cmd(&cmd[i.j], i.counter, args, var) == 2)
-				return (2);
+			malloc_double_pointer_cmd(&cmd[i.j], i.counter, args, var);
 			i.j++;
 			i.counter = 0;
 		}
@@ -47,7 +47,6 @@ int	malloc_cmd(char ***cmd, char **args, t_m *var)
 		while (args[i.i] && (args[i.i][0] == '<' || args[i.i][0] == '>'))
 			i.i = i.i + 2;
 	}
-	if (malloc_double_pointer_cmd(&cmd[i.j], i.counter, args, var) == 2)
-		return (2);	
+	malloc_double_pointer_cmd(&cmd[i.j], i.counter, args, var);
 	return (0);
 }

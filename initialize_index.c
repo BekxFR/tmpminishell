@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:55:46 by mgruson           #+#    #+#             */
-/*   Updated: 2022/11/22 16:48:28 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/01 17:41:53 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ t_index initialize_index()
 	i.k = 0;
 	i.t = 0;
 	i.l = 0;
+	i.n = -1;
 	i.counter = 0;
-	i.len = 0;	
+	i.len = 0;
 	return (i);
 }

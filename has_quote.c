@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*   has_quote.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 17:09:33 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/06 18:23:43 by mgruson          ###   ########.fr       */
+/*   Created: 2022/12/06 19:14:41 by mgruson           #+#    #+#             */
+/*   Updated: 2022/12/06 19:25:17 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parsing(t_m *var, char **envp, char ****cmd, char ****redir)
+int	has_quote(char *str)
 {
-	char	**args;
+	int	i;
+	int	s;
+	int	d;
 
-	if (!var->args_line || var->args_line[0] == '\n')
-		return (0);
-	if (is_cmdline_valid(var->args_line) == 2)
-		return (2);
-	if (get_args(&args, var->args_line, ' ', var) == 2)
-		return (2);
-	args = get_env_var(args, envp);
-	*cmd = NULL;
-	*redir = NULL;
-	if (set_in_cmd(args, var) == 2)
-		return (2);
-	*cmd = clean_args(*cmd);
-	*redir = clean_args(*redir);
+	i = 0;
+	s = 0;
+	d = 0;
+	while (str[i])
+	{
+		if (str[i] == 34)
+			d++;
+		else if (str[i] == 39)
+			s++;
+		i++;
+	}
+	if (d + s >= 2)
+		return (1);
 	return (0);
 }

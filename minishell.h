@@ -32,7 +32,7 @@ typedef struct s_minishell
 	char	**split_path;
 	char	*path;
 	char	*arg;
-	int		pipex[2];
+	int		**pipex;
 	int		exec;
 	int		tabexec;
 	int		tablen;
@@ -46,8 +46,8 @@ typedef struct s_minishell
 	char 	**heredoc;
 	int		fd1;
 	int 	status;
-
-	int		fdsave;
+	int		*pid;
+	// int		fdsave;
 }	t_m;
 
 typedef struct s_index
@@ -66,6 +66,7 @@ typedef struct s_index
 	int k;
 	int t;
 	int l;
+	int n;
 	int counter;
 	int len;	
 }	t_index;
@@ -93,7 +94,7 @@ int	malloc_redir(char ***redir, char **args, t_m *var);
 
 /* malloc_cmd.c */
 
-int	malloc_cmd(char ***cmd, char **args, t_m *var);
+int malloc_cmd(char ***cmd, char **args, t_m *var);
 
 
 /* mathieu_utils.c */
@@ -108,6 +109,7 @@ void	*ft_memcpy_mathieu(void *dest, void *src, size_t n);
 int		ft_intlen(int nbr);
 int		ft_strlenint(char *str);
 int		ft_strcmplen(char ***redir, char *str);
+char	*ft_strcpy(char *dest, char *src);
 
 /* is_cmdline_valid.c */
 
@@ -116,6 +118,7 @@ int		is_cmdline_valid(char *str);
 /* clean_quote.c */
 
 char	***clean_args(char ***cmd);
+char	*clear_quote(char *str);
 
 /* replace_env_var.c */
 
@@ -130,12 +133,16 @@ int		is_in_quote(char *str, int i);
 
 t_index initialize_index();
 
+/* get_args.c */
+
+int		get_args(char ***args, char *s, char c, t_m *var);
+
 /* malloc_args.c */
 
-int		simple_pointer_nbr(char *s, char c, char **s1, t_m *var);
+int		malloc_args(char *s, char c, char **s1, t_m *var);
 int		malloc_simple_pointer(int count, int t, char **s1, t_m *var);
 int		double_pointer_nbr(char *s, char c);
-int		get_args(char ***args, char *s, char c, t_m *var);
+int		is_arg(char *s, int i);
 
 /* free_minishell.c */
 
@@ -143,17 +150,19 @@ void	free_error_tripletab(char ***tab, int i);
 void	free_doubletab(char **s);
 void	free_error_doubletab(char **str, int i);
 void	free_tripletab(char ***tab);
+int		free_all(t_m *var);
 
 /* get_exprt.c */
 
 int		is_not_in(char *str, char **tab);
 char	**sort_envp(char **envp, char **exprt);
-char	**get_exprt(char **envp);
+int	get_exprt(char **envp);
 
 /* get_env_var.c */
 
+char	*add_status(char *str, int end, int start, char *status);
 char	**get_env_var(char **args, char **envp);
-char	*new_env_var(char *str, char **envp, t_index i);
+char	*new_env_var(char *str, char **envp);
 char	*remove_wrong_env(char *str, int end, int start);
 char	*add_good_env(char *str, int end, int start, char *envp);
 char	*get_env(char *env,  char *envp);
@@ -199,7 +208,7 @@ void	ft_cleanheredoc_fd(char *str, char *buffer, char *comp, int fd1);
 void	ft_history_init_fd(char *file, int *fd);
 void	ft_init_commands_history(t_m *var);
 void	ft_print_split(char **str);
-void 	handle_sigint(int sig);
+void 	handle_sigint_1(int sig);
 void	ft_free_split(char **str);
 void	ft_daddy(t_m *var, int *pid, int nbcmd);
 int		ft_exec(t_m *var, char ***args);
@@ -234,9 +243,42 @@ void    get_std_redir(char **redir, t_m *var);
 char	**malloc_heredoc(t_m *var);
 char	**get_heredoc_filename(char **heredoc, int i);
 void	get_heredoc(char *str, t_m *var);
-void	handle_heredoc(t_m *var);
+int		handle_heredoc(t_m *var);
 
+/* is_builtin.c */
+
+int is_str_digit(char *str);
+int is_builtin(t_m *var, char **cmd);
+
+/* ft_cd.c */
+
+int ft_cd(char **argv, int i);
+
+/* ft_exit.c */
+
+void ft_exit(t_m *var, char **cmd);
+
+/* ft_echo.c */
+
+int	ft_echo(char **cmd);
+
+/* ft_export */
+
+void ft_export(t_m *var, char **cmd);
+
+/* ft_unlink.c */
+
+void	ft_unlink(char ***redir, int i);
+
+/* get_status.c */
+
+char	*get_status(char *str, int end, int start, char *status);
+
+/* has_quote.c */
+
+int has_quote(char *str);
 void	handle_sigint_2(int sig);
 void	ft_fd_init(t_m *var);
-
+void	ft_pipe_read_write(t_m *var);
+void	ft_signal(int i);
 #endif

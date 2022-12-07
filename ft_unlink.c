@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_split.c                                    :+:      :+:    :+:   */
+/*   ft_unlink.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 15:21:24 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/06 10:38:46 by mgruson          ###   ########.fr       */
+/*   Created: 2022/12/05 15:38:45 by mgruson           #+#    #+#             */
+/*   Updated: 2022/12/05 16:25:57 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_free_split(char **str)
+void	ft_unlink(char ***redir, int i)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	int j;
+	
+	j = 0;
+	while (redir[i][j])
 	{
-		free(str[i]);
-		str[i] = NULL;
-		i++;
+		if (ft_strncmp(redir[i][j], ".heredoc", 5) == 0)
+			unlink(redir[i][j]);
+		j++;
 	}
-	free(str);
-	str = NULL;
 }

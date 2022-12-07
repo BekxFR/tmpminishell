@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:20:35 by mgruson           #+#    #+#             */
-/*   Updated: 2022/11/23 16:22:20 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/05 15:30:33 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**add_export_form(char **exprt)
 		new_exprt[i.i] = ft_calloc(1, (ft_strlen(exprt[i.i]) + 9 + 1));
 		if (!new_exprt[i.i])
 			return (free_error_doubletab(new_exprt, i.i), NULL);
-		new_exprt[i.i] = ft_memcpy_mathieu(new_exprt[i.i], "export ", 7);
+		new_exprt[i.i] = ft_memcpy(new_exprt[i.i], "export ", 7);
 		i.k = 7;
 		i.j = 0;
 		while (exprt[i.i][i.j])
@@ -85,7 +85,7 @@ char	**add_export_form(char **exprt)
 	return (free(exprt), new_exprt);
 }
 
-char	**get_exprt(char **envp)
+int get_exprt(char **envp)
 {
 	t_index	i;
 	char	**exprt;
@@ -94,8 +94,9 @@ char	**get_exprt(char **envp)
 	i.len = ft_tablen(envp);
 	exprt = ft_calloc(sizeof(char *), (i.len + 1));
 	if (!exprt)
-		return (NULL);
+		return (0);
 	exprt = sort_envp(envp, exprt);
 	exprt = add_export_form(exprt);
-	return (exprt);
+	ft_putdoubletab(exprt);
+	return (1);
 }
