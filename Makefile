@@ -30,7 +30,7 @@ SRCS =	minishell.c	\
 		mathieu_utils.c \
 		is_cmdline_valid.c \
 		clean_args.c \
-		replace_env_var.c \
+		ft_pwd.c \
 		set_in_cmd.c \
 		is_in_quote.c \
 		initialize_index.c \

@@ -44,10 +44,8 @@ typedef struct s_minishell
 	int 	fdout;
 	int 	cmdtype;
 	char 	**heredoc;
-	int		fd1;
 	int 	status;
 	int		*pid;
-	// int		fdsave;
 }	t_m;
 
 typedef struct s_index
@@ -249,17 +247,18 @@ void    get_std_redir(char **redir, t_m *var);
 
 char	**malloc_heredoc(t_m *var);
 char	**get_heredoc_filename(char **heredoc, int i);
-void	get_heredoc(char *str, t_m *var);
+char	*get_heredoc(t_m *var, int k);
 int		handle_heredoc(t_m *var);
 
 /* is_builtin.c */
 
 int is_str_digit(char *str);
-int is_builtin(t_m *var, char **cmd);
+int do_builtin(t_m *var, char **cmd);
+int is_env_builtin(char **cmd);
 
 /* ft_cd.c */
 
-int ft_cd(char **argv, int i);
+int ft_cd(char **argv, int i, t_m *var);
 
 /* ft_exit.c */
 
@@ -267,7 +266,13 @@ void ft_exit(t_m *var, char **cmd);
 
 /* ft_echo.c */
 
+int	is_n_option(char *str);
 int	ft_echo(char **cmd);
+
+/* ft_pwd.c */
+
+int	ft_pwd(void);
+int	go_in_builtin(char *str);
 
 /* ft_unlink.c */
 
@@ -279,9 +284,10 @@ char	*get_status(char *str, int end, int start, char *status);
 
 /* has_quote.c */
 
-int has_quote(char *str);
+int		has_quote(char *str);
 void	handle_sigint_2(int sig);
 void	ft_fd_init(t_m *var);
 void	ft_pipe_read_write(t_m *var);
 void	ft_signal(int i);
+
 #endif

@@ -14,13 +14,15 @@
 
 void	ft_exit(t_m *var, char **cmd)
 {
-	if (cmd[1] && cmd[2] &&	free_all(var))
+	if (var->tablen > 1)
+		return ;
+	if (is_str_digit(cmd[1]) && cmd[2] &&	free_all(var))
 	{
 		write(1, "exit: too many arguments\n", 25); // voir s'il faut modifier le numero std
 		var->status = 1;
-		exit(var->status);
+		// exit(var->status);
 	}
-	else if (cmd[1] && is_str_digit(cmd[1]) != 0 &&	free_all(var))
+	else if (cmd[1] && !is_str_digit(cmd[1]) &&	free_all(var))
 	{   
 		write(2, "exit : ", 8);
 		write(2, cmd[1], ft_strlen(cmd[1]));
@@ -31,6 +33,7 @@ void	ft_exit(t_m *var, char **cmd)
 	else if (!cmd[1] && free_all(var))
 	{
 		var->status = 0;
+		write(1, "exit\n", 5);
 		exit(var->status);
 	}
 	else if (cmd[1] && is_str_digit(cmd[1]))
