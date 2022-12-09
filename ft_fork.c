@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:31:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/07 17:39:21 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/09 13:43:05 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int exit_status;
 
 void	ft_fork_fail(t_m *var)
 {
@@ -106,6 +108,8 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 		return (write(2, "Error with fork\n", 17), ft_fork_fail(var));
 	if ((*pid) == 0)
 	{
+		if (var->fd_status_in == 1 || var->fd_status_out == 1)
+			return (ft_close_pipe_fd(var), exit(1));
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		dup2(var->fdin, 0);
@@ -118,7 +122,7 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 		}
 		exit (127);
 	}
-	ft_unlink(var->redir, var->exec);
+	// ft_unlink(var->redir, var->exec);
 	if (var->fdin != 0)
 		close(var->fdin);
 	if (var->fdout != 1)

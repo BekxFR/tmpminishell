@@ -46,6 +46,10 @@ typedef struct s_minishell
 	char 	**heredoc;
 	int 	status;
 	int		*pid;
+	int		h_status;
+	int		fd_status_in;
+	int		fd_status_out;
+	int		line;
 }	t_m;
 
 typedef struct s_index
@@ -303,5 +307,8 @@ void	ft_signal(int i);
 /* update_last_env.c */
 
 int update_last_env(t_m *var);
+char	*get_heredoc_child(t_m *var, int k);
+int	handle_heredoc_child(t_m *var);
+void	handle_sigint_3(int sig);
 
 #endif

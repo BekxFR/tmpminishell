@@ -1,0 +1,3 @@
+ls
+ls | grep h | grep c |grep o
+exit

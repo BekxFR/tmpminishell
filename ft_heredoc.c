@@ -6,10 +6,9 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:47 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/09 12:54:31 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:07:23 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -63,8 +62,9 @@ void	ft_heredoc_fd(t_m *var, int n)
 	char	*str;
 	int		quote;
 
+	(void)n;
 	quote = !has_quote(var->comp);
-	ft_signal(2);
+	ft_signal(3);
 	while (n > 0)
 	{
 		str = readline(">");
@@ -76,17 +76,14 @@ void	ft_heredoc_fd(t_m *var, int n)
 			return ;
 		}
 		if (ft_strcmp(clear_quote((*var).comp), str) == 0)
-			break ;
+			return ;
 		printf("cmp : %s\n", (*var).comp);
 		if (quote == 1)
 			str = new_env_var_heredoc(str, var->env, var);
 		write((*var).fdin, str, ft_strlen(str));
 		write((*var).fdin, "\n", 2);
-		free(str);
 	}
-	free (str);
-	return (ft_signal(1), ft_cleanheredoc_fd(NULL, NULL,\
-	 (*var).comp, (*var).fdin));
+	return (ft_cleanheredoc_fd(NULL, str, (*var).comp, (*var).fdin));
 }
 
 void	ft_signal(int i)
@@ -99,6 +96,11 @@ void	ft_signal(int i)
 	if (i == 2)
 	{
 		signal(SIGINT, handle_sigint_2);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (i == 3)
+	{
+		signal(SIGINT, handle_sigint_3);
 		signal(SIGQUIT, SIG_IGN);
 	}
 }
