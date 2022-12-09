@@ -16,8 +16,10 @@ int	is_in_simple_quote(char *str, int i)
 {
 	int	j;
 
-	j = 0;
-	while (str[j] && j < i)
+	j = -1;
+	if (!str)
+		return (2);
+	while (str[++j] && j < i)
 	{
 		if (str[j] && str[j] == 34 && j < i)
 		{	
@@ -35,7 +37,6 @@ int	is_in_simple_quote(char *str, int i)
 			if (str[j] != 0 && j > i)
 				return (1);
 		}
-		j++;
 	}
 	return (0);
 }

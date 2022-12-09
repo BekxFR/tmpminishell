@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:33:19 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:04:39 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/09 16:51:04 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_handled_special_char(char *str, int i)
 	bar = 0;
 	space = 0;
 	while ((str[i] == '|' || (str[i] == ' ' && (inf > 0 || sup > 0 || bar > 0)) \
-	|| str[i] == '>' || str[i] == '<' ) && !is_in_quote(str, i))
+	|| str[i] == '>' || str[i] == '<' ) && is_in_quote(str, i) == 0)
 	{
 		if (str[i] == '|' && i++ > -1 && bar++ > -1 && \
 		((bar > 1 || sup > 0 || inf > 0)))
@@ -76,7 +76,7 @@ int	are_pipe_and_redir_correct(char *str)
 int	is_cmdline_valid(char *str)
 {	
 	if (are_handled_syntax_error(str) == 2)
-		return (2);
+		return (2);	
 	if (are_pipe_and_redir_correct(str) == 2)
 		return (2);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:41:20 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 16:54:43 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/09 18:52:06 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_cd(char **cmd, int i, t_m *var)
 	if (!path)
 		return (printf("chdir: error retrieving current directory: getcwd: \
 		cannot access parent directories: No such file or directory\n"), 2);
-	export_env("OLDPWD", path, var);
+	export_env("OLDPWD=", path, var);
 	if (cmd[1][0] != '/')
 	{
 		path = ft_strjoin_free(path, "/");

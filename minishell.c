@@ -244,6 +244,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)envp;
 	if (argc != 1)
 		return (ft_printf("Error : Wrong Number of arguments\n"), 1);
+	initialize_var(&var);
 	if (ft_create_env(&var, envp) == -1)
 		return (ft_printf("Error : Malloc for keep env fail\n"), 1);
 	while (1)

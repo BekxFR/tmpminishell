@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 14:46:03 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/09 17:49:39 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:38:24 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ char	*get_heredoc(t_m *var, int k)
 int	handle_heredoc(t_m *var)
 {
 	t_index		i;
-	int	k = 0;
-
+	int			k;
+	
+	k = 0;
 	i = initialize_index();
 	malloc_heredoc(var);
 	if (!var->heredoc)
@@ -63,8 +64,7 @@ int	handle_heredoc(t_m *var)
 		}
 		i.i++;
 	}
-	free(var->heredoc);
-	return (0);
+	return (free(var->heredoc), 0);
 }
 
 /* ----- */

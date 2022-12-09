@@ -312,4 +312,8 @@ int	handle_heredoc_child(t_m *var);
 void	handle_sigint_3(int sig);
 void	ft_unlink_all(t_m *var, int i);
 
+/*t initialize_var.c */
+
+void	initialize_var(t_m *var);
+
 #endif

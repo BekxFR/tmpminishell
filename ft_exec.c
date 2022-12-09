@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:56:23 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/09 19:11:25 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:34:36 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_arg_with_path(char *arg, int *cmd)
 		{
 			if(arg[0] != '.' && arg[1] != '/')
 				return ;
-			if (arg[1] != '/')
+			if (arg[0] != '/')
 				return ;
 		}
 	}

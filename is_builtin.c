@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:03:04 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:17:19 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/09 18:55:31 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	is_str_digit(char *str)
 	if (!str)
 		return (0);
 	i = 0;
-	while (ft_isdigit(str[i]) != 0 || str[i] == '-')
+	if (ft_isdigit(str[i]) != 0 || str[i] != '-' || str[i] != '+')
+		return (0);	
+	i++;
+	while (ft_isdigit(str[i]) != 0)
 		i++;
 	if ((int)str[i] == 0)
 		return (1);
@@ -40,7 +43,7 @@ int	do_builtin(t_m *var, char **cmd)
 		return (ft_export(var, cmd), 1);
 	if (ft_strcmp(cmd[0], "unset") == 0)
 		return (ft_unset(var, cmd), 1);
-	if (ft_strcmp(cmd[0], "env") == 0)
+	if (ft_strcmp(cmd[0], "env") == 0 && !cmd[1])
 		return (ft_env(var->env), 1);
 	return (0);
 }

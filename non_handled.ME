@@ -12,3 +12,10 @@ export Z="ls -l"
 bash: $Za: command not found
 "$Z"a
 bash: ls -la: command not found
+
+< Makefile .
+bash: .: filename argument required
+.: usage: . filename [arguments]
+mgruson@e2r5p13:~/minishell$ cat .
+cat: .: Is a directory
+
