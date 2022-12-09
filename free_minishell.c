@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 13:02:40 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/07 17:45:48 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:41:13 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void free_tripletab(char ***tab)
 		tab[i] = NULL;
 		i++;
 	}
-	free(tab);
-	tab = NULL;
+	if (*tab)
+	{
+		free(tab);
+		tab = NULL;
+	}
 }

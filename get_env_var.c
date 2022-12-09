@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:31:04 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:35:39 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/09 16:32:41 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	exit_status;
 
 char	*add_good_env(char *str, int end, int start, char *envp)
 {
@@ -95,7 +97,7 @@ char	*new_env_var(char *str, char **envp)
 		if (str[i.i] == '$' && str[i.i + 1] == '?' \
 		&& !is_in_simple_quote(str, i.i))
 		{
-			str = get_status(str, (i.i + 2), (i.i + 1), "2"); // "2" a remplacer par la variable status
+			str = get_status(str, (i.i + 2), (i.i + 1), ft_itoa(exit_status)); // "2" a remplacer par la variable status
 			i.i = i.i - 1 + ft_intlen(2);
 		}
 		if (str[i.i] == '$' && (ft_isdigit(str[i.i + 1]) > 0 \

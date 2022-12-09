@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unlink.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 15:38:45 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:37:13 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/09 18:06:31 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,29 @@ void	ft_unlink(char ***redir, int i)
 	j = 0;
 	while (redir[i][j])
 	{
-		if (ft_strncmp(redir[i][j], ".heredoc", 5) == 0)
-			unlink(redir[i][j]);
+		if (ft_strncmp(redir[i][j], ".heredoc", 5) == 0){
+			write(2, "TMPTEST\n", 9);
+			unlink(redir[i][j]);}
 		j++;
+	}
+}
+
+void	ft_unlink_all(t_m *var, int i)
+{
+	int	j;
+
+	j = 0;
+	if (ft_strcmplen(var->redir, "<<") > 0)
+		handle_heredoc(var);
+	while(var->redir[i])
+	{
+		while (var->redir[i][j])
+		{
+			if (ft_strncmp(var->redir[i][j], ".heredoc", 5) == 0){
+				write(2, "TMPTEST\n", 9);
+				unlink(var->redir[i][j]);}
+			j++;
+		}
+		i++;
 	}
 }

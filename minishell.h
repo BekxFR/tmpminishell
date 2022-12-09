@@ -310,5 +310,6 @@ int update_last_env(t_m *var);
 char	*get_heredoc_child(t_m *var, int k);
 int	handle_heredoc_child(t_m *var);
 void	handle_sigint_3(int sig);
+void	ft_unlink_all(t_m *var, int i);
 
 #endif

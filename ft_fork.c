@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:31:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/09 13:43:05 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:25:53 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	ft_fork_fail(t_m *var)
 void	ft_arg_check_fullpath(char *arg, t_m*var)
 {
 	ft_arg_with_path(arg, &(*var).pcmd_line); //arg == command[0] - pcmd_line == -3 si directory ou -1 si full path
+	if (!var->path &&  var->pcmd_line != -1)
+	{
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		return (exit_status = 127, exit(127));
+	}
 	if ((*var).pcmd_line == 0) // si non full path
 	{
 		(*var).split_path = ft_split((*var).path, ':'); //split_path = l'ensemble des chemins de PATH=
@@ -44,8 +50,8 @@ void	ft_init_arg(char *argv, t_m *var)
 	if ((*var).pcmd_line == 0) // si non full path
 	{
 		(*var).pcmd_line = ft_check_access(argv , (*var).split_path); // check la bonne ligne et keep ligne
-		if ((*var).pcmd_line == -2)
-			(*var).arg = strdup(argv); // si aucune ligne on recup la commande seule
+		if ((*var).pcmd_line == -2) // (*var).arg = strdup(argv); // si aucune ligne on recup la commande seule
+			return (ft_free_split((*var).split_path), exit_status = 127, exit(127));
 		else
 			(*var).arg = (*var).split_path[(*var).pcmd_line]; // si ligne ok arg == bonne ligne ex : /usr/bin/echo
 		ft_free_split_exclude_line((*var).split_path, (*var).pcmd_line); // free reste du char ** de path
@@ -53,6 +59,7 @@ void	ft_init_arg(char *argv, t_m *var)
 	}
 	else if ((*var).pcmd_line != -3) // si full path
 	{
+		(*var).arg = strdup(argv);
 		(*var).split_path = ft_split(argv, ' '); // split de argv == char ** ex : ["/usr/bin/ls","- la"]
 		(*var).pcmd_line = -1;
 	}
@@ -75,6 +82,8 @@ void	ft_close_pipe_fd(t_m *var)
 
 void	ft_init_fd_redir(t_m *var)
 {
+	var->fd_status_in = 0;
+	var->fd_status_out = 0;
 	if (var->exec == 0)
 		var->fdin = 0;
 	else
@@ -109,7 +118,7 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 	if ((*pid) == 0)
 	{
 		if (var->fd_status_in == 1 || var->fd_status_out == 1)
-			return (ft_close_pipe_fd(var), exit(1));
+			return (exit(1));
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		dup2(var->fdin, 0);
@@ -122,7 +131,7 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 		}
 		exit (127);
 	}
-	// ft_unlink(var->redir, var->exec);
+	ft_unlink(var->redir, var->exec);
 	if (var->fdin != 0)
 		close(var->fdin);
 	if (var->fdout != 1)

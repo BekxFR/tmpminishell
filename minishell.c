@@ -99,40 +99,32 @@ void handle_sigint_1(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT)
-	{
-		write(2, "Quit (core dumped)\n", 20);
-		exit (1);
-	}
 }
 
 void	ft_init_heredoc(t_m *var)
 {
 	pid_t	pid;
 	
-	var->h_status = open(".TMPHERESTATUS", O_RDWR | O_CREAT, 0644);
+	var->h_status = open(".heredocstatus", O_RDWR | O_CREAT, 0644);
 	close(var->h_status);
 	(pid) = fork();
 	if ((pid) == -1)
 		return (write(2, "Error with fork\n", 17), ft_fork_fail(var));
 	if ((pid) == 0)
 	{
-
 		if (ft_strcmplen(var->redir, "<<") > 0)
 			handle_heredoc_child(var);
-		unlink(".TMPHERESTATUS");
+		unlink(".heredocstatus");
+		if (var->redir)
+			free_tripletab(var->redir);
 		exit(1);
 	}
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		wait(&pid);
-		var->h_status = open(".TMPHERESTATUS", O_RDWR);
-		if (var->h_status != -1)
-		{
-			unlink(".TMPHERESTATUS");
-			// ft_unlink(var->redir, 0);
-		}
+		waitpid(pid, &exit_status, 0);
+		exit_status = 130;
+		var->h_status = open(".heredocstatus", O_RDWR);
 		ft_signal(1);
 	}
 	return ;
@@ -152,6 +144,12 @@ void	ft_daddy(t_m *var, int *pid, int nbcmd)
 		else if (WIFSIGNALED(exit_status))
 			exit_status = 128 + WTERMSIG(exit_status);
 		i++;
+	}
+	if (var->h_status > 2)
+	{
+		close(var->h_status);
+		var->h_status = 0;
+		unlink(".heredocstatus");
 	}
 }
 
@@ -209,8 +207,6 @@ int	ft_exec(t_m *var, char ***args)
 	var->pid[var->tablen] = 0;
 	ft_init_heredoc(var);
 	ft_init_all_pipe(var);
-	// if (var->tablen == 1)
-	// 	ft_do_fork(var, args[0][0], args[0], &var->pid[0]);
 	if (var->tablen >= 1 && var->h_status == -1)
 	{
 		while ((var->exec) < var->tablen)
@@ -219,6 +215,8 @@ int	ft_exec(t_m *var, char ***args)
 			var->exec++;
 		}
 	}
+	if (var->h_status  != -1)
+		ft_unlink_all(var, 0);
 	ft_free_inttab(var->pipex);
 	ft_daddy(var, var->pid, var->tablen);
 	return (0);
@@ -228,9 +226,11 @@ int	ft_puttriplelen(char ***test, t_m *var)
 {
 	var->tablen = 0;
 
-	if (!test)
+	if (!test || !*test)
 		return (var->tablen);
-	while(test[var->tablen])
+	if (!*test[0])
+		return (var->tablen);
+	while(test[var->tablen] != NULL)
 		var->tablen++;
 	return (var->tablen);
 }
