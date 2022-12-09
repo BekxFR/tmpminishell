@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:56:23 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/09 19:34:36 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:58:57 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,6 @@ void	ft_arg_with_path(char *arg, int *cmd)
 	int	fd;
 
 	(*cmd) = 0;
-	if (arg && ft_strlen(arg) > 2)
-	{
-		if(arg[0] != '.' || arg[0] != '/')
-		{
-			if(arg[0] != '.' && arg[1] != '/')
-				return ;
-			if (arg[0] != '/')
-				return ;
-		}
-	}
 	fd = open(arg, O_RDWR);
 	if ((fd == -1) && (errno == EISDIR))
 	{
@@ -58,6 +48,11 @@ void	ft_arg_with_path(char *arg, int *cmd)
 		exit(126);
 		(*cmd) = -3;
 		return ;
+	}
+	if (arg && ft_strlen(arg) > 2)
+	{
+		if (arg[0] != '.' && arg[1] != '/')
+			return ;
 	}
 	if (fd != -1)
 		close(fd);
