@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path_args_tools.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:59:05 by chillion          #+#    #+#             */
-/*   Updated: 2022/11/30 16:24:05 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:38:35 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ void	ft_free_split_exclude_line(char **str, int line)
 
 void	ft_cleanheredoc_fd(char *str, char *buffer, char *comp, int fd1)
 {
-	free(str);
-	free(buffer);
-	(void)comp;
-	(void)fd1;
-	// free(comp);
-	// close(fd1);
+	if (!str)
+		free(str);
+	if (!buffer)
+		free(buffer);
+	if (!comp)
+		free(comp);
+	if (fd1)
+		close(fd1);
 }

@@ -1,57 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   is_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 13:44:01 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:55:06 by mgruson          ###   ########.fr       */
+/*   Created: 2022/12/08 17:24:42 by mgruson           #+#    #+#             */
+/*   Updated: 2022/12/09 11:59:49 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_n_option(char *str)
+int	is_redir_out(char **redir)
 {
 	int	i;
 
 	i = 0;
-	if (str[i++] != '-')
-		return (0);
-	if (str[i++] != 'n')
-		return (0);
-	while (str[i])
+	while (redir[i])
 	{
-		if (str[i] != 'n')
-			return (0);
+		if (ft_strcmp(redir[i], ">>") == 0)
+			return (1);
+		if (ft_strcmp(redir[i], ">") == 0)
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
-int	ft_echo(char **cmd)
+int	is_redir(char **redir)
 {
 	int	i;
 
-	if (!cmd[1])
+	i = 0;
+	while (redir[i])
 	{
-		write(1, "\n", 1);
-		return (0);
-	}
-	i = 1;
-	while (is_n_option(cmd[i]))
-		i++;
-	while (cmd[i])
-	{
-		write(1, cmd[i], ft_strlen(cmd[i]));
-		if (cmd[i + 1])
-			write(1, " ", 1);
+		if (strcmp(redir[i], "<<") == 0)
+			return (1);
+		if (strcmp(redir[i], "<") == 0)
+			return (1);
+		if (ft_strcmp(redir[i], ">>") == 0)
+			return (1);
+		if (ft_strcmp(redir[i], ">") == 0)
+			return (1);
 		i++;
 	}
-	if (is_n_option(cmd[1]))
-		write(1, "", 0);
-	else if (!is_n_option(cmd[1]))
-		write(1, "\n", 1);
 	return (0);
 }

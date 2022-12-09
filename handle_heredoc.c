@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 14:46:03 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 11:50:29 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:50:46 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ char	**malloc_heredoc(t_m *var)
 char	*get_heredoc(t_m *var, int k)
 {
 	static int	i = 0;
-	char *str;
-	char *itoa;
+	char		*str;
+	char		*itoa;
 
 	(*var).heredoc_status = 1;
 	itoa = ft_itoa(k);
 	str = ft_strjoin(".heredoc", itoa);
 	free(itoa);
 	ft_trunc_init_fd(str, &(*var).fdin);
-	ft_heredoc_fd(var, 1, 1);
+	ft_heredoc_fd(var, 1);
 	close((*var).fdin);
 	i++;
 	return (str);
@@ -45,29 +45,28 @@ char	*get_heredoc(t_m *var, int k)
 
 int	handle_heredoc(t_m *var)
 {
-	int			i;
-	int			j;
+	t_index		i;
 	static int	k = 0;
 
-	i = 0;
+	i = initialize_index();
 	malloc_heredoc(var);
 	if (!var->heredoc)
 		return (2);
-	while (var->redir[i])
+	while (var->redir[i.i])
 	{
-		j = -1;
-		while (var->redir[i][++j])
+		i.j = -1;
+		while (var->redir[i.i][++i.j])
 		{
-			if (strcmp(var->redir[i][j], "<<") == 0)
+			if (strcmp(var->redir[i.i][i.j], "<<") == 0)
 			{
-				var->redir[i][j][1] = '\0';
-				(*var).comp = ft_strdup(var->redir[i][j + 1]);
-				free(var->redir[i][j + 1]);
-				var->redir[i][j + 1] = get_heredoc(var, k);
+				var->redir[i.i][i.j][1] = '\0';
+				(*var).comp = ft_strdup(var->redir[i.i][i.j + 1]);
+				free(var->redir[i.i][i.j + 1]);
+				var->redir[i.i][i.j + 1] = get_heredoc(var, k);
 				k++;
 			}
 		}
-		i++;
+		i.i++;
 	}
 	free(var->heredoc);
 	return (0);

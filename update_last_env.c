@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote_are_closed.c                                 :+:      :+:    :+:   */
+/*   update_last_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 15:33:23 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/09 11:59:05 by mgruson          ###   ########.fr       */
+/*   Created: 2022/12/08 13:28:56 by mgruson           #+#    #+#             */
+/*   Updated: 2022/12/09 12:01:41 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "minishell.h"
 
-int	quote_are_closed(char *str)
+int	update_last_env(t_m *var)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	i = 0;
-	while (str[i])
+	while (var->cmd[i])
 	{
-		if (str[i] == 33)
-		{
-			i++;
-			while (str[i] && str[i] != 33)
-				i++;
-			if (str[i] == 0)
-				return (rite(1, "Error : close the double quote\n", 31), 0);
-		}
-		if (str[i] == 39)
-		{
-			i++;
-			while (str[i] && str[i] != 39)
-				i++;
-			if (str[i] == 0)
-				return (write(1, "Error : close the simple quote\n", 31), 0);
-		}
+		j = 0;
+		while (var->cmd[i][j])
+			j++;
 		i++;
 	}
+	export_env("_=", var->cmd[i - 1][j - 1], var);
 	return (1);
 }

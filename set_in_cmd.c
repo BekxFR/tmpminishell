@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:48:30 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/05 16:33:29 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/09 12:00:20 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	***fill_cmd(char ***cmd, char **args, char ***redir)
 	i = initialize_index();
 	while (args[i.i])
 	{
-		while (args[i.i] && (args[i.i][0] != '|' && args[i.i][0] != '<' && args[i.i][0] != '>'))
+		while (args[i.i] && (args[i.i][0] != '|' && \
+		args[i.i][0] != '<' && args[i.i][0] != '>'))
 			cmd[i.j][i.k++] = args[i.i++];
 		if (args[i.i] && (args[i.i][0] == '<' || args[i.i][0] == '>'))
 		{
@@ -75,7 +76,6 @@ int	set_in_cmd(char **args, t_m *var)
 	if (!var->redir)
 	{
 		free(var->args_line);
-		free_doubletab(var->env);
 		free_tripletab(var->cmd);
 		free_doubletab(args);
 		return (2);

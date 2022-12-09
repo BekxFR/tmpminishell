@@ -6,35 +6,11 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:31:04 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/06 19:17:10 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:35:39 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*get_env(char *env, char *envp)
-{
-	int	i;
-	int	size;
-	int	j;
-
-	j = 0;
-	i = 0;
-	size = ft_strlen(envp);
-	while (envp[i])
-	{
-		if (envp[i] && envp[i] == '=')
-		{
-			i++;
-			while (envp[i] && i <= size)
-			{
-				env[j++] = envp[i++];
-			}
-		}
-		i++;
-	}
-	return (env);
-}
 
 char	*add_good_env(char *str, int end, int start, char *envp)
 {
@@ -88,22 +64,22 @@ char	*remove_wrong_env(char *str, int end, int start)
 
 char	*basic_env(char *str, char **envp, t_index *i)
 {
-		i->start = ++i->i;
-		while (str[i->i] && isalnum(str[i->i]))
-			i->end = ++i->i;
-		i->j = is_in_env(envp, str, i->end, i->start);
-		if (i->j > -1)
-		{
-			str = add_good_env(str, i->end, i->start, envp[i->j]);
-			i->i = i->start - 2;
-		}
-		else
-		{
-			str = remove_wrong_env(str, i->end, i->start);
-			i->i = i->start - 2;
-		}
-		i->j = 0;
-		return (str);	
+	i->start = ++i->i;
+	while (str[i->i] && (isalnum(str[i->i]) || str[i->i] == '_'))
+		i->end = ++i->i;
+	i->j = is_in_env(envp, str, i->end, i->start);
+	if (i->j > -1)
+	{
+		str = add_good_env(str, i->end, i->start, envp[i->j]);
+		i->i = i->start - 2;
+	}
+	else
+	{
+		str = remove_wrong_env(str, i->end, i->start);
+		i->i = i->start - 2;
+	}
+	i->j = 0;
+	return (str);
 }
 
 char	*new_env_var(char *str, char **envp)
@@ -113,10 +89,10 @@ char	*new_env_var(char *str, char **envp)
 	i = initialize_index();
 	while (str[i.i])
 	{
-		if (str[i.i] == '$' && (ft_isalpha(str[i.i + 1]) > 0) \
-		&& !is_in_simple_quote(str, i.i))
+		if (str[i.i] == '$' && ((ft_isalpha(str[i.i + 1]) > 0) || \
+		str[i.i + 1] == '_') && !is_in_simple_quote(str, i.i))
 			str = basic_env(str, envp, &i);
-		if (str[i.i] == '$' && str[i.i + 1] == '?'
+		if (str[i.i] == '$' && str[i.i + 1] == '?' \
 		&& !is_in_simple_quote(str, i.i))
 		{
 			str = get_status(str, (i.i + 2), (i.i + 1), "2"); // "2" a remplacer par la variable status
@@ -141,7 +117,8 @@ char	**get_env_var(char **args, char **envp)
 	i = initialize_index();
 	while (args[i.i])
 	{
-		if ((args[i.i] && i.i == 0) || (i.i >= 1 && !ft_strcmp(args[i.i - 1], "<<") == 0))
+		if ((args[i.i] && i.i == 0) || (i.i >= 1 && \
+		!ft_strcmp(args[i.i - 1], "<<") == 0))
 			args[i.i] = new_env_var(args[i.i], envp);
 		i.i++;
 	}

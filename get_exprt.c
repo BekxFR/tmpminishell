@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:20:35 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/05 15:30:33 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:30:52 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	**add_export_form(char **exprt)
 	return (free(exprt), new_exprt);
 }
 
-int get_exprt(char **envp)
+int	get_exprt(char **envp)
 {
 	t_index	i;
 	char	**exprt;

@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:46:47 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/07 12:31:00 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:54:31 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*new_env_var_heredoc(char *str, char **envp, t_m *var)
 	return (str);
 }
 
-void	ft_heredoc_fd(t_m *var, int n, int j)
+void	ft_heredoc_fd(t_m *var, int n)
 {
 	char	*str;
 	int		quote;
@@ -83,7 +83,6 @@ void	ft_heredoc_fd(t_m *var, int n, int j)
 		write((*var).fdin, str, ft_strlen(str));
 		write((*var).fdin, "\n", 2);
 		free(str);
-		j++;
 	}
 	free (str);
 	return (ft_signal(1), ft_cleanheredoc_fd(NULL, NULL,\

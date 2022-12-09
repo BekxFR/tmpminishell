@@ -6,11 +6,35 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:57:44 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/01 12:21:24 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:35:43 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_env(char *env, char *envp)
+{
+	int	i;
+	int	size;
+	int	j;
+
+	j = 0;
+	i = 0;
+	size = ft_strlen(envp);
+	while (envp[i])
+	{
+		if (envp[i] && envp[i] == '=')
+		{
+			i++;
+			while (envp[i] && i <= size)
+			{
+				env[j++] = envp[i++];
+			}
+		}
+		i++;
+	}
+	return (env);
+}
 
 int	is_in_env(char **envp, char *str, int end, int start)
 {

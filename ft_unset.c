@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:28:16 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/07 17:27:59 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:36:51 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_unset_check_double(t_m *var, char *args, int egalen)
 	int		i;
 
 	i = 0;
-	while((*var).env[i])
+	while ((*var).env[i])
 	{
 		if (!ft_strncmp((*var).env[i], args, egalen) \
 		&& ft_len_beforechar((*var).env[i], '=') == egalen)
@@ -49,9 +49,9 @@ void	ft_unset_check_double(t_m *var, char *args, int egalen)
 
 void	ft_unset_remove(t_m *var, int m)
 {
-	int	i;
-	int	j;
-	char **tmp;
+	int		i;
+	int		j;
+	char	**tmp;
 
 	i = ft_tablen((*var).env);
 	tmp = (char **)malloc(sizeof(char *) * (i));

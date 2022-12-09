@@ -95,19 +95,18 @@ int	malloc_redir(char ***redir, char **args, t_m *var);
 int malloc_cmd(char ***cmd, char **args, t_m *var);
 
 
-/* mathieu_utils.c */
+/* minishell_utils.c */
+
+char	*ft_strcpy(char *dest, char *src);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_tablen(char **tab);
+int		ft_intlen(int nbr);
+int		ft_strcmplen(char ***redir, char *str);
+
+/* minishell_utils2.c */
 
 void	ft_putdoubletab(char **tab);
 void	ft_puttripletab(char ***test);
-int		ft_tablen(char **tab);
-int		ft_strcmp(char *s1, char *s2);
-int		ft_tabsort_cmp(char **s1, char **s2);
-int		ft_tabunsort_cmp(char **tab1, char **tab2);
-void	*ft_memcpy_mathieu(void *dest, void *src, size_t n);
-int		ft_intlen(int nbr);
-int		ft_strlenint(char *str);
-int		ft_strcmplen(char ***redir, char *str);
-char	*ft_strcpy(char *dest, char *src);
 
 /* is_cmdline_valid.c */
 
@@ -179,7 +178,7 @@ void	ft_export_add(t_m *var, char *args, int type);
 void	ft_add_export_check_double(t_m *var, char *args, int egalen);
 
 /* ft_env.c */
-int		ft_env(t_m *var, char **envp);
+int		ft_create_env(t_m *var, char **envp);
 void	ft_print_env(char **str);
 char	*ft_strdup_without_one(const char *src);
 int		ft_export_check_args(char *args, int *egalen);
@@ -228,7 +227,7 @@ int		ft_trunc_init_fd(char *file, int *fd);
 int		ft_eof_find(char *str, char *comp, int i, t_m *var);
 void	ft_write_here_sign(char c);
 void	ft_write_here_sign(char c);
-void	ft_heredoc_fd(t_m *var, int n, int j);
+void	ft_heredoc_fd(t_m *var, int n);
 void	ft_check_heredoc(char *argv, char *stop, t_m *var);
 
 
@@ -258,6 +257,7 @@ int is_env_builtin(char **cmd);
 
 /* ft_cd.c */
 
+int	export_env(char *name, char *word, t_m *var);
 int ft_cd(char **argv, int i, t_m *var);
 
 /* ft_exit.c */
@@ -278,7 +278,17 @@ int	go_in_builtin(char *str);
 
 void	ft_unlink(char ***redir, int i);
 
+/* ft_env */
+
+int ft_env(char **env);
+
 /* get_status.c */
+
+/* is_redir.c */
+
+int	is_redir_out(char **redir);
+int	is_redir(char **redir);
+
 
 char	*get_status(char *str, int end, int start, char *status);
 
@@ -289,5 +299,9 @@ void	handle_sigint_2(int sig);
 void	ft_fd_init(t_m *var);
 void	ft_pipe_read_write(t_m *var);
 void	ft_signal(int i);
+
+/* update_last_env.c */
+
+int update_last_env(t_m *var);
 
 #endif

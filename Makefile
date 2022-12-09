@@ -27,7 +27,8 @@ NC = \033[0m
 
 SRCS =	minishell.c	\
 		ft_parsing.c \
-		mathieu_utils.c \
+		minishell_utils.c \
+		minishell_utils2.c \
 		is_cmdline_valid.c \
 		clean_args.c \
 		ft_pwd.c \
@@ -60,6 +61,9 @@ SRCS =	minishell.c	\
 		ft_unlink.c \
 		get_status.c \
 		has_quote.c \
+		ft_create_env.c \
+		update_last_env.c \
+		is_redir.c \
 
 BONUS = \
 

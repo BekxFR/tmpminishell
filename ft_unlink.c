@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 15:38:45 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/05 16:25:57 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:37:13 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_unlink(char ***redir, int i)
 {
-	int j;
-	
+	int	j;
+
 	j = 0;
 	while (redir[i][j])
 	{

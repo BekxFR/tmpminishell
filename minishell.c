@@ -2,6 +2,8 @@
 
 #include "minishell.h"
 
+int exit_status;
+
 void	ft_history_init_fd(char *file, int *fd)
 {
 	int	t;
@@ -63,13 +65,10 @@ void	ft_print_split(char **str)
 
 void	handle_sigint_2(int sig)
 {
-	int status = 0;
-
-	(void)status;
-	status += sig;
+	exit_status += sig;
 	if (sig == 2)
 	{
-		status = 130;
+		exit_status = 130;
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -78,8 +77,10 @@ void	handle_sigint_2(int sig)
 
 void handle_sigint_1(int sig)
 {
+	exit_status += sig;
 	if (sig == SIGINT)
 	{
+		exit_status = 130;
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -95,21 +96,20 @@ void handle_sigint_1(int sig)
 void	ft_daddy(t_m *var, int *pid, int nbcmd)
 {
 	int	i;
-	int	status;
 
 	i = 0;
-	status = 0;
 	(void)var;
 	while (i < nbcmd && nbcmd != 0)
 	{
-		waitpid(pid[i], &status, 0);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			status = 128 + WTERMSIG(status);
+		waitpid(pid[i], &exit_status, 0);
+		if (WIFEXITED(exit_status))
+			exit_status = WEXITSTATUS(exit_status);
+		else if (WIFSIGNALED(exit_status))
+			exit_status = 128 + WTERMSIG(exit_status);
 		i++;
 	}
 }
+
 
 int	ft_init_pipe(t_m *var, int i)
 {
@@ -198,7 +198,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)envp;
 	if (argc != 1)
 		return (ft_printf("Error : Wrong Number of arguments\n"), 1);
-	if (ft_env(&var, envp) == -1)
+	if (ft_create_env(&var, envp) == -1)
 		return (ft_printf("Error : Malloc for keep env fail\n"), 1);
 	while (1)
 	{
@@ -206,11 +206,12 @@ int	main(int argc, char **argv, char **envp)
 		ft_init_commands_history(&var);
 		if (!var.args_line)
 			return (ft_free_split(var.env), rl_clear_history(), printf("exit\n"), 0);
-		if (ft_parsing(&var, envp, &var.cmd, &var.redir) == 2)
+		if (ft_parsing(&var, var.env, &var.cmd, &var.redir) == 2)
 			return (2);
 		free(var.args_line);
 		ft_puttriplelen(var.cmd, &var);
 		ft_exec(&var, var.cmd);
+		update_last_env(&var);
 		free_all(&var);
 	}
 	return (0);

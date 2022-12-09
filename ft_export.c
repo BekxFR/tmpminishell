@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:07:52 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/07 17:33:40 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:42:45 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_export(t_m *var, char **cmd)
+void	ft_export(t_m *var, char **cmd)
 {
-	if(cmd[1])
+	if (cmd[1])
 		ft_export_with_arg(var, cmd);
 	if (!cmd[1])
 		get_exprt(var->env);
@@ -41,13 +41,14 @@ void	ft_add_export_check_double(t_m *var, char *args, int egalen)
 	int		i;
 
 	i = 0;
-	while((*var).env[i])
+	while ((*var).env[i])
 	{
 		if (!ft_strncmp((*var).env[i], args, (egalen)))
 		{
 			if (var->env[i][egalen] == '=')
 			{
-				(*var).env[i] = ft_strjoin_free((*var).env[i], (args + (egalen + 2)));
+				(*var).env[i] = \
+				ft_strjoin_free((*var).env[i], (args + (egalen + 2)));
 				return ;
 			}
 		}
@@ -62,7 +63,7 @@ void	ft_export_check_double(t_m *var, char *args, int egalen)
 	char	*tmp;
 
 	i = 0;
-	while((*var).env[i])
+	while ((*var).env[i])
 	{
 		if (!ft_strncmp((*var).env[i], args, (egalen + 1)))
 		{
@@ -78,8 +79,8 @@ void	ft_export_check_double(t_m *var, char *args, int egalen)
 
 void	ft_export_add(t_m *var, char *args, int type)
 {
-	int	i;
-	char **tmp;
+	int		i;
+	char	**tmp;
 
 	i = ft_tablen((*var).env);
 	tmp = (char **)malloc(sizeof(char *) * (i + 2));
