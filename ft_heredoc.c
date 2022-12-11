@@ -77,7 +77,6 @@ void	ft_heredoc_fd(t_m *var, int n)
 		}
 		if (ft_strcmp(clear_quote((*var).comp), str) == 0)
 			return ;
-		printf("cmp : %s\n", (*var).comp);
 		if (quote == 1)
 			str = new_env_var_heredoc(str, var->env, var);
 		write((*var).fdin, str, ft_strlen(str));

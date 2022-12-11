@@ -64,7 +64,6 @@ int	set_in_cmd(char **args, t_m *var)
 	int		triple_pointer_len;
 
 	triple_pointer_len = ft_triple_pointer_len(var->args_line);
-	printf("triple_pointer_len=%d\n", triple_pointer_len);
 	var->cmd = ft_calloc(sizeof(char **), (triple_pointer_len + 1));
 	if (!var->cmd)
 	{

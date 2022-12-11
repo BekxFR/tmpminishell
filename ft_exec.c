@@ -30,7 +30,6 @@ void	ft_execve(char *pcmd, char **option, char **envp, t_m *var)
 	}
 	free((*var).arg);
 	ft_free_split((*var).split_path);
-	write(2, "EXIT 127 FAIL\n", 15);
 	exit(127);
 }
 
