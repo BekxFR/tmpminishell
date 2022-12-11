@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern int	exit_status;
+
 int	ft_create_env(t_m *var, char **envp)
 {
 	int	i;
@@ -85,12 +87,18 @@ int	ft_export_check_args(char *args, int *egalen)
 	if (!args && !*args)
 		return (0);
 	if ((ft_isalpha(args[0]) == 0) && args[0] != '_')
+	{
+		exit_status = 1;
 		return (printf("export: `%s': not a valid identifier\n", args), 0);
+	}
 	*egalen = -1;
 	while ((++*egalen) > -1 && args[(*egalen)] && (args[(*egalen) + 1] != '='))
 	{
 		if (args[*egalen] != '_' && (ft_isalnum(args[*egalen]) == 0))
+		{
+			exit_status = 1;
 			return (printf("export: `%s': not a valid identifier\n", args), 0);
+		}
 	}
 	if (args[*egalen] == '\0')
 		return (0);
@@ -115,6 +123,6 @@ int	ft_export_check_addargs(char *args, int *egalen)
 			return (printf("export: `%s': not a valid identifier\n", args), -1);
 	}
 	if (args[*egalen] == '\0')
-		return (-1);
+		return (-2);
 	return (0);
 }

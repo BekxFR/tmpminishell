@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern int	exit_status;
+
 int	is_str_digit(char *str)
 {
 	int	i;
@@ -31,12 +33,17 @@ int	is_str_digit(char *str)
 
 int	do_builtin(t_m *var, char **cmd)
 {
+	exit_status = 0;
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		return (ft_exit(var, cmd), 1);
 	else if (ft_strcmp(cmd[0], "pwd") == 0 && go_in_builtin(cmd[1]) == 1)
 		return (ft_pwd(), 1);
 	else if (ft_strcmp(cmd[0], "cd") == 0)
-		return (ft_cd(cmd, 1, var), 1);
+	{
+		if (ft_cd(cmd, 1, var) == 1)
+			exit_status = 1;
+		return (1);
+	}
 	else if (ft_strcmp(cmd[0], "echo") == 0)
 		return (ft_echo(cmd), 1);
 	else if (ft_strcmp(cmd[0], "export") == 0)

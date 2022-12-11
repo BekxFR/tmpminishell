@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern int	exit_status;
+
 int	go_in_builtin(char *str)
 {
 	int	i;
@@ -37,8 +39,9 @@ int	ft_pwd(void)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		printf("pwd: error retrieving current directory: getcwd: \
-		cannot access parent directories: No such file or directory\n");
+		exit_status = 1;
+		write(2, "pwd: error retrieving current directory: getcwd: \
+		cannot access parent directories: No such file or directory\n", 112);
 		return (2);
 	}
 	else

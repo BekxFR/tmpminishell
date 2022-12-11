@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern int	exit_status;
+
 void	ft_export(t_m *var, char **cmd)
 {
 	if (cmd[1])
@@ -28,6 +30,8 @@ void	ft_export_with_arg(t_m *var, char **args)
 	while (*args)
 	{
 		egalen = ft_export_check_addargs(*args, &egalen);
+		if (egalen == -1)
+			exit_status = 1;
 		if (egalen > 0)
 			return (ft_add_export_check_double(var, *args, egalen));
 		if (egalen != -1 && ft_export_check_args(*args, &egalen))

@@ -18,12 +18,13 @@ int	free_all(t_m *var)
 		free_tripletab(var->redir);
 	if (var->cmd)
 		free_tripletab(var->cmd);
+	// ft_free_inttab(var->pipex);
+	if (var->pid)
+		free(var->pid);
 	// if (var->env)
 	// 	free_doubletab(var->env);
 	// if (var->split_path)
 	// 	free_doubletab(var->split_path);
-	if (var->pid)
-		free(var->pid);
 	return (1);
 }
 
@@ -66,31 +67,134 @@ void	free_doubletab(char **str)
 	str = NULL;
 }
 
+// void free_tripletab(char ***tab)
+// {
+// 	int i;
+// 	int j;
+	
+// 	i = 0;
+// 	j = 0;
+// 	if (!tab)
+// 		return ;
+// 	while (tab[i])
+// 	{
+// 		j = 0;
+// 		while(tab[i][j])
+// 		{
+// 			free(tab[i][j]);
+// 			tab[i][j] = NULL;
+// 			j++;
+// 		}
+// 		free(tab[i]);
+// 		tab[i] = NULL;
+// 		i++;
+// 	}
+// 	if (*tab)
+// 	{
+// 		free(tab);
+// 		tab = NULL;
+// 	}
+// }
+
 void free_tripletab(char ***tab)
 {
 	int i;
 	int j;
 	
 	i = 0;
-	j = 0;
 	if (!tab)
 		return ;
-	while (tab[i])
+	while(tab[i])
+		i++;
+	while (--i >= 0)
 	{
 		j = 0;
 		while(tab[i][j])
+			j++;
+		while(--j >= 0)
 		{
 			free(tab[i][j]);
 			tab[i][j] = NULL;
-			j++;
 		}
 		free(tab[i]);
 		tab[i] = NULL;
-		i++;
 	}
-	if (*tab)
+	if (tab)
 	{
 		free(tab);
 		tab = NULL;
 	}
+}
+
+
+void free_tripletab2(t_m *var)
+{
+	int i;
+	int j;
+	
+	i = 0;
+	if (!var->cmd)
+		return ;
+	while(var->cmd[i])
+		i++;
+	while (--i >= 0)
+	{
+		j = 0;
+		while(var->cmd[i][j])
+			j++;
+		while(--j >= 0)
+		{
+			free(var->cmd[i][j]);
+			var->cmd[i][j] = NULL;
+		}
+		free(var->cmd[i]);
+	}
+	if (var->redir)
+	{
+		free(var->redir);
+		var->redir = NULL;
+	}
+	if (var->cmd)
+	{
+		free(var->cmd);
+		var->cmd = NULL;
+	}
+	// free(var->cmd);
+	// free(var->redir);
+	// if (var->cmd)
+	// {
+	// 	free(var->cmd);
+	// 	var->cmd = NULL;
+	// }
+/*
+	while (var->cmd[i])
+	{
+		j = 0;
+		while(var->cmd[i][j])
+		{
+			// free(var->cmd[i][j]);
+			// var->cmd[i][j] = NULL;
+			j++;
+		}
+		printf("J=%d, i=%d\n", j , i);
+		// free(var->cmd[i]);
+		// var->cmd[i] = NULL;
+		i++;
+	}
+	printf("J=%d, i=%d\n", j , i);
+	// free(var->cmd[0][2]);
+	// free(var->cmd[2][0]);
+	free(var->cmd[1]);
+	free(var->cmd[0][1]);
+	free(var->cmd[0][0]);
+	free(var->cmd[0]);
+	// free(var->cmd[0][2]);
+	free(var->cmd);
+	free(var->redir);
+	// if (*var->cmd)
+	// {
+	// 	free(var->cmd);
+	// 	var->cmd = NULL;
+	// }
+*/
 }

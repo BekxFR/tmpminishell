@@ -14,6 +14,7 @@
 
 int	malloc_double_pointer_cmd(char ***tab, int count, char **args, t_m *var)
 {
+	printf("count=%d\n", count);
 	*tab = ft_calloc(sizeof(char *), (count + 1));
 	if (!*tab)
 	{

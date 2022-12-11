@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern int	exit_status;
+
 int	find_env_name_line(char *name, char **env)
 {
 	int	i;
@@ -47,11 +49,17 @@ int	cd_need_path(char **cmd, int len, t_m *var, char *newpath)
 	{
 		newpath = import_user("HOME=", var);
 		if (chdir(newpath) != 0)
+		{
+			exit_status = 1;
 			return (printf("cd : HOME not set\n"), 0);
+		}
 		return (0);
 	}
 	if (len > 2)
-		return (write(2, "cd: too many arguments\n", 23), 0); //130
+	{
+		exit_status = 1;
+		return (write(2, "cd: too many arguments\n", 23), 0);
+	}
 	return (1);
 }
 
@@ -67,17 +75,17 @@ int	ft_cd(char **cmd, int i, t_m *var)
 	path = getcwd(path, 0);
 	if (!path)
 		return (printf("chdir: error retrieving current directory: getcwd: \
-		cannot access parent directories: No such file or directory\n"), 2);
+		cannot access parent directories: No such file or directory\n"), 1);
 	export_env("OLDPWD=", path, var);
 	if (cmd[1][0] != '/')
 	{
 		path = ft_strjoin_free(path, "/");
 		path = ft_strjoin_free(path, cmd[i]);
 		if (chdir(path) != 0)
-			printf("cd: %s No such file or directory\n", cmd[i]);
+			return (printf("cd: %s No such file or directory\n", cmd[i]), 1);
 	}
 	else if (chdir(cmd[1]) != 0)
-		printf("cd: %s No such file or directory\n", cmd[i]);
+		return (printf("cd: %s No such file or directory\n", cmd[i]), 1);
 	newpath = getcwd(newpath, 0);
 	export_env("PWD=", newpath, var);
 	return (0);

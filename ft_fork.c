@@ -33,7 +33,8 @@ void	ft_arg_check_fullpath(char *arg, t_m*var)
 	{
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		return (exit_status = 127, exit(127));
+		// exit_status = 127;
+		return (exit(127));
 	}
 	if ((*var).pcmd_line == 0) // si non full path
 	{
@@ -49,9 +50,12 @@ void	ft_init_arg(char *argv, t_m *var)
 	ft_arg_check_fullpath(argv, var); // check full path
 	if ((*var).pcmd_line == 0) // si non full path
 	{
-		(*var).pcmd_line = ft_check_access(argv , (*var).split_path); // check la bonne ligne et keep ligne
+		(*var).pcmd_line = ft_check_access(argv , (*var).split_path, var); // check la bonne ligne et keep ligne
 		if ((*var).pcmd_line == -2) // (*var).arg = strdup(argv); // si aucune ligne on recup la commande seule
-			return (ft_free_split((*var).split_path), exit_status = 127, exit(127));
+		{
+			// exit_status = 127;
+			return (ft_free_split((*var).split_path), exit(127));
+		}
 		else
 			(*var).arg = (*var).split_path[(*var).pcmd_line]; // si ligne ok arg == bonne ligne ex : /usr/bin/echo
 		ft_free_split_exclude_line((*var).split_path, (*var).pcmd_line); // free reste du char ** de path
@@ -129,7 +133,7 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 			ft_init_arg(arg, var);
 			ft_execve((*var).arg, targ, (*var).env, var);
 		}
-		exit (127);
+		exit (0);
 	}
 	ft_unlink(var->redir, var->exec);
 	if (var->fdin != 0)

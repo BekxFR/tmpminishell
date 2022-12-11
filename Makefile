@@ -13,6 +13,7 @@ OBJ_DIR := objects/
 AR := ar rc
 RM := rm
 VAL := valgrind --leak-check=full --track-origins=yes --trace-children=yes --track-fds=yes
+LEAK := valgrind --suppressions=valgrind_readline_leaks_ignore.txt --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt
 # VAL := valgrind --leak-check=full --track-origins=yes --log-file="LogVal" --show-leak-kinds=all --track-fds=yes
 
 BLACK = \033[1;30m
@@ -123,6 +124,9 @@ test : all
 	@cat .history
 	@echo "${BLUE}###${GREEN}Lecture du fichier Outfile${BLUE}###${NC}"
 	@cat test2
+
+leak : all
+	${LEAK} ./${SOFT_NAME}
 
 test1 : all
 	${VAL} env -i ./${SOFT_NAME}

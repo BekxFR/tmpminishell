@@ -22,7 +22,7 @@ void	ft_putdoubletab(char **tab)
 	while (tab[i])
 	{
 		ft_putstr(tab[i]);
-		write(1, "\n", 1);
+		write(1, "\n", 2);
 		i++;
 	}	
 }

@@ -1,387 +1,175 @@
-==520764== Memcheck, a memory error detector
-==520764== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==520764== Using Valgrind-3.18.1-42b08ed5bd-20211015 and LibVEX; rerun with -h for copyright info
-==520764== Command: ./minishell
-==520764== Parent PID: 472780
-==520764== 
---520764-- 
---520764-- Valgrind options:
---520764--    --suppressions=valgrind_readline_leaks_ignore.txt
---520764--    --track-fds=yes
---520764--    --leak-check=full
---520764--    --show-leak-kinds=all
---520764--    --track-origins=yes
---520764--    --verbose
---520764--    --log-file=valgrind-out.txt
---520764-- Contents of /proc/version:
---520764--   Linux version 5.15.0-53-generic (buildd@lcy02-amd64-047) (gcc (Ubuntu 11.2.0-19ubuntu1) 11.2.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #59-Ubuntu SMP Mon Oct 17 18:53:30 UTC 2022
---520764-- 
---520764-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-rdtscp-sse3-ssse3-avx-f16c-rdrand
---520764-- Page sizes: currently 4096, max supported 4096
---520764-- Valgrind library directory: /usr/libexec/valgrind
---520764-- Reading syms from /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell
---520764-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
---520764--   Considering /usr/lib/debug/.build-id/61/ef896a699bb1c2e4e231642b2e1688b2f1a61e.debug ..
---520764--   .. build-id is valid
---520764-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
---520764--    object doesn't have a symbol table
---520764--    object doesn't have a dynamic symbol table
---520764-- Scheduler: using generic scheduler lock implementation.
---520764-- Reading suppressions file: valgrind_readline_leaks_ignore.txt
---520764-- Reading suppressions file: /usr/libexec/valgrind/default.supp
-==520764== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-520764-by-chillion-on-???
-==520764== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-520764-by-chillion-on-???
-==520764== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-520764-by-chillion-on-???
-==520764== 
-==520764== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==520764== don't want to do, unless you know exactly what you're doing,
-==520764== or are doing some strange experiment):
-==520764==   /usr/bin/vgdb --pid=520764 ...command...
-==520764== 
-==520764== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==520764==   /path/to/gdb ./minishell
-==520764== and then give GDB the following command
-==520764==   target remote | /usr/bin/vgdb --pid=520764
-==520764== --pid is optional if only one valgrind process is running
-==520764== 
---520764-- REDIR: 0x402aa60 (ld-linux-x86-64.so.2:strlen) redirected to 0x580bcec2 (???)
---520764-- REDIR: 0x402a830 (ld-linux-x86-64.so.2:index) redirected to 0x580bcedc (???)
---520764-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
---520764--    object doesn't have a symbol table
---520764-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
---520764--    object doesn't have a symbol table
-==520764== WARNING: new redirection conflicts with existing -- ignoring it
---520764--     old: 0x0402aa60 (strlen              ) R-> (0000.0) 0x580bcec2 ???
---520764--     new: 0x0402aa60 (strlen              ) R-> (2007.0) 0x0484ee30 strlen
---520764-- REDIR: 0x4027240 (ld-linux-x86-64.so.2:strcmp) redirected to 0x484fcd0 (strcmp)
---520764-- REDIR: 0x402afc0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4853840 (mempcpy)
---520764-- Reading syms from /usr/lib/x86_64-linux-gnu/libreadline.so.8.1
---520764--    object doesn't have a symbol table
---520764-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
---520764--   Considering /usr/lib/debug/.build-id/69/389d485a9793dbe873f0ea2c93e02efaa9aa3d.debug ..
---520764--   .. build-id is valid
-==520764== WARNING: new redirection conflicts with existing -- ignoring it
---520764--     old: 0x0496ece0 (memalign            ) R-> (1011.0) 0x0484e080 memalign
---520764--     new: 0x0496ece0 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
-==520764== WARNING: new redirection conflicts with existing -- ignoring it
---520764--     old: 0x0496ece0 (memalign            ) R-> (1011.0) 0x0484e080 memalign
---520764--     new: 0x0496ece0 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
-==520764== WARNING: new redirection conflicts with existing -- ignoring it
---520764--     old: 0x0496ece0 (memalign            ) R-> (1011.0) 0x0484e080 memalign
---520764--     new: 0x0496ece0 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
-==520764== WARNING: new redirection conflicts with existing -- ignoring it
---520764--     old: 0x0496ece0 (memalign            ) R-> (1011.0) 0x0484e080 memalign
---520764--     new: 0x0496ece0 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
---520764-- Reading syms from /usr/lib/x86_64-linux-gnu/libtinfo.so.6.3
---520764--    object doesn't have a symbol table
---520764-- REDIR: 0x49717a0 (libc.so.6:strnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4971a60 (libc.so.6:strpbrk) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4971360 (libc.so.6:strcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x498fd50 (libc.so.6:wcsnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972750 (libc.so.6:memset) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x498e5c0 (libc.so.6:wcslen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972c90 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x498e3f0 (libc.so.6:wcschr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x49712e0 (libc.so.6:index) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x49719e0 (libc.so.6:rindex) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972620 (libc.so.6:memmove) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x498e470 (libc.so.6:wcscmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972a60 (libc.so.6:stpncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x498ea30 (libc.so.6:wmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x49718b0 (libc.so.6:strncmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972af0 (libc.so.6:strcasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x49714a0 (libc.so.6:strcspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x498e4f0 (libc.so.6:wcscpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4971250 (libc.so.6:strcat) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972be0 (libc.so.6:strncasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972500 (libc.so.6:bcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x497a5f0 (libc.so.6:memrchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4974090 (libc.so.6:strchrnul) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4971410 (libc.so.6:strcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972b90 (libc.so.6:strcasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4971720 (libc.so.6:strlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4971950 (libc.so.6:strncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x49729d0 (libc.so.6:stpcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972470 (libc.so.6:memchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4971b80 (libc.so.6:strspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972850 (libc.so.6:mempcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972b40 (libc.so.6:strncasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4974000 (libc.so.6:rawmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4971820 (libc.so.6:strncat) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x49fd430 (libc.so.6:__memcpy_chk) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x4972390 (libc.so.6:strstr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---520764-- REDIR: 0x49836d0 (libc.so.6:__strrchr_sse2) redirected to 0x484e870 (__strrchr_sse2)
---520764-- REDIR: 0x496e120 (libc.so.6:malloc) redirected to 0x4848820 (malloc)
---520764-- REDIR: 0x49839d0 (libc.so.6:__strlen_sse2) redirected to 0x484ed70 (__strlen_sse2)
---520764-- REDIR: 0x498d8f0 (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x484fe00 (memcpy@GLIBC_2.2.5)
---520764-- REDIR: 0x49834c0 (libc.so.6:__strchrnul_sse2) redirected to 0x4853330 (strchrnul)
---520764-- REDIR: 0x490e150 (libc.so.6:setenv) redirected to 0x48542d0 (setenv)
---520764-- REDIR: 0x4983290 (libc.so.6:__strchr_sse2) redirected to 0x484e990 (__strchr_sse2)
---520764-- REDIR: 0x4a5cbd0 (libc.so.6:__strncmp_sse42) redirected to 0x484f500 (__strncmp_sse42)
---520764-- REDIR: 0x496e7c0 (libc.so.6:realloc) redirected to 0x484dc50 (realloc)
---520764-- REDIR: 0x498d8d0 (libc.so.6:__mempcpy_sse2_unaligned) redirected to 0x4853440 (mempcpy)
---520764-- REDIR: 0x497bdf0 (libc.so.6:__strcmp_sse2_unaligned) redirected to 0x484fbd0 (strcmp)
---520764-- REDIR: 0x496f5a0 (libc.so.6:calloc) redirected to 0x484d9d0 (calloc)
---520764-- REDIR: 0x4983b70 (libc.so.6:__strnlen_sse2) redirected to 0x484ecb0 (strnlen)
---520764-- REDIR: 0x496e460 (libc.so.6:free) redirected to 0x484b210 (free)
---520764-- REDIR: 0x4988910 (libc.so.6:__strcpy_sse2_unaligned) redirected to 0x484ee60 (strcpy)
---520764-- REDIR: 0x4972040 (libc.so.6:__GI_strstr) redirected to 0x4853ae0 (__strstr_sse2)
---520764-- REDIR: 0x498d8e0 (libc.so.6:__memcpy_chk_sse2_unaligned) redirected to 0x4853940 (__memcpy_chk)
---520764-- REDIR: 0x498dfe0 (libc.so.6:__memset_sse2_unaligned) redirected to 0x4852770 (memset)
---520764-- REDIR: 0x4988f40 (libc.so.6:__strncpy_sse2_unaligned) redirected to 0x484f2e0 (__strncpy_sse2_unaligned)
---520764-- REDIR: 0x497d900 (libc.so.6:__memchr_sse2) redirected to 0x484fd50 (memchr)
---520764-- REDIR: 0x4989f50 (libc.so.6:__stpcpy_sse2_unaligned) redirected to 0x4852370 (__stpcpy_sse2_unaligned)
---520764-- REDIR: 0x4a632b0 (libc.so.6:__strcasecmp_avx) redirected to 0x484f560 (strcasecmp)
---520764-- REDIR: 0x4a64930 (libc.so.6:__strncasecmp_avx) redirected to 0x484f640 (strncasecmp)
---520764-- REDIR: 0x4a6bcb0 (libc.so.6:__memcmp_sse4_1) redirected to 0x4851f80 (__memcmp_sse4_1)
-==520816== 
-==520816== FILE DESCRIPTORS: 27 open (3 std) at exit.
-==520816== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 55: /dev/ptmx
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 54: /usr/share/code/resources/app/node_modules.asar
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 53: /dev/ptmx
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 52: /mnt/nfs/homes/chillion/.config/Code/logs/20221209T110927/ptyhost.log
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 49: /usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 48: /usr/share/code/resources/app/node_modules.asar
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 47: /dev/shm/.org.chromium.Chromium.23af1E (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 46: /dev/shm/.org.chromium.Chromium.kOKy8O (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 45: /dev/shm/.org.chromium.Chromium.hr2RqV (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 44: /dev/shm/.org.chromium.Chromium.fVOVJ5 (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 39: /dev/shm/.org.chromium.Chromium.m8vAWP (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 38: /dev/shm/.org.chromium.Chromium.34v2pd (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 37: /dev/shm/.org.chromium.Chromium.Zx9KBi (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 36: /dev/shm/.org.chromium.Chromium.aXaKig (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 35: /dev/shm/.org.chromium.Chromium.inJHE7 (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open AF_UNIX socket 34: <unknown>
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 33: /tmp/.org.chromium.Chromium.D9ALCp (deleted)
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 32: /proc/374081/status
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 31: /mnt/nfs/homes/chillion/.config/Code/Dictionaries/en-US-10-1.bdic
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 30: /proc/374081/statm
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open AF_UNIX socket 29: <unknown>
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 20: /usr/share/code/v8_context_snapshot.bin
-==520816==    <inherited from parent>
-==520816== 
-==520816== Open file descriptor 3: /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/valgrind-out.txt
-==520816==    <inherited from parent>
-==520816== 
-==520816== 
-==520816== HEAP SUMMARY:
-==520816==     in use at exit: 214,083 bytes in 317 blocks
-==520816==   total heap usage: 538 allocs, 221 frees, 235,053 bytes allocated
-==520816== 
-==520816== Searching for pointers to 317 not-freed blocks
-==520816== Checked 255,336 bytes
-==520816== 
-==520816== 2 bytes in 1 blocks are still reachable in loss record 1 of 74
-==520816==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==520816==    by 0x11096E: ft_strdup (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10E0F7: handle_heredoc_child (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x1098C9: ft_init_heredoc (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x109CB2: ft_exec (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10A088: main (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816== 
-==520816== 4 bytes in 1 blocks are still reachable in loss record 5 of 74
-==520816==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==520816==    by 0x109C51: ft_exec (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10A088: main (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816== 
-==520816== 8 bytes in 1 blocks are still reachable in loss record 8 of 74
-==520816==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==520816==    by 0x11090B: ft_calloc (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10E53B: malloc_double_pointer_cmd (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10E7C7: malloc_cmd (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10B072: set_in_cmd (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10A1B1: ft_parsing (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10A01A: main (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816== 
-==520816== 16 bytes in 1 blocks are still reachable in loss record 15 of 74
-==520816==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==520816==    by 0x11090B: ft_calloc (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10AFB1: set_in_cmd (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10A1B1: ft_parsing (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10A01A: main (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816== 
-==520816== 16 bytes in 1 blocks are still reachable in loss record 16 of 74
-==520816==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==520816==    by 0x11090B: ft_calloc (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10B010: set_in_cmd (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10A1B1: ft_parsing (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10A01A: main (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816== 
-==520816== 688 bytes in 1 blocks are still reachable in loss record 34 of 74
-==520816==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==520816==    by 0x10FEA2: ft_create_env (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x109F7E: main (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816== 
-==520816== 5,118 bytes in 85 blocks are still reachable in loss record 60 of 74
-==520816==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==520816==    by 0x11096E: ft_strdup (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x10FF1D: ft_create_env (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816==    by 0x109F7E: main (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520816== 
-==520816== LEAK SUMMARY:
-==520816==    definitely lost: 0 bytes in 0 blocks
-==520816==    indirectly lost: 0 bytes in 0 blocks
-==520816==      possibly lost: 0 bytes in 0 blocks
-==520816==    still reachable: 5,852 bytes in 91 blocks
-==520816==         suppressed: 208,231 bytes in 226 blocks
-==520816== 
-==520816== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
---520816-- 
---520816-- used_suppression:     63 leak readline valgrind_readline_leaks_ignore.txt:2 suppressed: 204,174 bytes in 222 blocks
---520816-- used_suppression:      4 leak add_history valgrind_readline_leaks_ignore.txt:8 suppressed: 4,057 bytes in 4 blocks
-==520816== 
-==520816== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
-==520764== 
-==520764== FILE DESCRIPTORS: 27 open (3 std) at exit.
-==520764== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 55: /dev/ptmx
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 54: /usr/share/code/resources/app/node_modules.asar
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 53: /dev/ptmx
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 52: /mnt/nfs/homes/chillion/.config/Code/logs/20221209T110927/ptyhost.log
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 49: /usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 48: /usr/share/code/resources/app/node_modules.asar
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 47: /dev/shm/.org.chromium.Chromium.23af1E (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 46: /dev/shm/.org.chromium.Chromium.kOKy8O (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 45: /dev/shm/.org.chromium.Chromium.hr2RqV (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 44: /dev/shm/.org.chromium.Chromium.fVOVJ5 (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 39: /dev/shm/.org.chromium.Chromium.m8vAWP (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 38: /dev/shm/.org.chromium.Chromium.34v2pd (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 37: /dev/shm/.org.chromium.Chromium.Zx9KBi (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 36: /dev/shm/.org.chromium.Chromium.aXaKig (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 35: /dev/shm/.org.chromium.Chromium.inJHE7 (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open AF_UNIX socket 34: <unknown>
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 33: /tmp/.org.chromium.Chromium.D9ALCp (deleted)
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 32: /proc/374081/status
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 31: /mnt/nfs/homes/chillion/.config/Code/Dictionaries/en-US-10-1.bdic
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 30: /proc/374081/statm
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open AF_UNIX socket 29: <unknown>
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 20: /usr/share/code/v8_context_snapshot.bin
-==520764==    <inherited from parent>
-==520764== 
-==520764== Open file descriptor 3: /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/valgrind-out.txt
-==520764==    <inherited from parent>
-==520764== 
-==520764== 
-==520764== HEAP SUMMARY:
-==520764==     in use at exit: 208,238 bytes in 224 blocks
-==520764==   total heap usage: 533 allocs, 309 frees, 235,015 bytes allocated
-==520764== 
-==520764== Searching for pointers to 224 not-freed blocks
-==520764== Checked 249,624 bytes
-==520764== 
-==520764== 16 bytes in 1 blocks are definitely lost in loss record 9 of 65
-==520764==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==520764==    by 0x11090B: ft_calloc (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520764==    by 0x10AFB1: set_in_cmd (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520764==    by 0x10A1B1: ft_parsing (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520764==    by 0x10A01A: main (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520764== 
-==520764== 16 bytes in 1 blocks are definitely lost in loss record 10 of 65
-==520764==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==520764==    by 0x11090B: ft_calloc (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520764==    by 0x10B010: set_in_cmd (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520764==    by 0x10A1B1: ft_parsing (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520764==    by 0x10A01A: main (in /mnt/nfs/homes/chillion/42/GitHub/minishelltmp/minishell)
-==520764== 
-==520764== LEAK SUMMARY:
-==520764==    definitely lost: 32 bytes in 2 blocks
-==520764==    indirectly lost: 0 bytes in 0 blocks
-==520764==      possibly lost: 0 bytes in 0 blocks
-==520764==    still reachable: 0 bytes in 0 blocks
-==520764==         suppressed: 208,206 bytes in 222 blocks
-==520764== 
-==520764== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
---520764-- 
---520764-- used_suppression:     62 leak readline valgrind_readline_leaks_ignore.txt:2 suppressed: 204,190 bytes in 221 blocks
---520764-- used_suppression:      1 leak add_history valgrind_readline_leaks_ignore.txt:8 suppressed: 4,016 bytes in 1 blocks
-==520764== 
-==520764== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==13508== Memcheck, a memory error detector
+==13508== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==13508== Using Valgrind-3.18.1-42b08ed5bd-20211015 and LibVEX; rerun with -h for copyright info
+==13508== Command: ./minishell
+==13508== Parent PID: 12457
+==13508== 
+--13508-- 
+--13508-- Valgrind options:
+--13508--    --suppressions=valgrind_readline_leaks_ignore.txt
+--13508--    --track-fds=yes
+--13508--    --leak-check=full
+--13508--    --show-leak-kinds=all
+--13508--    --track-origins=yes
+--13508--    --verbose
+--13508--    --log-file=valgrind-out.txt
+--13508-- Contents of /proc/version:
+--13508--   Linux version 5.15.79.1-microsoft-standard-WSL2 (oe-user@oe-host) (x86_64-msft-linux-gcc (GCC) 9.3.0, GNU ld (GNU Binutils) 2.34.0.20200220) #1 SMP Wed Nov 23 01:01:46 UTC 2022
+--13508-- 
+--13508-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
+--13508-- Page sizes: currently 4096, max supported 4096
+--13508-- Valgrind library directory: /usr/libexec/valgrind
+--13508-- Reading syms from /home/bekx/mini1/minishell
+--13508-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+--13508--   Considering /usr/lib/debug/.build-id/61/ef896a699bb1c2e4e231642b2e1688b2f1a61e.debug ..
+--13508--   .. build-id is valid
+--13508-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
+--13508--    object doesn't have a symbol table
+--13508--    object doesn't have a dynamic symbol table
+--13508-- Scheduler: using generic scheduler lock implementation.
+--13508-- Reading suppressions file: valgrind_readline_leaks_ignore.txt
+--13508-- Reading suppressions file: /usr/libexec/valgrind/default.supp
+==13508== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-13508-by-bekx-on-???
+==13508== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-13508-by-bekx-on-???
+==13508== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-13508-by-bekx-on-???
+==13508== 
+==13508== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==13508== don't want to do, unless you know exactly what you're doing,
+==13508== or are doing some strange experiment):
+==13508==   /usr/bin/vgdb --pid=13508 ...command...
+==13508== 
+==13508== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==13508==   /path/to/gdb ./minishell
+==13508== and then give GDB the following command
+==13508==   target remote | /usr/bin/vgdb --pid=13508
+==13508== --pid is optional if only one valgrind process is running
+==13508== 
+--13508-- REDIR: 0x402aa60 (ld-linux-x86-64.so.2:strlen) redirected to 0x580bcec2 (???)
+--13508-- REDIR: 0x402a830 (ld-linux-x86-64.so.2:index) redirected to 0x580bcedc (???)
+--13508-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
+--13508--    object doesn't have a symbol table
+--13508-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+--13508--    object doesn't have a symbol table
+==13508== WARNING: new redirection conflicts with existing -- ignoring it
+--13508--     old: 0x0402aa60 (strlen              ) R-> (0000.0) 0x580bcec2 ???
+--13508--     new: 0x0402aa60 (strlen              ) R-> (2007.0) 0x0484ee30 strlen
+--13508-- REDIR: 0x4027240 (ld-linux-x86-64.so.2:strcmp) redirected to 0x484fcd0 (strcmp)
+--13508-- REDIR: 0x402afc0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4853840 (mempcpy)
+--13508-- Reading syms from /usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+--13508--    object doesn't have a symbol table
+--13508-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
+--13508--   Considering /usr/lib/debug/.build-id/69/389d485a9793dbe873f0ea2c93e02efaa9aa3d.debug ..
+--13508--   .. build-id is valid
+==13508== WARNING: new redirection conflicts with existing -- ignoring it
+--13508--     old: 0x0495ace0 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--13508--     new: 0x0495ace0 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
+==13508== WARNING: new redirection conflicts with existing -- ignoring it
+--13508--     old: 0x0495ace0 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--13508--     new: 0x0495ace0 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
+==13508== WARNING: new redirection conflicts with existing -- ignoring it
+--13508--     old: 0x0495ace0 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--13508--     new: 0x0495ace0 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
+==13508== WARNING: new redirection conflicts with existing -- ignoring it
+--13508--     old: 0x0495ace0 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--13508--     new: 0x0495ace0 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
+--13508-- Reading syms from /usr/lib/x86_64-linux-gnu/libtinfo.so.6.3
+--13508--    object doesn't have a symbol table
+--13508-- REDIR: 0x495d7a0 (libc.so.6:strnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495da60 (libc.so.6:strpbrk) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d360 (libc.so.6:strcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x497bd50 (libc.so.6:wcsnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495e750 (libc.so.6:memset) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x497a5c0 (libc.so.6:wcslen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495ec90 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x497a3f0 (libc.so.6:wcschr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d2e0 (libc.so.6:index) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d9e0 (libc.so.6:rindex) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495e620 (libc.so.6:memmove) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+==13508== Preferring higher priority redirection:
+--13508--     old: 0x04a55940 (__memcpy_avx_unalign) R-> (2018.0) 0x04850f90 __memcpy_avx_unaligned_erms
+--13508--     new: 0x04a55940 (__memcpy_avx_unalign) R-> (2018.1) 0x04852880 memmove
+--13508-- REDIR: 0x497a470 (libc.so.6:wcscmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495ea60 (libc.so.6:stpncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x497aa30 (libc.so.6:wmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d8b0 (libc.so.6:strncmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495eaf0 (libc.so.6:strcasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d4a0 (libc.so.6:strcspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x497a4f0 (libc.so.6:wcscpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d250 (libc.so.6:strcat) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495ebe0 (libc.so.6:strncasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495e500 (libc.so.6:bcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x49665f0 (libc.so.6:memrchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x4960090 (libc.so.6:strchrnul) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d410 (libc.so.6:strcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495eb90 (libc.so.6:strcasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d720 (libc.so.6:strlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d950 (libc.so.6:strncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495e9d0 (libc.so.6:stpcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495e470 (libc.so.6:memchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495db80 (libc.so.6:strspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495e850 (libc.so.6:mempcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495eb40 (libc.so.6:strncasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x4960000 (libc.so.6:rawmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495d820 (libc.so.6:strncat) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x49e9430 (libc.so.6:__memcpy_chk) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x495e390 (libc.so.6:strstr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--13508-- REDIR: 0x4a52790 (libc.so.6:__strrchr_avx2) redirected to 0x484e810 (rindex)
+--13508-- REDIR: 0x495a120 (libc.so.6:malloc) redirected to 0x4848820 (malloc)
+--13508-- REDIR: 0x4a52960 (libc.so.6:__strlen_avx2) redirected to 0x484ed10 (strlen)
+--13508-- REDIR: 0x4a55940 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4852880 (memmove)
+--13508-- REDIR: 0x4a52580 (libc.so.6:__strchrnul_avx2) redirected to 0x4853330 (strchrnul)
+--13508-- REDIR: 0x48fa150 (libc.so.6:setenv) redirected to 0x48542d0 (setenv)
+--13508-- REDIR: 0x4a52300 (libc.so.6:__strchr_avx2) redirected to 0x484e9f0 (index)
+--13508-- REDIR: 0x4a4df00 (libc.so.6:__strncmp_avx2) redirected to 0x484f3e0 (strncmp)
+--13508-- REDIR: 0x495a7c0 (libc.so.6:realloc) redirected to 0x484dc50 (realloc)
+--13508-- REDIR: 0x4a55900 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4853440 (mempcpy)
+--13508-- REDIR: 0x4a4dac0 (libc.so.6:__strcmp_avx2) redirected to 0x484fbd0 (strcmp)
+--13508-- REDIR: 0x495b5a0 (libc.so.6:calloc) redirected to 0x484d9d0 (calloc)
+--13508-- REDIR: 0x4a52ae0 (libc.so.6:__strnlen_avx2) redirected to 0x484ecb0 (strnlen)
+--13508-- REDIR: 0x495a460 (libc.so.6:free) redirected to 0x484b210 (free)
+--13508-- REDIR: 0x4a53e30 (libc.so.6:__strcpy_avx2) redirected to 0x484ee60 (strcpy)
+--13508-- REDIR: 0x495e040 (libc.so.6:__GI_strstr) redirected to 0x4853ae0 (__strstr_sse2)
+--13508-- REDIR: 0x4a55910 (libc.so.6:__memcpy_chk_avx_unaligned_erms) redirected to 0x4853940 (__memcpy_chk)
+--13508-- REDIR: 0x4a56100 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x4852770 (memset)
+--13508-- REDIR: 0x4a541c0 (libc.so.6:__strncpy_avx2) redirected to 0x484efe0 (strncpy)
+--13508-- REDIR: 0x4a4e440 (libc.so.6:__memchr_avx2) redirected to 0x484fd50 (memchr)
+--13508-- REDIR: 0x4a4f2c4 (libc.so.6:__strcasecmp_l_avx) redirected to 0x484f7e0 (strcasecmp_l)
+--13508-- REDIR: 0x4a54b20 (libc.so.6:__stpcpy_avx2) redirected to 0x4852130 (stpcpy)
+--13508-- REDIR: 0x4a4f2b0 (libc.so.6:__strcasecmp_avx) redirected to 0x484f560 (strcasecmp)
+--13508-- REDIR: 0x4a50930 (libc.so.6:__strncasecmp_avx) redirected to 0x484f640 (strncasecmp)
+--13508-- REDIR: 0x4a4ec00 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4852010 (bcmp)
+==13508== 
+==13508== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==13508== Open file descriptor 3: /home/bekx/mini1/valgrind-out.txt
+==13508==    <inherited from parent>
+==13508== 
+==13508== 
+==13508== HEAP SUMMARY:
+==13508==     in use at exit: 208,169 bytes in 223 blocks
+==13508==   total heap usage: 489 allocs, 266 frees, 238,557 bytes allocated
+==13508== 
+==13508== Searching for pointers to 223 not-freed blocks
+==13508== Checked 247,312 bytes
+==13508== 
+==13508== 2 bytes in 1 blocks are definitely lost in loss record 1 of 64
+==13508==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13508==    by 0x110CE0: ft_calloc (in /home/bekx/mini1/minishell)
+==13508==    by 0x10EA01: malloc_simple_pointer (in /home/bekx/mini1/minishell)
+==13508==    by 0x10EC39: malloc_args (in /home/bekx/mini1/minishell)
+==13508==    by 0x10B81D: get_args (in /home/bekx/mini1/minishell)
+==13508==    by 0x10A1CF: ft_parsing (in /home/bekx/mini1/minishell)
+==13508==    by 0x109FF0: main (in /home/bekx/mini1/minishell)
+==13508== 
+==13508== LEAK SUMMARY:
+==13508==    definitely lost: 2 bytes in 1 blocks
+==13508==    indirectly lost: 0 bytes in 0 blocks
+==13508==      possibly lost: 0 bytes in 0 blocks
+==13508==    still reachable: 0 bytes in 0 blocks
+==13508==         suppressed: 208,167 bytes in 222 blocks
+==13508== 
+==13508== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+--13508-- 
+--13508-- used_suppression:     62 leak readline valgrind_readline_leaks_ignore.txt:2 suppressed: 204,151 bytes in 221 blocks
+--13508-- used_suppression:      1 leak add_history valgrind_readline_leaks_ignore.txt:8 suppressed: 4,016 bytes in 1 blocks
+==13508== 
+==13508== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

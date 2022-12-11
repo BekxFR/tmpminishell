@@ -205,7 +205,7 @@ void	ft_fork_fail(t_m *var);
 void	ft_execve(char *pcmd, char **option, char **envp, t_m *var);
 void	ft_arg_with_path(char *arg, int *cmd);
 void	ft_add_arg_totchar(char **str, char *arg, char c);
-int		ft_check_access(char *argv, char **split);
+int		ft_check_access(char *argv, char **split, t_m *var);
 
 /* ft_path_args_tools.c */
 void	ft_free_split_exclude_line(char **str, int line);
@@ -315,5 +315,7 @@ void	ft_unlink_all(t_m *var, int i);
 /*t initialize_var.c */
 
 void	initialize_var(t_m *var);
+void	ft_free_inttab(int **tab);
+void free_tripletab2(t_m *var);
 
 #endif

@@ -44,3 +44,380 @@ ls
 ls
 /minishell
 $?
+export Z="ls -la"
+$Z
+ls -la
+cat << E
+$?
+cat << E
+$?
+gdfg
+df
+g
+dfg
+df
+cat << E
+$?
+cat << E
+$?
+$?
+$?
+$?
+$?
+$?
+$?
+$?
+ls
+$?
+cd 55 55
+$?
+cat << E
+$?
+cqt << w
+$?
+fgfdg
+fd
+tr
+$?
+$?
+echo dgfgdfg
+$?
+cd
+cd
+cd
+echo
+$?
+echo RETERT
+$?
+ls | echo RETRET
+$?
+export
+$?
+env
+$?
+export
+$?
+export
+$?
+unset
+$?
+$?
+cat << w
+$?
+cat << w
+$?
+$?
+$?
+$?
+$?
+$?
+cat << w
+$?
+cat << w
+$?
+ls -la | grep h |grep _ | grep o | grep w
+ls -la | grep h |grep _ | grep o | grep w | grep M
+ls -la | grep h |grep _ | grep o | grep w | grep M | grep Z
+$?
+ls -la | grep h |grep _ | grep o | grep w | grep M | grep Z
+$?
+ls -la | grep h |grep _ | grep o | grep w | grep M
+$?
+ls -la | grep h |grep _ | grep o | grep w | grep M < GFDGFDG
+$?
+touch a | cat < DFSSDFSD | touch b
+ls
+rm a b
+ls
+mkdir a
+mkdir a/b
+cd a/b/
+cat << f
+fdsfdsf
+dsfdsfdsfddsfsdf
+sdfdsfdsfdsf
+f
+ls
+cd FGDGDFGDFG
+$?
+ls | cd
+$?
+ls | cd GFDGFDGDF
+$?
+ls
+$?
+ls < DSFSDF
+$?
+dqsdqsd
+$?
+cd GFGDFGDFGDF
+$?
+cd FHGHFH*
+$?
+cd
+cd GFDGDFGDFG
+$?
+cd
+export 45454
+£?
+export 45454
+$?
+export
+$?
+export 9gdf
+$?
+export gfgd-
+$?
+export gfgd
+$?
+export
+$?
+export gfgd
+$?
+export gfdgfdg
+$?
+export gfdgfdg5
+$?
+export gfdgfdg5_
+$?
+export gfdgf-dg5_
+$?
+export Z=GFDG
+$?
+export
+$?
+export Z="GFDG"
+$?
+export
+$?
+env
+$?
+env fghfhgf
+$?
+export Z=GFDG
+env
+unset PATH
+ls
+$?
+tmp
+test
+echo DGFFDGDF
+pwd
+cd ..
+pwd
+export PATH=DFGFDG
+ls
+cqty
+fdgdf
+cd
+ls | exit 45645645654654645645645
+exit 45645645654654645645645
+exit 55 555555 555
+exit 55 55
+exit 9999
+exit 55 ghfh
+exit 65 65
+exit 55 55
+exit 55 55
+exit 55 55
+$?
+exit 55
+exit 27
+exit TR
+exit 34
+pwd
+$?
+cat << f
+$?
+ls
+$?
+ls
+cat /gdf
+$?
+/bin
+$?
+ls
+libs/
+$?
+:libs
+/libs
+$?
+libs/
+libs
+$?
+/home/bekx/mini1/.minishell
+$?
+.minishell
+.minishell
+/tmp
+/gfgfdgfd
+ls
+fdsfdsfs
+/fgdfgfdg
+$?
+$?
+ 
+ 
+ 
+ fdsfds
+env -i ls
+$?
+env
+$?
+ls | env
+$?
+ls
+$?
+ls | ls
+$?
+env | dsfdsf
+$?
+env | dsfdsf | env
+$?
+env | dsfdsf | ls
+env | cat | cat m
+env | cat | grep m
+$?
+eefsdfs
+$?
+libs:
+$?
+libs/
+$?
+:libs
+/libs
+$?
+dsqdqsdqs
+$?
+cat |ls
+cat |ls
+cat |ls
+ls
+exit 55 fdsfds
+$?
+exit 66
+exsit 66
+$?
+exit 66
+exit 66
+exit 77
+exit 88
+exit 9
+exit 44
+exit 77
+exit 6
+exit 99
+exit 77
+exit 99
+exit 55
+exit 66
+exit 66
+exit 66
+exit 66
+exit 66
+exit 77
+exit 77
+exit 99
+exit 88
+exit 99
+exit 88
+exit 99
+exit 99
+exit 66
+exit 99
+exit 88
+exit 66
+exit 77
+exit 99
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+ls
+ls
+ls
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+echo
+ls
+ 
+echo
+ls
+exit 55
+ls
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+<< F
+ls
+ls | grep h
+exit
+ls
+echo FDGFD
+exit 55
+exit 55
+ls
+exit 55
+exit 55
+ls
+exit 55
+ls
+exit 55
+exit 55
+ls
+ls
+ls
+ls
+ls
+exit 55
+ls
+ls
+echo
+echo
+echo
+echo
+exit 55
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls | grep h
+ls
+ls
+ls
+ls
+grep h
+ls | grep h

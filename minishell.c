@@ -24,8 +24,6 @@ void	ft_init_commands_history(t_m *var)
 	str = NULL;
 	while (1)
 	{
-		// if (str)
-		// 	free(str);
 		ft_signal(1);
 		str = readline("minishell>");
 		if (!str)
@@ -42,11 +40,6 @@ void	ft_init_commands_history(t_m *var)
 			str = NULL;
 			break ;
 		}
-		// else if (!ft_strlen(str))
-		// {
-		// 	if (*str)
-		// 		free(str);
-		// }
 	}
 }
 
@@ -72,7 +65,7 @@ void	handle_sigint_3(int sig)
 		exit_status = 130;
 		printf("\n");
 		signal(SIGINT, SIG_IGN);
-		exit(0);
+		exit(130);
 	}
 }
 
@@ -107,6 +100,8 @@ void	ft_init_heredoc(t_m *var)
 	
 	var->h_status = open(".heredocstatus", O_RDWR | O_CREAT, 0644);
 	close(var->h_status);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	(pid) = fork();
 	if ((pid) == -1)
 		return (write(2, "Error with fork\n", 17), ft_fork_fail(var));
@@ -122,7 +117,7 @@ void	ft_init_heredoc(t_m *var)
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &exit_status, 0);
+		waitpid(pid, 0, 0);
 		exit_status = 130;
 		var->h_status = open(".heredocstatus", O_RDWR);
 		ft_signal(1);
@@ -136,8 +131,11 @@ void	ft_daddy(t_m *var, int *pid, int nbcmd)
 
 	i = 0;
 	(void)var;
+	ft_signal(2);
 	while (i < nbcmd && nbcmd != 0 && var->h_status == -1)
 	{
+		if (is_env_builtin(var->cmd[0]) && var->tablen == 1)
+			break;
 		waitpid(pid[i], &exit_status, 0);
 		if (WIFEXITED(exit_status))
 			exit_status = WEXITSTATUS(exit_status);
@@ -145,6 +143,7 @@ void	ft_daddy(t_m *var, int *pid, int nbcmd)
 			exit_status = 128 + WTERMSIG(exit_status);
 		i++;
 	}
+	ft_signal(1);
 	if (var->h_status > 2)
 	{
 		close(var->h_status);
@@ -205,8 +204,9 @@ int	ft_exec(t_m *var, char ***args)
 	if (!var->pid)
 		return (printf("malloc error\n"), 1);
 	var->pid[var->tablen] = 0;
-	ft_init_heredoc(var);
+	// ft_init_heredoc(var);
 	ft_init_all_pipe(var);
+	var->h_status = -1;
 	if (var->tablen >= 1 && var->h_status == -1)
 	{
 		while ((var->exec) < var->tablen)
@@ -252,13 +252,17 @@ int	main(int argc, char **argv, char **envp)
 		var.args_line = NULL;
 		ft_init_commands_history(&var);
 		if (!var.args_line)
-			return (ft_free_split(var.env), rl_clear_history(), printf("exit\n"), 0);
+		{
+			rl_clear_history();
+			free_doubletab(var.env);
+			return (printf("exit\n"), 0);
+		}
 		if (ft_parsing(&var, var.env, &var.cmd, &var.redir) == 2)
 			return (2);
 		free(var.args_line);
 		ft_puttriplelen(var.cmd, &var);
 		ft_exec(&var, var.cmd);
-		update_last_env(&var);
+		// update_last_env(&var);
 		free_all(&var);
 	}
 	return (0);

@@ -34,6 +34,7 @@ int	ft_parsing(t_m *var, char **envp, char ****cmd, char ****redir)
 {
 	char	**args;
 
+	args = NULL;
 	if (!var->args_line || will_return_nothing(var->args_line))
 	{
 		return (0);

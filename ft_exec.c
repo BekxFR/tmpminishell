@@ -89,7 +89,7 @@ void	ft_add_arg_totchar(char **str, char *arg, char c)
 	}
 }
 
-int	ft_check_access(char *argv, char **split)
+int	ft_check_access(char *argv, char **split, t_m *var)
 {
 	int	i;
 	int	fd;
@@ -105,13 +105,11 @@ int	ft_check_access(char *argv, char **split)
 	}
 	if (fd == -1)
 	{
-		i = 0;
-		while (argv[i] && argv[i] != ' ')
-		{
-			write(2, &argv[i], 1);
-			i++;
-		}
-		write(2, ": command not found\n", 21);
+		ft_putstr_fd(argv, 2);
+		if (var->cmd[var->exec][0][0] == '/')
+			write(2, ": No such file or directory\n", 29);
+		else
+			write(2, ": command not found\n", 21);
 		return (-2);
 	}
 	return (i);
