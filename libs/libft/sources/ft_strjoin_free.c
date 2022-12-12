@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:21:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/05 15:59:42 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 13:14:47 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ char	*ft_strjoin_free(char *s1, char *s2)
 		j++;
 	}
 	str[i + j] = '\0';
-	ft_free (&s1);
+	free(s1);
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:24:46 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/09 16:48:17 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 11:42:57 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	malloc_simple_pointer(int count, int t, char **s1, t_m *var)
 	if (!s1[t])
 	{
 		free(var->args_line);
-		free_doubletab(var->env);
 		free_error_doubletab(s1, t);
 		write(2, "malloc error\n", 13);
 		return (2);

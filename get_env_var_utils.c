@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:57:44 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:35:43 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 14:13:00 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ char	*get_env(char *env, char *envp)
 				env[j++] = envp[i++];
 			}
 		}
-		i++;
+		if (envp[i])
+			i++;
 	}
 	return (env);
 }
@@ -73,21 +74,22 @@ int	ft_strlenenv(char *envp)
 {
 	int	i;
 	int	len;
-	int	size;
+	// int	size;
 
 	i = 0;
 	len = 0;
-	size = ft_strlen(envp);
+	// size = ft_strlen(envp);
 	while (envp[i])
 	{
 		if (envp[i] && envp[i] == '=')
 		{
-			while (envp[i] && i <= size)
+			while (envp[i])
 			{
 				len++;
 				i++;
 			}
 		}
+		if (envp[i])
 		i++;
 	}
 	return (len - 1);

@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:03:04 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 16:18:02 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:08:35 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,10 @@ int	is_str_digit(char *str)
 	i++;
 	while (ft_isdigit(str[i]) != 0)
 		i++;
-	if ((int)str[i] == 0)
+	if (!str[i])
 		return (1);
 	return (0);
 }
-
-// int	is_builtin(char *cmd)
-// {
-// 	if (ft_strcmp(cmd, "cd") == 0)
-// 		return (1);
-// 	if (ft_strcmp(cmd, "export") == 0)
-// 		return (1);
-// 	if (ft_strcmp(cmd, "unset") == 0)
-// 		return (1);
-// 	if (ft_strcmp(cmd, "exit") == 0)
-// 		return (1);
-// 	return (0);
-// }
 
 int	do_builtin(t_m *var, char **cmd)
 {

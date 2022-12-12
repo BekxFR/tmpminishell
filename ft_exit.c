@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 17:34:02 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 16:21:24 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:57:22 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ extern int	exit_status;
 
 void	ft_exit(t_m *var, char **cmd)
 {
-	// if (var->tablen > 1)
-	// 	return ;
 	if (!is_str_digit(cmd[1]) && cmd[2])
 	{
 		exit_status = 1;
@@ -31,23 +29,21 @@ void	ft_exit(t_m *var, char **cmd)
 		write(2, "exit : ", 8);
 		ft_putstr_fd(cmd[1], 2);
 		write(2, ": numeric argument required\n",29);
-		exit_status = 2;
-		return (exit(2));
+		free_child(var);
+		exit(2);
 	}
-	else if (!cmd[1] && free_all(var))
-		return (write(2, "exit\n", 5), exit(0));
+	else if (!cmd[1])
+	{
+		write(2, "exit\n", 5);
+		free_child(var);
+		exit(0);
+	}
 	else if (cmd[1] && !is_str_digit(cmd[1]))
 	{
 		exit_status = ft_atoi(cmd[1]);
-		if (var->redir)
-			free_tripletab(var->redir);
-		if (var->cmd)
-			free_tripletab(var->cmd);
-		if (var->env)
-			free_doubletab(var->env);
-		ft_free_inttab(var->pipex);
-		if (var->pid)
-			free(var->pid);
+		free_child(var);
 		exit (exit_status);
 	}
 }
+
+

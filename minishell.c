@@ -62,7 +62,6 @@ void	handle_sigint_3(int sig)
 	exit_status += sig;
 	if (sig == 2)
 	{
-		// exit_status = 130;
 		write(1, "\n", 2);
 		signal(SIGINT, SIG_IGN);
 		exit(130);
@@ -110,8 +109,7 @@ void	ft_init_heredoc(t_m *var)
 		if (ft_strcmplen(var->redir, "<<") > 0)
 			handle_heredoc_child(var);
 		unlink(".heredocstatus");
-		if (var->redir)
-			free_tripletab(var->redir);
+		free_child(var);
 		exit(1);
 	}
 	else
@@ -130,7 +128,6 @@ void	ft_daddy(t_m *var, int *pid, int nbcmd)
 	int	i;
 
 	i = 0;
-	(void)var;
 	ft_signal(2);
 	while (i < nbcmd && nbcmd != 0 && var->h_status == -1)
 	{
@@ -146,7 +143,6 @@ void	ft_daddy(t_m *var, int *pid, int nbcmd)
 	ft_signal(1);
 	if (var->h_status > 2)
 	{
-		if (var->h_status > 2)
 		close(var->h_status);
 		var->h_status = 0;
 		unlink(".heredocstatus");
@@ -206,7 +202,7 @@ int	ft_exec(t_m *var, char ***args)
 		return (0);
 	var->pid = (int *)malloc(sizeof(int) * (var->tablen + 1));
 	if (!var->pid)
-		return (printf("malloc error\n"), 1);
+		return (free_parent(var), 1);
 	var->pid[var->tablen] = 0;
 	if (ft_strcmplen(var->redir, "<<") > 0)
 		ft_init_heredoc(var);
@@ -221,7 +217,6 @@ int	ft_exec(t_m *var, char ***args)
 	}
 	if (var->h_status  != -1)
 		ft_unlink_all(var, 0);
-	ft_free_inttab(var->pipex);
 	ft_daddy(var, var->pid, var->tablen);
 	return (0);
 }
@@ -229,7 +224,6 @@ int	ft_exec(t_m *var, char ***args)
 int	ft_puttriplelen(char ***test, t_m *var)
 {
 	var->tablen = 0;
-
 	if (!test || !*test)
 		return (var->tablen);
 	if (!*test[0])
@@ -255,17 +249,16 @@ int	main(int argc, char **argv, char **envp)
 		var.args_line = NULL;
 		ft_init_commands_history(&var);
 		if (!var.args_line)
+			return (ft_doubletab(var.env), rl_clear_history(), write(2, "exit\n", 6), 0);
+		if (!will_return_nothing(var.args_line) && is_cmdline_valid(var.args_line))
 		{
-			rl_clear_history();
-			free_doubletab(var.env);
-			return (write(2, "exit\n", 6), 0);
+			ft_parsing(&var, var.env, &var.cmd, &var.redir);
+			ft_puttriplelen(var.cmd, &var);
+			ft_exec(&var, var.cmd);
+			update_last_env(&var);
+			free_parent(&var);
 		}
-		ft_parsing(&var, var.env, &var.cmd, &var.redir);
 		free(var.args_line);
-		ft_puttriplelen(var.cmd, &var);
-		ft_exec(&var, var.cmd);
-		update_last_env(&var);
-		free_all(&var);
 	}
 	return (0);
 }

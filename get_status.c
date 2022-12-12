@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_status.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 19:11:45 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 12:52:46 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:08:11 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ char	*get_status(char *str, int end, int start, char *status)
 
 	i = initialize_index();
 	i.count = end - start;
-	i.len = ft_strlen(str) - (i.count + 1) + ft_strlen(status);
+	i.len = ft_strlen(str) - (i.count - 1) + ft_strlen(status);
 	env = ft_calloc(sizeof(char), (ft_strlen(status) + 1));
 	env = ft_strcpy(env, status);
-	(void)i;
 	newstring = ft_calloc(sizeof(char), (i.len + 1));
 	while (str[i.i1])
 	{
@@ -35,6 +34,6 @@ char	*get_status(char *str, int end, int start, char *status)
 		while (str[i.i1])
 			newstring[i.i2++] = str[i.i1++];
 	}
-	free(str);
-	return (newstring);
+
+	return (free(str), free(env), newstring);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:07:52 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/08 17:42:45 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 17:57:59 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_export_with_arg(t_m *var, char **args)
 	{
 		egalen = ft_export_check_addargs(*args, &egalen);
 		if (egalen == -1)
-			exit_status = 1;
+			exit_status = 1;		
 		if (egalen > 0)
 			return (ft_add_export_check_double(var, *args, egalen));
 		if (egalen != -1 && ft_export_check_args(*args, &egalen))

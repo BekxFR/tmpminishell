@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 11:48:30 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/09 12:00:20 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 11:43:10 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ char	***fill_cmd(char ***cmd, char **args, char ***redir)
 			i.j++;
 			i.i1++;
 			i.i2 = 0;
+			free(args[i.i - 1]);
 		}
 	}
-	free(args);
 	return (cmd);
 }
 
@@ -68,7 +68,6 @@ int	set_in_cmd(char **args, t_m *var)
 	if (!var->cmd)
 	{
 		free(var->args_line);
-		free_doubletab(var->env);
 		free_doubletab(args);
 		return (2);
 	}

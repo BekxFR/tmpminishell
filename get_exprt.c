@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:20:35 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:30:52 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/10 18:17:41 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ int	get_exprt(char **envp)
 	exprt = sort_envp(envp, exprt);
 	exprt = add_export_form(exprt);
 	ft_putdoubletab(exprt);
+	free_doubletab(exprt);
 	return (1);
 }

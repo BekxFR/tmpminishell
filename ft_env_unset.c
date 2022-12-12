@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:14:54 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/12 16:49:53 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:46:40 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,31 +84,3 @@ void	ft_print_env(char **str)
 	}
 }
 
-// int	ft_env(t_m *var, char **envp)
-// {
-// 	int i;
-	
-// 	if (!envp)
-// 	{
-// 		write(2, "NO ENV\n", 8);
-// 		(*var).env = (char **)malloc(sizeof(char *) * 1);
-// 		if (!(*var).env)
-// 			return (-1);
-// 		(*var).env[0] = (char *)malloc(sizeof(char) * 1);
-// 		if (!(*var).env[0])
-// 			return (free((*var).env), -1);
-// 		(*var).env[0][0] = 0;
-// 		return (1);
-// 	}
-// 	i = 0;
-// 	while (envp[i])
-// 		i++;
-// 	(*var).env = (char **)malloc(sizeof(char *) * (i + 1));
-// 	if (!(*var).env)
-// 		return (-1);
-// 	(*var).env[i] = 0;
-// 	i = -1;
-// 	while (envp[++i])
-// 		(*var).env[i] = ft_strdup(envp[i]);
-// 	return (0);
-// }

@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:31:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/12 17:17:46 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:02:36 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ void	ft_fork_fail(t_m *var)
 		close((*var).fdout);
 }
 
-void	ft_arg_check_fullpath(char *arg, t_m*var)
+void	ft_arg_check_fullpath(char *arg, t_m *var)
 {
-	ft_arg_with_path(arg, &(*var).pcmd_line); //arg == command[0] - pcmd_line == -3 si directory ou -1 si full path
+	ft_arg_with_path(arg, &(*var).pcmd_line, var); //arg == command[0] - pcmd_line == -3 si directory ou -1 si full path
 	if (!var->path &&  var->pcmd_line != -1)
 	{
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		return (exit(127));
+		free_child(var);
+		exit(127);
 	}
 	if ((*var).pcmd_line == 0) // si non full path
 	{
@@ -51,7 +52,7 @@ void	ft_init_arg(char *argv, t_m *var)
 	{
 		(*var).pcmd_line = ft_check_access(argv , (*var).split_path, var); // check la bonne ligne et keep ligne
 		if ((*var).pcmd_line == -2) // (*var).arg = strdup(argv); // si aucune ligne on recup la commande seule
-			return (ft_free_split((*var).split_path), exit(127));
+				return (free_child(var), ft_free_split((*var).split_path), exit(127));
 		else
 			(*var).arg = (*var).split_path[(*var).pcmd_line]; // si ligne ok arg == bonne ligne ex : /usr/bin/echo
 		ft_free_split_exclude_line((*var).split_path, (*var).pcmd_line); // free reste du char ** de path
@@ -118,11 +119,11 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 	signal(SIGQUIT, SIG_IGN);
 	(*pid) = fork();
 	if ((*pid) == -1)
-		return (write(2, "Error with fork\n", 17), ft_fork_fail(var));
+		return (free_child(var), write(2, "Error with fork\n", 17), ft_fork_fail(var));
 	if ((*pid) == 0)
 	{
 		if (var->fd_status_in == 1 || var->fd_status_out == 1)
-			return (ft_fork_fail(var), exit(1));
+			return (free_child(var), exit(1));
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		dup2(var->fdin, 0);
@@ -133,7 +134,7 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 			ft_init_arg(arg, var);
 			ft_execve((*var).arg, targ, (*var).env, var);
 		}
-		return (ft_fork_fail(var), exit(exit_status));
+		return (free_child(var), ft_fork_fail(var), exit(exit_status));
 	}
 	ft_unlink(var->redir, var->exec);
 	if (var->fdin != 0 && var->fdin != -1)
