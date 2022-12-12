@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:31:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/12 18:02:36 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:37:10 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 	if ((*pid) == 0)
 	{
 		if (var->fd_status_in == 1 || var->fd_status_out == 1)
-			return (free_child(var), exit(1));
+			return (ft_close_pipe_fd(var), free_child(var), exit(1));
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		dup2(var->fdin, 0);

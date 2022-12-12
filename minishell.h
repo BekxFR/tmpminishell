@@ -154,6 +154,7 @@ void	free_error_doubletab(char **str, int i);
 void	free_tripletab(char ***tab);
 int		free_parent(t_m *var);
 int		free_child(t_m *var);
+int		free_child_heredoc(t_m *var);
 
 /* get_exprt.c */
 

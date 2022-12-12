@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   free_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 13:02:40 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 17:29:20 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 18:24:45 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	free_child_heredoc(t_m *var)
+{
+	free_tripletab(var->redir);
+	free_tripletab(var->cmd);
+	free(var->pid);
+	free(var->args_line);
+	free_doubletab(var->env);
+	return (0);
+}
 
 int	free_child(t_m *var)
 {

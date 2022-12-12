@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 14:46:03 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 18:06:53 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:30:59 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*get_heredoc(t_m *var, int k)
 	(*var).heredoc_status = 1;
 	itoa = ft_itoa(k);
 	str = ft_strjoin(".heredoc", itoa);
+	free((*var).comp);
 	free(itoa);
 	return (str);
 }
@@ -60,7 +61,6 @@ int	handle_heredoc(t_m *var)
 		}
 		i.i++;
 	}
-	free((*var).comp);
 	return (free(var->heredoc), 0);
 }
 
@@ -77,6 +77,7 @@ char	*get_heredoc_child(t_m *var, int k)
 	free(itoa);
 	ft_trunc_init_fd(str, &(*var).fdin);
 	ft_heredoc_fd(var, 1);
+	free((*var).comp);
 	close((*var).fdin);
 	return (str);
 }
@@ -106,7 +107,6 @@ int	handle_heredoc_child(t_m *var)
 		i.i++;
 	}
 	free(var->heredoc);
-	free((*var).comp);
 	return (0);
 }
 

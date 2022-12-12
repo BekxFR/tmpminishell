@@ -599,3 +599,121 @@ $?
 ls
 $?
 exit 77
+ls
+efhske ksu fsfh sfjf jsf e
+echo $?
+cat < HFGFGHFG
+cat < test.ME 
+cat << F
+exit
+cat << E
+ls
+echo HGFHFGH
+pwd
+cat << F << G | cat | cat > Z1
+cat << G << K
+cat < FDGDFGFDGDF
+cat < FDGDFGFDGDF | cat < gfdgfdg
+cat < DGFDGFDGF | cat < GFDGFDGDF
+cat < GDFGFDGFDG | cat < GFHGF
+cat < GFHGFHFGHFG
+cat < GFHGFHFGHFG | cat < HGHGFHFGH
+/bin/ec2metadata 
+exit ((
+/bin/X11
+/bin/X11 | /bin/X11
+exit
+/bin/X11 | /bin/X11
+/bin/X11 | /bin/X11
+exit
+/bin/X11 | /bin/X11
+exit
+exit
+exit
+/bin/X11 | /bin/X11
+exit
+/bin/X11 | /bin/X11
+exit 55 fdgfdg
+$?
+exit 55
+exit
+exit 55
+/dev/stdin cat | cat | cat | ls /dev/stdout
+< /dev/stdin cat | cat | cat | ls > /dev/stdout
+< /dev/stdin sleep 5 | sleep 5 > /dev/stdout
+time sleep 5 | sleep 5
+libs/ | libs/
+$?
+unset PATH
+ls
+export PATH=/usr/bin
+ls
+ls > T5
+cat < T5 > t6
+cat < T7 > t6 | cat t6
+exit
+cat < T7 > t5 | cat < t6
+cat < T7 > t5 | cat -e < t6
+cat < T7 > t5 | cat -e < t6 | exit 55 | ls
+cat << H | echo HGHGHFGH > t5
+cat << H | echo HGHGHFGH > t5
+exit GG
+exit GG
+ls | exit gg gg | ls
+exit gg gg
+exit
+ls | exit gg gg | ls
+exi
+exit
+ls | exit 55 gg | ls
+exit 55 gg
+make 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit gg
+exit gg
+exit
+exit 55 55
+exit gg gg
+exit 55 gg
+exit 55
+exit gg
+exit
+exit 55 55
+exit gg
+exit gg gg 
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit 55
+exit
+exit gg gg
+exit gg gg
+exit gg
+exit 55
+exit 55 gg
+exit 55 55
+exit
+exit 55 55 | exit 55 55
+exit
+exit 55 55 | exit 55 55
+exit | exit
+exit gg gg | exit gg gg 
+exit 55 gg | exit 55 gg
+exit 55 | exit 55
+exit gg | exit gg
+exit gg | exit 55
+exit gg | exit 55 gg
+exit gg | exit 55 gg | gfhgfhgfhfg
+exit

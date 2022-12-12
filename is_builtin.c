@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:03:04 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 18:08:35 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 19:28:02 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_str_digit(char *str)
 	if (!str)
 		return (0);
 	i = 0;
-	if (ft_isdigit(str[i]) != 0 || str[i] != '-' || str[i] != '+')
+	if (ft_isdigit(str[i]) == 0 && str[i] != '-' && str[i] != '+')
 		return (0);	
 	i++;
 	while (ft_isdigit(str[i]) != 0)

@@ -109,7 +109,7 @@ void	ft_init_heredoc(t_m *var)
 		if (ft_strcmplen(var->redir, "<<") > 0)
 			handle_heredoc_child(var);
 		unlink(".heredocstatus");
-		free_child(var);
+		free_child_heredoc(var);
 		exit(1);
 	}
 	else
@@ -249,7 +249,7 @@ int	main(int argc, char **argv, char **envp)
 		var.args_line = NULL;
 		ft_init_commands_history(&var);
 		if (!var.args_line)
-			return (ft_doubletab(var.env), rl_clear_history(), write(2, "exit\n", 6), 0);
+			return (free_doubletab(var.env), rl_clear_history(), write(2, "exit\n", 6), 0);
 		if (!will_return_nothing(var.args_line) && is_cmdline_valid(var.args_line))
 		{
 			ft_parsing(&var, var.env, &var.cmd, &var.redir);
