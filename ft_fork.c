@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:31:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/12 13:09:01 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:17:46 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_fork_fail(t_m *var)
 		close((*var).fdin);
 	if (var->fdout != 1 && var->fdout != -1)
 		close((*var).fdout);
-	exit_status = 1;
 }
 
 void	ft_arg_check_fullpath(char *arg, t_m*var)
@@ -129,12 +128,12 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 		dup2(var->fdin, 0);
 		dup2(var->fdout, 1);
 		ft_close_pipe_fd(var);
-		if (!do_builtin(var, (*var).cmd[var->exec]))
+		if (do_builtin(var, (*var).cmd[var->exec]) == -1)
 		{
 			ft_init_arg(arg, var);
 			ft_execve((*var).arg, targ, (*var).env, var);
 		}
-		return (ft_fork_fail(var), exit (exit_status));
+		return (ft_fork_fail(var), exit(exit_status));
 	}
 	ft_unlink(var->redir, var->exec);
 	if (var->fdin != 0 && var->fdin != -1)

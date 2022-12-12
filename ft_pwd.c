@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:15:09 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:40:35 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 15:28:12 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_pwd(void)
 		exit_status = 1;
 		write(2, "pwd: error retrieving current directory: getcwd: \
 		cannot access parent directories: No such file or directory\n", 112);
-		return (2);
+		return (1);
 	}
 	else
 	{

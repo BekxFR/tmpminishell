@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:28:16 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:36:51 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 16:50:10 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_unset_remove(t_m *var, int m)
 	i = ft_tablen((*var).env);
 	tmp = (char **)malloc(sizeof(char *) * (i));
 	if (!tmp)
-		return (printf("malloc error\n"), exit(1));
+		return (write(2, "malloc error\n", 14), exit(1));
 	tmp[i - 1] = 0;
 	j = 0;
 	i = 0;

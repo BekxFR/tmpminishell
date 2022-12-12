@@ -63,7 +63,7 @@ void	handle_sigint_3(int sig)
 	if (sig == 2)
 	{
 		// exit_status = 130;
-		printf("\n");
+		write(1, "\n", 2);
 		signal(SIGINT, SIG_IGN);
 		exit(130);
 	}
@@ -75,7 +75,7 @@ void	handle_sigint_2(int sig)
 	if (sig == 2)
 	{
 		exit_status = 130;
-		printf("\n");
+		write(1, "\n", 2);
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
@@ -87,7 +87,7 @@ void handle_sigint_1(int sig)
 	if (sig == SIGINT)
 	{
 		exit_status = 130;
-		printf("\n");
+		write(1, "\n", 2);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -117,9 +117,8 @@ void	ft_init_heredoc(t_m *var)
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &exit_status, 0);
-		// waitpid(pid, 0, 0);
-		// exit_status = 130;
+		waitpid(pid, 0, 0);
+		exit_status = 130;
 		var->h_status = open(".heredocstatus", O_RDWR);
 		ft_signal(1);
 	}
@@ -202,15 +201,16 @@ int	ft_exec(t_m *var, char ***args)
 {
 	var->exec = 0;
 	var->tabexec = 0;
+	var->h_status = -1;
 	if (!args)
 		return (0);
 	var->pid = (int *)malloc(sizeof(int) * (var->tablen + 1));
 	if (!var->pid)
 		return (printf("malloc error\n"), 1);
 	var->pid[var->tablen] = 0;
-	ft_init_heredoc(var);
+	if (ft_strcmplen(var->redir, "<<") > 0)
+		ft_init_heredoc(var);
 	ft_init_all_pipe(var);
-	var->h_status = -1;
 	if (var->tablen >= 1 && var->h_status == -1)
 	{
 		while ((var->exec) < var->tablen)
@@ -258,13 +258,13 @@ int	main(int argc, char **argv, char **envp)
 		{
 			rl_clear_history();
 			free_doubletab(var.env);
-			return (printf("exit\n"), 0);
+			return (write(2, "exit\n", 6), 0);
 		}
 		ft_parsing(&var, var.env, &var.cmd, &var.redir);
 		free(var.args_line);
 		ft_puttriplelen(var.cmd, &var);
 		ft_exec(&var, var.cmd);
-		// update_last_env(&var);
+		update_last_env(&var);
 		free_all(&var);
 	}
 	return (0);

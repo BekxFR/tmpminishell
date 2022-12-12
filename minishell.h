@@ -266,7 +266,7 @@ int ft_cd(char **argv, int i, t_m *var);
 
 /* ft_exit.c */
 
-void ft_exit(t_m *var, char **cmd);
+void	ft_exit(t_m *var, char **cmd);
 
 /* ft_echo.c */
 

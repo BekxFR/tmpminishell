@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:14:54 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/12 12:44:24 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:49:53 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_unset_remove(t_m *var, int m)
 	i = ft_tablen((*var).env);
 	tmp = (char **)malloc(sizeof(char *) * (i));
 	if (!tmp)
-		return (printf("malloc error\n"), exit(1));
+		return (write(2, "malloc error\n", 14), exit(1));
 	tmp[i - 1] = 0;
 	j = 0;
 	i = 0;

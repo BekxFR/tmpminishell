@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:56:23 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/09 19:58:57 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:42:54 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_arg_with_path(char *arg, int *cmd)
 	{
 		ft_putstr_fd(arg, 2);
 		write(2, ": Is a directory\n", 18);
-		exit_status = 126;
 		exit(126);
 		(*cmd) = -3;
 		return ;
