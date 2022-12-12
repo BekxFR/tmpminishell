@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:14:54 by chillion          #+#    #+#             */
-/*   Updated: 2022/11/24 18:55:37 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 12:44:24 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,36 +79,36 @@ void	ft_print_env(char **str)
 	i = 0;
 	while (str[i])
 	{
-		printf("%s\n", str[i]);
+		write(1, &str[i], ft_strlen(str[i]));
 		i++;
 	}
 }
 
-int	ft_env(t_m *var, char **envp)
-{
-	int i;
+// int	ft_env(t_m *var, char **envp)
+// {
+// 	int i;
 	
-	if (!envp)
-	{
-		write(2, "NO ENV\n", 8);
-		(*var).env = (char **)malloc(sizeof(char *) * 1);
-		if (!(*var).env)
-			return (-1);
-		(*var).env[0] = (char *)malloc(sizeof(char) * 1);
-		if (!(*var).env[0])
-			return (free((*var).env), -1);
-		(*var).env[0][0] = 0;
-		return (1);
-	}
-	i = 0;
-	while (envp[i])
-		i++;
-	(*var).env = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!(*var).env)
-		return (-1);
-	(*var).env[i] = 0;
-	i = -1;
-	while (envp[++i])
-		(*var).env[i] = ft_strdup(envp[i]);
-	return (0);
-}
+// 	if (!envp)
+// 	{
+// 		write(2, "NO ENV\n", 8);
+// 		(*var).env = (char **)malloc(sizeof(char *) * 1);
+// 		if (!(*var).env)
+// 			return (-1);
+// 		(*var).env[0] = (char *)malloc(sizeof(char) * 1);
+// 		if (!(*var).env[0])
+// 			return (free((*var).env), -1);
+// 		(*var).env[0][0] = 0;
+// 		return (1);
+// 	}
+// 	i = 0;
+// 	while (envp[i])
+// 		i++;
+// 	(*var).env = (char **)malloc(sizeof(char *) * (i + 1));
+// 	if (!(*var).env)
+// 		return (-1);
+// 	(*var).env[i] = 0;
+// 	i = -1;
+// 	while (envp[++i])
+// 		(*var).env[i] = ft_strdup(envp[i]);
+// 	return (0);
+// }

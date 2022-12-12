@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_status.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 19:11:45 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/06 19:12:00 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 12:52:46 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_status(char *str, int end, int start, char *status)
 			newstring[i.i2++] = str[i.i1++];
 		while (env[i.i3])
 			newstring[i.i2++] = env[i.i3++];
-		i.i1 = i.i1 + i.count + 1;
+		i.i1 = i.i1 + 2;
 		while (str[i.i1])
 			newstring[i.i2++] = str[i.i1++];
 	}

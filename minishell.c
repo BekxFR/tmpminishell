@@ -62,7 +62,7 @@ void	handle_sigint_3(int sig)
 	exit_status += sig;
 	if (sig == 2)
 	{
-		exit_status = 130;
+		// exit_status = 130;
 		printf("\n");
 		signal(SIGINT, SIG_IGN);
 		exit(130);
@@ -117,8 +117,9 @@ void	ft_init_heredoc(t_m *var)
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		waitpid(pid, 0, 0);
-		exit_status = 130;
+		waitpid(pid, &exit_status, 0);
+		// waitpid(pid, 0, 0);
+		// exit_status = 130;
 		var->h_status = open(".heredocstatus", O_RDWR);
 		ft_signal(1);
 	}
@@ -146,6 +147,7 @@ void	ft_daddy(t_m *var, int *pid, int nbcmd)
 	ft_signal(1);
 	if (var->h_status > 2)
 	{
+		if (var->h_status > 2)
 		close(var->h_status);
 		var->h_status = 0;
 		unlink(".heredocstatus");
@@ -200,11 +202,13 @@ int	ft_exec(t_m *var, char ***args)
 {
 	var->exec = 0;
 	var->tabexec = 0;
+	if (!args)
+		return (0);
 	var->pid = (int *)malloc(sizeof(int) * (var->tablen + 1));
 	if (!var->pid)
 		return (printf("malloc error\n"), 1);
 	var->pid[var->tablen] = 0;
-	// ft_init_heredoc(var);
+	ft_init_heredoc(var);
 	ft_init_all_pipe(var);
 	var->h_status = -1;
 	if (var->tablen >= 1 && var->h_status == -1)
@@ -241,7 +245,6 @@ int	main(int argc, char **argv, char **envp)
 
 	ft_signal(1);
 	(void)argv;
-	(void)envp;
 	if (argc != 1)
 		return (ft_printf("Error : Wrong Number of arguments\n"), 1);
 	initialize_var(&var);
@@ -257,8 +260,7 @@ int	main(int argc, char **argv, char **envp)
 			free_doubletab(var.env);
 			return (printf("exit\n"), 0);
 		}
-		if (ft_parsing(&var, var.env, &var.cmd, &var.redir) == 2)
-			return (2);
+		ft_parsing(&var, var.env, &var.cmd, &var.redir);
 		free(var.args_line);
 		ft_puttriplelen(var.cmd, &var);
 		ft_exec(&var, var.cmd);

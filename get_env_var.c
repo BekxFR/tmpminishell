@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:31:04 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/09 16:32:41 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 12:52:20 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,17 @@ char	*new_env_var(char *str, char **envp)
 		{
 			str = get_status(str, (i.i + 2), (i.i + 1), ft_itoa(exit_status)); // "2" a remplacer par la variable status
 			i.i = i.i - 1 + ft_intlen(2);
+			// str = get_status(str, (i.i + ft_intlen(exit_status) + 1), \
+			// (i.i + 1), ft_itoa(exit_status));
 		}
 		if (str[i.i] == '$' && (ft_isdigit(str[i.i + 1]) > 0 \
 		|| (str[i.i + 1] == 34 || str[i.i + 1] == 39)) \
 		&& !is_in_simple_quote(str, i.i))
-		{	
-			str = ft_strcpy(&str[i.i], &str[i.i + 1]);
+		{
+			if (ft_isdigit(str[i.i + 1]))
+				str = ft_strcpy(&str[i.i], &str[i.i + 2]);
+			else
+				str = ft_strcpy(&str[i.i], &str[i.i + 1]);
 			str = clear_quote(&str[i.i]);
 		}
 		i.i++;

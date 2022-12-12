@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:41:20 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/09 18:52:06 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 12:43:22 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	cd_need_path(char **cmd, int len, t_m *var, char *newpath)
 		if (chdir(newpath) != 0)
 		{
 			exit_status = 1;
-			return (printf("cd : HOME not set\n"), 0);
+			return (write(2, "cd : HOME not set\n", 19), 0);
 		}
 		return (0);
 	}
