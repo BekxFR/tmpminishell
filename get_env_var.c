@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:31:04 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 12:52:20 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:28:04 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*new_env_var(char *str, char **envp)
 		{
 			str = get_status(str, (i.i + 2), (i.i + 1), ft_itoa(exit_status)); // "2" a remplacer par la variable status
 			i.i = i.i - 1 + ft_intlen(2);
-			// str = get_status(str, (i.i + ft_intlen(exit_status) + 1), \
+			// str = get_status(str, (i.i + ft_intlen(exit_status) + 1),
 			// (i.i + 1), ft_itoa(exit_status));
 		}
 		if (str[i.i] == '$' && (ft_isdigit(str[i.i + 1]) > 0 \
