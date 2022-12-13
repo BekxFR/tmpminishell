@@ -1,43 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_minishell.c                                   :+:      :+:    :+:   */
+/*   free_minishell1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 13:02:40 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 18:24:45 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/13 10:52:07 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	free_child_heredoc(t_m *var)
-{
-	free_tripletab(var->redir);
-	free_tripletab(var->cmd);
-	free(var->pid);
-	free(var->args_line);
-	free_doubletab(var->env);
-	return (0);
-}
-
-int	free_child(t_m *var)
-{
-	free_parent(var);
-	free(var->args_line);
-	free_doubletab(var->env);
-	return (0);
-}
-
-int	free_parent(t_m *var)
-{
-	free_tripletab(var->redir);
-	free_tripletab(var->cmd);
-	free(var->pid);
-	ft_free_inttab(var->pipex);
-	return (1);
-}
 
 void	free_error_doubletab(char **str, int i)
 {
@@ -51,7 +24,7 @@ void	free_error_doubletab(char **str, int i)
 	str = NULL;
 }
 
-void free_error_tripletab(char ***tab, int i)
+void	free_error_tripletab(char ***tab, int i)
 {
 	while (i >= 0)
 	{
@@ -60,12 +33,12 @@ void free_error_tripletab(char ***tab, int i)
 		i--;
 	}	
 	free(tab);
-	tab = NULL;	
+	tab = NULL;
 }
 
 void	free_doubletab(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -81,32 +54,30 @@ void	free_doubletab(char **str)
 	}
 }
 
-void free_tripletab(char ***tab)
+void	free_tripletab(char ***tab)
 {
-    int i;
-    int j;
-    
-    i = 0;
-    if (!tab)
-        return ;
-    while(tab[i])
-        i++;
-    while (--i >= 0)
-    {
-        j = 0;
-        while(tab[i][j])
-            j++;
-        while(--j >= 0)
-        {
-            free(tab[i][j]);
-            tab[i][j] = NULL;
-        }
-        free(tab[i]);
-        tab[i] = NULL;
-    }
-    if (tab)
-    {
-        free(tab);
-        tab = NULL;
-    }
+	int	i;
+	int	j;
+
+	i = 0;
+	while (tab && tab[i])
+		i++;
+	while (--i >= 0)
+	{
+		j = 0;
+		while (tab[i][j])
+			j++;
+		while (--j >= 0)
+		{
+			free(tab[i][j]);
+			tab[i][j] = NULL;
+		}
+		free(tab[i]);
+		tab[i] = NULL;
+	}
+	if (tab)
+	{
+		free(tab);
+		tab = NULL;
+	}
 }

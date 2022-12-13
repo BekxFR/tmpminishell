@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:59:05 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/08 17:38:35 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/13 12:14:53 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	ft_free_split_exclude_line(char **str, int line)
 
 void	ft_cleanheredoc_fd(char *str, char *buffer, char *comp, int fd1)
 {
-	if (!str)
+	if (str)
 		free(str);
-	if (!buffer)
+	if (buffer)
 		free(buffer);
-	if (!comp)
+	if (comp)
 		free(comp);
-	if (fd1)
+	if (fd1 > 2)
 		close(fd1);
 }

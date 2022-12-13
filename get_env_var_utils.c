@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:57:44 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 14:13:00 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 21:15:15 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,9 @@ int	ft_strlenenv(char *envp)
 {
 	int	i;
 	int	len;
-	// int	size;
 
 	i = 0;
 	len = 0;
-	// size = ft_strlen(envp);
 	while (envp[i])
 	{
 		if (envp[i] && envp[i] == '=')

@@ -1,48 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_redir.c                                         :+:      :+:    :+:   */
+/*   ft_init_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 17:24:42 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/13 13:09:39 by chillion         ###   ########.fr       */
+/*   Created: 2022/12/13 12:37:23 by chillion          #+#    #+#             */
+/*   Updated: 2022/12/13 12:45:18 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_redir_out(char **redir)
+int	ft_init_pipe(t_m *var, int i)
 {
-	int	i;
-
-	i = 0;
-	while (redir[i])
-	{
-		if (ft_strcmp(redir[i], ">>") == 0)
-			return (1);
-		if (ft_strcmp(redir[i], ">") == 0)
-			return (1);
-		i++;
-	}
+	var->pipex[i] = (int *)malloc(sizeof(int) * (2));
+	if (!var->pipex[i])
+		return (2);
+	if (pipe(var->pipex[i]) == -1)
+		return (write(2, "Error with pipe\n", 17), ft_fork_fail(var), 2);
 	return (0);
 }
 
-int	is_redir(char **redir)
+int	ft_init_all_pipe(t_m *var)
 {
 	int	i;
 
 	i = 0;
-	while (redir[i])
+	var->pipex = (int **)malloc(sizeof(int *) * (var->tablen + 1));
+	if (!var->pipex)
+		return (printf("malloc error\n"), 2);
+	var->pipex[var->tablen] = NULL;
+	while (i < var->tablen)
 	{
-		if (ft_strcmp(redir[i], "<<") == 0)
-			return (1);
-		if (ft_strcmp(redir[i], "<") == 0)
-			return (1);
-		if (ft_strcmp(redir[i], ">>") == 0)
-			return (1);
-		if (ft_strcmp(redir[i], ">") == 0)
-			return (1);
+		if (ft_init_pipe(var, i) == 2)
+			return (2);
 		i++;
 	}
 	return (0);

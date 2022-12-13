@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 19:11:45 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 15:08:11 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 21:19:12 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ char	*get_status(char *str, int end, int start, char *status)
 		while (str[i.i1])
 			newstring[i.i2++] = str[i.i1++];
 	}
-
 	return (free(str), free(env), newstring);
 }

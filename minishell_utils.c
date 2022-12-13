@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 12:36:40 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/08 17:53:07 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/13 13:09:45 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_strcmplen(char ***redir, char *str)
 		j = 0;
 		while (redir[i][j])
 		{
-			if (strcmp(redir[i][j], str) == 0)
+			if (ft_strcmp(redir[i][j], str) == 0)
 				k++;
 			j++;
 		}

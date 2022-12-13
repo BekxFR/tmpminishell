@@ -6,7 +6,7 @@
 /*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:28:56 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 11:50:55 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/12 21:27:57 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	update_last_env(t_m *var)
 	j = 0;
 	i = 0;
 	if (!var->cmd || !var->cmd[i] || !var->cmd[i][j])
-    {
-        return (0);
-    }
+	{
+		return (0);
+	}
 	while (var->cmd[i])
 	{
 		j = 0;

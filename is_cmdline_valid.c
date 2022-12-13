@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_cmdline_valid.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:33:19 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/10 16:58:59 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/13 13:11:55 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,12 @@ int	are_pipe_and_redir_correct(char *str)
 	return (1);
 }
 
-int	is_cmdline_valid(char *str)
-{	
+int	is_cmdline_valid(char *str, int argc, char **argv)
+{
+	(void)argc;
+	(void)argv;
 	if (are_handled_syntax_error(str) == 2)
-		return (0);	
+		return (0);
 	if (are_pipe_and_redir_correct(str) == 2)
 		return (0);
 	return (1);

@@ -6,13 +6,13 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:07:52 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/12 17:57:59 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/13 10:43:34 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int	exit_status;
+extern int	g_exit_status;
 
 void	ft_export(t_m *var, char **cmd)
 {
@@ -31,7 +31,7 @@ void	ft_export_with_arg(t_m *var, char **args)
 	{
 		egalen = ft_export_check_addargs(*args, &egalen);
 		if (egalen == -1)
-			exit_status = 1;		
+			g_exit_status = 1;
 		if (egalen > 0)
 			return (ft_add_export_check_double(var, *args, egalen));
 		if (egalen != -1 && ft_export_check_args(*args, &egalen))

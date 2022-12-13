@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 17:09:33 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/12 11:43:00 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/13 10:53:49 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int will_return_nothing(char * str)
+int	will_return_nothing(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '\n' && ft_strlen(str) == 0)
@@ -24,7 +24,7 @@ int will_return_nothing(char * str)
 	while (str[i] != 0 && str[i] != '\n')
 	{
 		if (str[i] != ' ')
-			return (0);	
+			return (0);
 		i++;
 	}
 	return (1);
