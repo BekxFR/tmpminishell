@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:29:26 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/13 13:12:23 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:10:37 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	ft_init_heredoc(t_m *var)
 		var->h_status = open(".heredocstatus", O_RDWR);
 		ft_signal(1);
 	}
-	return ;
 }
 
 void	ft_daddy(t_m *var, int *pid, int nbcmd)
@@ -112,16 +111,16 @@ int	main(int argc, char **argv, char **envp)
 		var.args_line = NULL;
 		ft_init_commands_history(&var);
 		if (!var.args_line)
-			return (free_doubletab(var.env), rl_clear_history(), \
-			write(2, "exit\n", 6), 0);
+			return (no_args_line(&var), 0);
 		if (!will_return_nothing(var.args_line) && \
 		is_cmdline_valid(var.args_line, argc, argv))
 		{
+			var.args_line = new_env_var(var.args_line, var.env);
 			ft_parsing(&var, var.env, &var.cmd, &var.redir);
-			ft_puttriplelen(var.cmd, &var);
-			ft_exec(&var, var.cmd);
-			update_last_env(&var);
-			free_parent(&var);
+			if ((empty(var.cmd, &var) + empty(var.redir, &var)) > 0)
+				do_exec(&var);
+			else
+				free_parsing(&var);
 		}
 		free(var.args_line);
 	}

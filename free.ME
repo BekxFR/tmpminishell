@@ -1,7 +1,13 @@
-==1095155== Syscall param wait4(pid) contains uninitialised byte(s)
-==1095155==    at 0x49B245A: wait4 (wait4.c:30)
-==1095155==    by 0x10995E: ft_daddy (in /mnt/nfs/homes/mgruson/minishell/minishell)
-==1095155==    by 0x109D9D: ft_exec (in /mnt/nfs/homes/mgruson/minishell/minishell)
-==1095155==    by 0x109F83: main (in /mnt/nfs/homes/mgruson/minishell/minishell)
-==1095155== 
+Lorsque je simule une erreur malloc :
 
+==27624== 21 bytes in 1 blocks are still reachable in loss record 10 of 65
+==27624==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==27624==    by 0x10DF9C: ft_strdup (in /mnt/nfs/homes/mgruson/mini_cyril/minishell)
+==27624==    by 0x109552: ft_init_commands_history (in /mnt/nfs/homes/mgruson/mini_cyril/minishell)
+==27624==    by 0x109A2D: main (in /mnt/nfs/homes/mgruson/mini_cyril/minishell)
+
+==27624== 2,645 bytes in 64 blocks are still reachable in loss record 41 of 65
+==27624==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==27624==    by 0x10DF9C: ft_strdup (in /mnt/nfs/homes/mgruson/mini_cyril/minishell)
+==27624==    by 0x10C1A4: ft_env (in /mnt/nfs/homes/mgruson/mini_cyril/minishell)
+==27624==    by 0x1099D9: main (in /mnt/nfs/homes/mgruson/mini_cyril/minishell)

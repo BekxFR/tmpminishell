@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:32:21 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/13 13:09:17 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/16 13:19:38 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_fork_fail(t_m *var)
 		free((*var).arg);
 	if ((*var).split_path)
 		ft_free_split((*var).split_path);
-	if (var->fdin != 0 && var->fdin != -1)
+	if (var->fdin > 2)
 		close((*var).fdin);
-	if (var->fdout != 1 && var->fdout != -1)
+	if (var->fdout > 2)
 		close((*var).fdout);
 }
 
@@ -31,6 +31,7 @@ void	ft_arg_check_fullpath(char *arg, t_m *var)
 	{
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_close_pipe_fd(var);
 		free_child(var);
 		exit(127);
 	}
@@ -49,7 +50,7 @@ void	ft_init_arg(char *argv, t_m *var)
 	{
 		(*var).pcmd_line = ft_check_access(argv, (*var).split_path, var);
 		if ((*var).pcmd_line == -2)
-			return (free_child(var), ft_free_split((*var).split_path), \
+			return (ft_close_pipe_fd(var), free_child(var), ft_free_split((*var).split_path), \
 			exit(127));
 		else
 			(*var).arg = (*var).split_path[(*var).pcmd_line];
@@ -77,8 +78,8 @@ void	ft_close_pipe_fd(t_m *var)
 			close(var->pipex[i][1]);
 		i++;
 	}
-	if (var->fdin != 0 && var->fdin != -1)
+	if (var->fdin > 2)
 		close((*var).fdin);
-	if (var->fdout != 1 && var->fdout != -1)
+	if (var->fdout > 2)
 		close((*var).fdout);
 }

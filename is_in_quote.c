@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	is_in_simple_quote(char *str, int i)
+int	is_in_double_quote(char *str, int i)
 {
 	int	j;
 
@@ -20,6 +20,33 @@ int	is_in_simple_quote(char *str, int i)
 	if (!str)
 		return (2);
 	while (str[++j] && j < i)
+	{
+		if (str[j] && str[j] == 39 && j < i)
+		{	
+			j++;
+			while (str[j] && str[j] != 39)
+				j++;
+			if (str[j] != 0 && j > i)
+				return (0);
+		}
+		if (str[j] && str[j] == 34 && j < i)
+		{
+			j++;
+			while (str[j] && str[j] != 34)
+				j++;
+			if (str[j] != 0 && j > i)
+				return (1);
+		}
+	}
+	return (0);
+}
+
+int	is_in_simple_quote(char *str, int i)
+{
+	int	j;
+
+	j = 0;
+	while (str[j] && j < i)
 	{
 		if (str[j] && str[j] == 34 && j < i)
 		{	
@@ -37,6 +64,8 @@ int	is_in_simple_quote(char *str, int i)
 			if (str[j] != 0 && j > i)
 				return (1);
 		}
+		if (str[j])
+			j++;
 	}
 	return (0);
 }
@@ -65,7 +94,7 @@ int	is_in_quote(char *str, int i)
 				return (1);
 		}
 		if (str[j])
-		j++;
+			j++;
 	}
 	return (0);
 }

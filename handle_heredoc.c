@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 14:46:03 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/13 13:09:49 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:32:12 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*get_heredoc_child(t_m *var, int k)
 	str = ft_strjoin(".heredoc", itoa);
 	free(itoa);
 	ft_trunc_init_fd(str, &(*var).fdin);
-	if(g_exit_status != -42)
+	if (g_exit_status != -42)
 		ft_heredoc_fd(var, 1);
 	free((*var).comp);
 	close((*var).fdin);

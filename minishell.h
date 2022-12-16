@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 20:03:07 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/13 13:07:41 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:12:24 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,7 @@ int		is_cmdline_valid(char *str, int argc, char **argv);
 
 /* is_in_quote.c  */
 
+int		is_in_double_quote(char *str, int i);
 int		is_in_simple_quote(char *str, int i);
 int		is_in_quote(char *str, int i);
 
@@ -298,6 +299,13 @@ int		is_in_quote(char *str, int i);
 
 int		is_redir(char **redir);
 int		is_redir_out(char **redir);
+
+/* main_utils.c */
+
+void	free_parsing(t_m *var);
+int		empty(char ***tab, t_m *var);
+void	do_exec(t_m *var);
+void	no_args_line(t_m *var);
 
 /* malloc_args.c */
 
@@ -331,6 +339,7 @@ int		ft_strcmplen(char ***redir, char *str);
 void	ft_putdoubletab(char **tab);
 void	ft_puttripletab(char ***test);
 int		ft_puttriplelen(char ***test, t_m *var);
+int		ft_puttriplelentab(char ***test);
 
 /* minishell.c */
 

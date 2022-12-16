@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:31:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/13 11:32:13 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/16 13:20:39 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	ft_init_fd_redir(t_m *var)
 void	ft_secur_fd(t_m *var)
 {
 	ft_unlink(var->redir, var->exec);
-	if (var->fdin != 0 && var->fdin != -1)
+	if (var->fdin > 2)
 		close((*var).fdin);
-	if (var->fdout != 1 && var->fdout != -1)
+	if (var->fdout > 2)
 		close((*var).fdout);
 }
 
@@ -54,22 +54,24 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 	ft_signal(4);
 	(*pid) = fork();
 	if ((*pid) == -1)
-		return (free_child(var), write(2, "Error fork\n", 12) \
+		return (ft_close_pipe_fd(var), free_child(var), write(2, "Error fork\n", 12) \
 		, ft_fork_fail(var));
 	if ((*pid) == 0)
 	{
+		if (!arg)
+			return (ft_close_pipe_fd(var), free_child(var), ft_fork_fail(var), exit(g_exit_status));	
 		if (var->fd_status_in == 1 || var->fd_status_out == 1)
 			return (ft_close_pipe_fd(var), free_child(var), exit(1));
 		ft_signal(5);
 		dup2(var->fdin, 0);
 		dup2(var->fdout, 1);
-		ft_close_pipe_fd(var);
 		if (do_builtin(var, (*var).cmd[var->exec]) == -1)
 		{
+			ft_close_pipe_fd(var);
 			ft_init_arg(arg, var);
 			ft_execve((*var).arg, targ, (*var).env, var);
 		}
-		return (free_child(var), ft_fork_fail(var), exit(g_exit_status));
+		return (ft_close_pipe_fd(var), free_child(var), ft_fork_fail(var), exit(g_exit_status));
 	}
 	ft_secur_fd(var);
 }

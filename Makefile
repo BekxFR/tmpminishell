@@ -5,7 +5,7 @@ NAME := minishell.a
 SOFT_NAME := minishell
 
 CC := gcc
-FLAGS := -Wall -Wextra -Werror -lreadline -I includes/
+FLAGS := -Wall -Wextra -Werror -lreadline -I includes/ -g3
 SRC_DIR := sources/
 OBJ_DIR := objects/
 AR := ar rc
@@ -58,6 +58,7 @@ SRCS =	basic_env.c \
 		is_cmdline_valid.c \
 		is_in_quote.c \
 		is_redir.c \
+		main_utils.c \
 		malloc_args.c \
 		malloc_cmd.c \
 		malloc_redir.c \
