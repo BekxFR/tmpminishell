@@ -6,7 +6,7 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:31:02 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/16 17:15:16 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/16 18:36:11 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ extern int	g_exit_status;
 
 void	ft_init_fd_redir(t_m *var)
 {
-	if (var->fdin > 2)
-		close(var->fdin);
-	if (var->fdout > 2)
-		close(var->fdout);
 	var->fd_status_in = 0;
 	var->fd_status_out = 0;
 	if (var->exec == 0)
@@ -68,7 +64,7 @@ void	ft_do_pipe_fork(t_m *var, char *arg, char **targ, int *pid)
 	ft_init_fd_redir(var);
 	if (is_env_builtin(var->cmd[0]) && var->tablen == 1 \
 	&& do_builtin(var, var->cmd[0]) != INT_MIN)
-		return ;
+		return (ft_close_pipe_fd(var));
 	ft_signal(4);
 	(*pid) = fork();
 	if ((*pid) == -1)
