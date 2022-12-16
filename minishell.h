@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 20:03:07 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/15 17:12:24 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/16 17:59:32 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,6 +346,7 @@ int		ft_puttriplelentab(char ***test);
 void	ft_init_heredoc(t_m *var);
 void	ft_daddy(t_m *var, int *pid, int nbcmd);
 int		ft_exec(t_m *var, char ***args);
+void	ft_check_args(int argc);
 
 /* set_in_cmd.c */
 

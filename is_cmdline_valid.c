@@ -6,11 +6,13 @@
 /*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:33:19 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/13 13:11:55 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/16 17:09:49 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 int	is_handled_special_char(char *str, int i)
 {	
@@ -78,9 +80,15 @@ int	is_cmdline_valid(char *str, int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	if (are_handled_syntax_error(str) == 2)
+	{
+		g_exit_status = 2;
 		return (0);
+	}
 	if (are_pipe_and_redir_correct(str) == 2)
+	{
+		g_exit_status = 2;
 		return (0);
+	}
 	return (1);
 }
 

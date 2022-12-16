@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:32:21 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/16 13:19:38 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:05:37 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	ft_init_arg(char *argv, t_m *var)
 	{
 		(*var).pcmd_line = ft_check_access(argv, (*var).split_path, var);
 		if ((*var).pcmd_line == -2)
-			return (ft_close_pipe_fd(var), free_child(var), ft_free_split((*var).split_path), \
-			exit(127));
+			return (ft_close_pipe_fd(var), free_child(var), \
+			ft_free_split((*var).split_path), exit(127));
 		else
 			(*var).arg = (*var).split_path[(*var).pcmd_line];
 		ft_free_split_exclude_line((*var).split_path, (*var).pcmd_line);

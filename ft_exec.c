@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:56:23 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/16 13:23:25 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:08:20 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void	ft_execve(char *pcmd, char **option, char **envp, t_m *var)
 		ft_free_split((*var).split_path);
 		exit(126);
 	}
-	ft_close_pipe_fd(var);
-	free_child(var);
-	free((*var).arg);
-	ft_free_split((*var).split_path);
-	exit(127);
+	return (ft_close_pipe_fd(var), free_child(var), free((*var).arg), \
+	ft_free_split((*var).split_path), exit(127));
 }
 
 void	ft_arg_with_path(char *arg, int *cmd, t_m *var)

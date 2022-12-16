@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_minishell2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 20:10:54 by mgruson           #+#    #+#             */
-/*   Updated: 2022/12/16 13:17:26 by chillion         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:24:54 by mgruson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	free_child_heredoc(t_m *var)
 int	free_child(t_m *var)
 {
 	free_parent(var);
-	if(var->args_line)
+	if (var->args_line)
 		free(var->args_line);
-	if(var->env)
+	if (var->env)
 		free_doubletab(var->env);
 	return (0);
 }

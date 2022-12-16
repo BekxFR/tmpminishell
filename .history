@@ -1,0 +1,59 @@
+env | ls
+env | grep h
+export | grep h
+norminette
+exit
+exit
+ls | env | cat | libs/
+ls | env | cat | /tmp
+ls | env | cat | /tmp > DFGFDG
+ls | env | cat | /tmp < DFGFDG
+ls | env | cat | /tmp < 1DFGFDG
+ls | env | cat | /tmp < 1DFGFDG >> Z1
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls
+ls
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+cat Z3 
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+exit
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | ls
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+cat .history 
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+exit
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+rm Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+rm Z3
+exit
+rm Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls -la
+rm Z1
+rm Z2
+rm Z3
+ls -la
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+ls | env | cat | /tmp < 1DFGFDG >> Z1 >> Z2 >> Z3 | ls | export > Z3 | ls >> Z3 | cat < Z3
+exit

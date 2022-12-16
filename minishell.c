@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:29:26 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/15 17:10:37 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/16 17:59:16 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,25 @@ int	ft_exec(t_m *var, char ***args)
 	return (0);
 }
 
+void	ft_check_args(int argc)
+{
+	if (argc > 1)
+	{
+		write(2, "Invalid number of arguments\n", 29);
+		exit(1);
+	}
+	if (!isatty(0))
+	{
+		write(2, "Error invalid STDIN\n", 21);
+		exit(1);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_m	var;
 
+	ft_check_args(argc);
 	ft_signal(1);
 	initialize_var(&var);
 	if (ft_create_env(&var, envp) == -1)
@@ -110,8 +125,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		var.args_line = NULL;
 		ft_init_commands_history(&var);
-		if (!var.args_line)
-			return (no_args_line(&var), 0);
 		if (!will_return_nothing(var.args_line) && \
 		is_cmdline_valid(var.args_line, argc, argv))
 		{
