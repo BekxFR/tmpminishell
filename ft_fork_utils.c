@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgruson <mgruson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chillion <chillion@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:32:21 by chillion          #+#    #+#             */
-/*   Updated: 2022/12/16 15:05:37 by mgruson          ###   ########.fr       */
+/*   Updated: 2022/12/17 15:05:52 by chillion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void	ft_arg_check_fullpath(char *arg, t_m *var)
 void	ft_init_arg(char *argv, t_m *var)
 {
 	(*var).path = ft_init_path_var((*var).env);
+	if (!(*var).path)
+	{	
+		write(2, "No such file or directory\n", 27);
+		return (ft_close_pipe_fd(var), free_child(var), exit(127));
+	}
 	ft_arg_check_fullpath(argv, var);
 	if ((*var).pcmd_line == 0)
 	{
